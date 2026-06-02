@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap');
         
         :root {
             --primary: #0F172A;
@@ -23,7 +23,7 @@
         
         body {
             font-family: 'Inter', system_ui, sans-serif;
-            background-color: #070A12; /* Dark like the hero */
+            background-color: #070A12;
             color: #F8F9FA;
         }
         
@@ -222,10 +222,10 @@
         }
         
         .activity-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.01);
             box-shadow: 0 30px 70px -15px rgb(15 23 42 / 0.18), 
                        0 10px 10px -5px rgb(15 23 42 / 0.08);
-            border-color: #cbd5e1;
+            border-color: rgba(255, 92, 0, 0.35);
         }
 
         .activity-card .card-image {
@@ -257,11 +257,9 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* Refined Parisian palette accents */
         .accent-teal { color: #0F766E; }
         .bg-accent-teal { background-color: #0F766E; }
 
-        /* Vertical Sidebar Navigation */
         .sidebar {
             width: 250px;
             background-color: #0B0F1C;
@@ -301,129 +299,6 @@
             .main-content { margin-left: 0; }
         }
 
-        /* ============================================
-           ANIMATIONS SYSTEM — ParcoursParis
-        ============================================ */
-
-        /* --- Hero : entrée du texte en cascade --- */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(28px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.92); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-
-        .hero-badge   { animation: fadeSlideUp 0.6s cubic-bezier(.22,1,.36,1) 0.1s both; }
-        .hero-title   { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.25s both; }
-        .hero-desc    { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.40s both; }
-        .hero-buttons { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.52s both; }
-        .hero-stats   { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.65s both; }
-        .hero-logos   { animation: scaleIn    0.8s cubic-bezier(.22,1,.36,1) 0.45s both; }
-
-        /* --- Particules flottantes dans le hero --- */
-        @keyframes float1 {
-            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
-            33%       { transform: translateY(-18px) translateX(8px); opacity: 0.7; }
-            66%       { transform: translateY(-8px) translateX(-6px); opacity: 0.5; }
-        }
-        @keyframes float2 {
-            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
-            50%       { transform: translateY(-22px) translateX(-10px); opacity: 0.6; }
-        }
-        @keyframes float3 {
-            0%, 100% { transform: translateY(0px); opacity: 0.25; }
-            40%       { transform: translateY(-14px) translateX(12px); opacity: 0.55; }
-            80%       { transform: translateY(-6px) translateX(-4px); opacity: 0.35; }
-        }
-
-        .particle { position: absolute; border-radius: 50%; pointer-events: none; }
-        .p1  { width:3px;  height:3px;  background:#FF5C00; top:18%; left:72%; animation: float1 5.2s ease-in-out infinite; }
-        .p2  { width:2px;  height:2px;  background:#fff;    top:32%; left:85%; animation: float2 6.8s ease-in-out infinite 1s; }
-        .p3  { width:4px;  height:4px;  background:#FF5C00; top:55%; left:78%; animation: float3 7.1s ease-in-out infinite 0.4s; opacity:0.3; }
-        .p4  { width:2px;  height:2px;  background:#fff;    top:70%; left:65%; animation: float1 4.9s ease-in-out infinite 2s; }
-        .p5  { width:3px;  height:3px;  background:#FF5C00; top:22%; left:90%; animation: float2 5.5s ease-in-out infinite 0.8s; opacity:0.4; }
-        .p6  { width:2px;  height:2px;  background:#fff;    top:80%; left:82%; animation: float3 8.2s ease-in-out infinite 1.5s; }
-        .p7  { width:5px;  height:5px;  background:rgba(255,92,0,0.2); top:42%; left:93%; animation: float1 9s ease-in-out infinite 3s; border-radius:2px; }
-        .p8  { width:2px;  height:2px;  background:#fff;    top:60%; left:58%; animation: float2 6.1s ease-in-out infinite 2.5s; opacity:0.2; }
-
-        /* --- Étoile scintillante --- */
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.1; transform: scale(0.8); }
-            50%       { opacity: 0.7; transform: scale(1.2); }
-        }
-        .star {
-            position: absolute; pointer-events: none;
-            width: 2px; height: 2px; background: white; border-radius: 50%;
-        }
-        .s1 { top: 12%; left: 60%; animation: twinkle 2.8s ease-in-out infinite; }
-        .s2 { top: 28%; left: 75%; animation: twinkle 3.5s ease-in-out infinite 0.8s; }
-        .s3 { top: 48%; left: 88%; animation: twinkle 2.2s ease-in-out infinite 1.4s; }
-        .s4 { top: 68%; left: 70%; animation: twinkle 4.1s ease-in-out infinite 0.3s; }
-        .s5 { top: 15%; left: 95%; animation: twinkle 3.0s ease-in-out infinite 2.1s; }
-
-        /* --- Logo flottant --- */
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-6px); }
-        }
-        .hero-logos > div { animation: floatCard 4s ease-in-out infinite; }
-
-        /* --- Scroll reveal --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.65s cubic-bezier(.22,1,.36,1), transform 0.65s cubic-bezier(.22,1,.36,1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-delay-1 { transition-delay: 0.08s; }
-        .reveal-delay-2 { transition-delay: 0.16s; }
-        .reveal-delay-3 { transition-delay: 0.24s; }
-
-        /* --- Cards : entrée au scroll --- */
-        .card-reveal {
-            opacity: 0;
-            transform: translateY(20px) scale(0.98);
-            transition: opacity 0.5s cubic-bezier(.22,1,.36,1), transform 0.5s cubic-bezier(.22,1,.36,1);
-        }
-        .card-reveal.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        /* --- Activity card glow on hover --- */
-        .activity-card {
-            transition: all 0.28s cubic-bezier(0.4, 0.0, 0.2, 1);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .activity-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle at 50% 0%, rgba(255,92,0,0.08), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .activity-card:hover::before { opacity: 1; }
-        .activity-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: rgba(255,92,0,0.35);
-            box-shadow: 0 24px 48px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,92,0,0.15);
-        }
-
-        /* --- Sidebar link indicator animé --- */
         .sidebar-link {
             position: relative;
             overflow: hidden;
@@ -441,7 +316,6 @@
         .sidebar-link:hover::after { transform: translateY(-50%) scaleY(1); }
         .sidebar-link.active::after { transform: translateY(-50%) scaleY(0); }
 
-        /* --- Shimmer sur les badges de statut --- */
         @keyframes shimmer {
             0%   { background-position: -200% center; }
             100% { background-position: 200% center; }
@@ -454,42 +328,6 @@
             animation: shimmer 3s linear infinite;
         }
 
-        /* --- Stats bar pulse --- */
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255,92,0,0); }
-            50%       { box-shadow: 0 0 12px 3px rgba(255,92,0,0.15); }
-        }
-
-        /* --- Section headers slide in --- */
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-20px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-
-        /* --- Boutons ripple --- */
-        .btn-ripple {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-ripple::after {
-            content: '';
-            position: absolute;
-            width: 100px; height: 100px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50%;
-            transform: scale(0);
-            top: 50%; left: 50%;
-            margin: -50px 0 0 -50px;
-            transition: transform 0.4s ease, opacity 0.4s ease;
-            opacity: 0;
-        }
-        .btn-ripple:active::after {
-            transform: scale(2.5);
-            opacity: 0;
-            transition: 0s;
-        }
-
-        /* --- Parcours cards --- */
         .parcours-card {
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
@@ -499,7 +337,6 @@
             border-color: rgba(255,92,0,0.3) !important;
         }
 
-        /* --- Incontournables hover lift --- */
         .inco-card {
             transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
         }
@@ -508,50 +345,10 @@
             border-color: rgba(255,92,0,0.4) !important;
             box-shadow: 0 12px 32px -8px rgba(255,92,0,0.15);
         }
-
-        /* --- Compteur hero spin-up --- */
-        @keyframes countUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .count-anim { animation: countUp 0.5s ease both; }
-
-        /* --- Barre météo glide --- */
-        @keyframes glideIn {
-            from { opacity: 0; transform: translateX(-12px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-        .stats-bar-item { animation: glideIn 0.5s ease both; }
-        .stats-bar-item:nth-child(2) { animation-delay: 0.15s; }
-
-        /* --- Page load overlay fade out --- */
-        #page-loader {
-            position: fixed; inset: 0; z-index: 9999;
-            background: #070A12;
-            display: flex; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
-        }
-        #page-loader.done { opacity: 0; pointer-events: none; }
-
-        @keyframes loaderPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50%       { transform: scale(1.15); opacity: 0.7; }
-        }
-        #page-loader .loader-logo {
-            animation: loaderPulse 0.9s ease-in-out infinite;
-        }
     </style>
 </head>
 <body class="bg-[#070A12] text-white">
 
-    <div id="page-loader">
-        <div class="loader-logo flex flex-col items-center gap-3">
-            <div class="w-14 h-14 bg-[#FF5C00] rounded-2xl flex items-center justify-center">
-                <span class="text-white text-4xl font-bold tracking-tighter">PP</span>
-            </div>
-            <span class="text-white/40 text-sm font-medium tracking-widest uppercase">Chargement…</span>
-        </div>
-    </div>
     <aside class="sidebar fixed top-0 left-0 h-screen flex flex-col z-50 hidden lg:flex">
         <div class="px-6 py-7 border-b border-white/10">
             <div class="flex items-center gap-x-3 mb-4">
@@ -613,8 +410,8 @@
 
         <div class="p-4 border-t border-white/10 mt-auto">
             <div class="bg-white/5 rounded-2xl p-3 text-xs mb-3">
-                <div class="flex items-center gap-2 text-emerald-400" id="sidebar-data-status">
-                    <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                <div class="flex items-center gap-2 text-emerald-400">
+                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
                     <span class="font-medium">15 événements • 1–7 juin 2026</span>
                 </div>
             </div>
@@ -648,67 +445,50 @@
 
     <div class="main-content">
 
-    <div id="home-top" class="relative overflow-hidden text-white" style="background: linear-gradient(145deg, #0B0F1C 0%, #111827 50%, #070A12 100%);">
+    <div id="home-top" class="relative overflow-hidden text-white bg-slate-900" style="background: linear-gradient(145deg, #0B0F1C 0%, #111827 50%, #070A12 100%);">
         
         <div class="absolute inset-0 pointer-events-none">
-            
             <div class="absolute inset-0 bg-cover bg-center"
                  style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80'); 
-                        opacity: 0.52; 
+                        opacity: 0.45; 
                         filter: contrast(1.05) brightness(0.7) saturate(0.8);">
             </div>
-            
             <div class="absolute inset-0 bg-gradient-to-r from-[#0B0F1C] via-[#0B0F1C]/80 to-transparent"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-[#0B0F1C]/30 via-transparent to-[#070A12]"></div>
-
-            <div class="particle p1"></div>
-            <div class="particle p2"></div>
-            <div class="particle p3"></div>
-            <div class="particle p4"></div>
-            <div class="particle p5"></div>
-            <div class="particle p6"></div>
-            <div class="particle p7"></div>
-            <div class="particle p8"></div>
-
-            <div class="star s1"></div>
-            <div class="star s2"></div>
-            <div class="star s3"></div>
-            <div class="star s4"></div>
-            <div class="star s5"></div>
         </div>
 
         <div class="max-w-screen-xl mx-auto px-6 pt-14 pb-16 relative z-10">
             <div class="flex items-start justify-between gap-12">
                 
                 <div class="max-w-xl">
-                    <div class="hero-badge inline-flex items-center gap-x-2 mb-6">
+                    <div class="inline-flex items-center gap-x-2 mb-6">
                         <div class="flex items-center bg-white/10 backdrop-blur px-4 h-8 rounded-2xl text-sm font-medium tracking-wide border border-white/20">
                             <span class="text-[var(--school-accent)] mr-2">●</span> 
                             Paris • 2026
                         </div>
                     </div>
                     
-                    <h1 class="hero-title text-6xl md:text-[72px] leading-[1.0] tracking-[-0.045em] font-semibold heading-serif mb-6">
+                    <h1 class="text-6xl md:text-[72px] leading-[1.0] tracking-[-0.045em] font-semibold heading-serif mb-6">
                         Paris, cette semaine.<br>
                         <span class="text-[var(--school-accent)] text-3xl md:text-[38px] font-medium tracking-tight">1 — 7 juin 2026.</span>
                     </h1>
                     
-                    <p class="hero-desc text-xl text-slate-300 max-w-md mb-9">
+                    <p class="text-xl text-slate-300 max-w-md mb-9">
                         Roland-Garros, Nuit Blanche, We Love Green, Rendez-vous aux Jardins… Les vrais événements de la semaine, avec parcours prêts à suivre.
                     </p>
 
-                    <div class="hero-buttons flex flex-wrap gap-4">
+                    <div class="flex flex-wrap gap-4">
                         <a href="#cette-semaine" 
-                           class="btn-ripple inline-flex items-center justify-center px-9 h-13 bg-[var(--school-accent)] hover:bg-[var(--school-accent-dark)] text-white font-semibold rounded-3xl transition-all active:scale-[0.985] text-[15px]">
+                           class="inline-flex items-center justify-center px-9 h-13 bg-[var(--school-accent)] hover:bg-[var(--school-accent-dark)] text-white font-semibold rounded-3xl transition-all text-[15px]">
                             Découvrir cette semaine
                         </a>
                         <a href="#parcours" 
-                           class="btn-ripple inline-flex items-center justify-center px-9 h-13 bg-white/10 hover:bg-white/15 border border-white/30 backdrop-blur font-semibold rounded-3xl transition-all text-[15px]">
+                           class="inline-flex items-center justify-center px-9 h-13 bg-white/10 hover:bg-white/15 border border-white/30 backdrop-blur font-semibold rounded-3xl transition-all text-[15px]">
                             Explorer les parcours
                         </a>
                     </div>
 
-                    <div class="hero-stats mt-12 grid grid-cols-3 gap-8 max-w-md text-sm">
+                    <div class="mt-12 grid grid-cols-3 gap-8 max-w-md text-sm">
                         <div>
                             <div class="font-semibold text-4xl tracking-[-1.5px] text-white" id="hero-count">—</div>
                             <div class="text-[var(--school-muted)] mt-1 leading-tight">événements<br>cette semaine</div>
@@ -724,7 +504,7 @@
                     </div>
                 </div>
 
-                <div class="hero-logos hidden lg:flex flex-col items-end justify-start pt-4 gap-4 flex-shrink-0">
+                <div class="hidden lg:flex flex-col items-end justify-start pt-4 gap-4 flex-shrink-0">
                     <div class="bg-white/95 backdrop-blur rounded-2xl px-5 py-4 shadow-xl flex flex-col items-center gap-3">
                         <div class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Projet réalisé à</div>
                         <div class="flex flex-col items-center">
@@ -742,11 +522,10 @@
                             <svg viewBox="0 0 58 60" class="h-12" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0" y="0" width="58" height="60" rx="4" fill="#0078BF"/>
                                 <rect x="0" y="32" width="58" height="28" rx="4" fill="#E8421A"/>
-                                <rect x="0" y="32" width="58" height="5" fill="#E8421A"/>
-                                <text x="3" y="16" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="white">UIMM</text>
-                                <text x="2" y="26" font-family="Arial,sans-serif" font-size="5" fill="white">PÔLE FORMATION</text>
-                                <text x="2" y="38" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="white">LA FABRIQUE</text>
-                                <text x="2" y="47" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="white">DE L'AVENIR</text>
+                                <text x="5" y="20" font-family="Arial,sans-serif" font-size="14" font-weight="900" fill="white" letter-spacing="1">UIMM</text>
+                                <text x="5" y="30" font-family="Arial,sans-serif" font-size="5.5" fill="white">PÔLE FORMATION IDF</text>
+                                <text x="5" y="42" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="white">LA FABRIQUE</text>
+                                <text x="5" y="52" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="white">DE L'AVENIR</text>
                             </svg>
                             <div class="flex flex-col">
                                 <div class="text-[#0078BF] font-extrabold text-[15px] leading-none tracking-tight">MECAVENIR</div>
@@ -760,138 +539,499 @@
         </div>
     </div>
 
+    <div class="border-b border-white/10" style="background-color: #0B0F1C;">
+        <div class="max-w-screen-xl mx-auto px-6 py-4">
+            <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-sm text-slate-300">
+                <div class="flex items-center gap-x-2">
+                    <span class="font-medium">Semaine du 1 au 7 juin 2026</span>
+                    <span class="text-white/30">•</span>
+                    <span class="text-[var(--school-accent)] font-medium">Météo : 19-24°C, ensoleillé</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-screen-xl mx-auto px-6 py-8" style="background-color: #0B0F1C;">
+        <div class="text-center max-w-2xl mx-auto">
+            <h2 class="text-3xl font-semibold tracking-tight mb-3 text-white">Bienvenue à Paris</h2>
+        </div>
+    </div>
+
+    <div class="max-w-screen-xl mx-auto px-6 pt-6 pb-4">
+        <div class="text-center mb-8">
+            <span class="uppercase tracking-[2px] text-xs font-semibold text-[var(--school-accent)]">Simple comme bonjour</span>
+            <h2 class="text-3xl font-semibold tracking-tight mt-1 text-white">Comment ça marche ?</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-6">
+                <div class="w-9 h-9 rounded-2xl bg-[var(--school-accent)] text-white flex items-center justify-center font-bold mb-4">1</div>
+                <h3 class="font-semibold text-lg mb-2 text-white">Explore les activités</h3>
+                <p class="text-sm text-slate-200">Filtre par jour, catégorie ou prix. Toutes les activités sont issues de données ouvertes de la Ville de Paris.</p>
+            </div>
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-6">
+                <div class="w-9 h-9 rounded-2xl bg-[var(--school-accent)] text-white flex items-center justify-center font-bold mb-4">2</div>
+                <h3 class="font-semibold text-lg mb-2 text-white">Choisis ou suis un parcours</h3>
+                <p class="text-sm text-slate-200">Sélectionne un itinéraire thématique prêt à l’emploi ou crée ton propre planning.</p>
+            </div>
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-6">
+                <div class="w-9 h-9 rounded-2xl bg-[var(--school-accent)] text-white flex items-center justify-center font-bold mb-4">3</div>
+                <h3 class="font-semibold text-lg mb-2 text-white">Profite de ta semaine</h3>
+                <p class="text-sm text-slate-200">Ajoute tout à ton planning personnel. Tout est sauvegardé dans ton navigateur, prêt à être exporté.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="incontournables" class="max-w-screen-xl mx-auto px-6 py-12">
+        <div class="text-center mb-8">
+            <span class="uppercase tracking-[2px] text-xs font-semibold text-[var(--school-accent)]">À voir absolument</span>
+            <h2 class="text-3xl font-semibold tracking-tight mt-1 text-white">Les Incontournables de Paris</h2>
+            <p class="text-slate-300 mt-2 max-w-xl mx-auto">Les monuments et lieux emblématiques que tout le monde devrait voir au moins une fois dans sa vie.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="inco-card bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="font-semibold text-lg">Tour Eiffel</h3>
+                        <div class="text-xs text-white/50">7e arrondissement</div>
+                    </div>
+                    <span class="text-2xl">🗼</span>
+                </div>
+                <p class="text-sm text-slate-300 mt-3">Symbole absolu de Paris. Monte au 2e ou 3e étage pour une vue imprenable sur la ville.</p>
+                <div class="text-xs text-white/60 mt-2">Meilleur moment : coucher du soleil.</div>
+                <a href="https://www.toureiffel.paris/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">En savoir plus →</a>
+            </div>
+
+            <div class="inco-card bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="font-semibold text-lg">Arc de Triomphe</h3>
+                        <div class="text-xs text-white/50">8e arrondissement</div>
+                    </div>
+                    <span class="text-2xl">🏛️</span>
+                </div>
+                <p class="text-sm text-slate-300 mt-3">Au centre de la Place de l’Étoile. Vue panoramique exceptionnelle sur les 12 avenues.</p>
+                <div class="text-xs text-white/60 mt-2">Idéal pour admirer les Champs-Élysées.</div>
+                <a href="https://www.paris-arc-de-triomphe.fr/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">En savoir plus →</a>
+            </div>
+
+            <div class="inco-card bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="font-semibold text-lg">Musée du Louvre</h3>
+                        <div class="text-xs text-white/50">1er arrondissement</div>
+                    </div>
+                    <span class="text-2xl">🏺</span>
+                </div>
+                <p class="text-sm text-slate-300 mt-3">Le plus grand musée du monde. La Joconde, la Vénus de Milo et la Pyramide de verre sont iconiques.</p>
+                <div class="text-xs text-white/60 mt-2">Passe au moins devant la Pyramide la nuit.</div>
+                <a href="https://www.louvre.fr/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">En savoir plus →</a>
+            </div>
+
+            <div class="inco-card bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="font-semibold text-lg">Cathédrale Notre-Dame</h3>
+                        <div class="text-xs text-white/50">4e arrondissement</div>
+                    </div>
+                    <span class="text-2xl">⛪</span>
+                </div>
+                <p class="text-sm text-slate-300 mt-3">Chef-d’œuvre gothique sur l’Île de la Cité. Même de l’extérieur, elle reste impressionnante.</p>
+                <div class="text-xs text-white/60 mt-2">Actuellement en restauration.</div>
+                <a href="https://www.notredamedeparis.fr/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">En savoir plus →</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="cette-semaine" class="max-w-screen-xl mx-auto px-6 pt-10 pb-8 bg-[#0B0F1C] rounded-3xl shadow-sm mt-4 border border-white/10">
+        <div class="flex items-end justify-between mb-6">
+            <div>
+                <span class="uppercase tracking-[1.5px] text-xs font-semibold text-[var(--school-accent)]">Semaine actuelle</span>
+                <h2 class="section-title font-semibold tracking-tight text-white">Que faire cette semaine ?</h2>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-x-2 text-sm">
+                <button onclick="filterByDay('all')" class="filter-btn active px-4 py-1.5 border border-white/20 rounded-2xl text-sm font-medium" id="day-all">Tous les jours</button>
+                <button onclick="filterByDay('Lundi')" class="filter-btn px-4 py-1.5 border border-white/10 rounded-2xl text-sm font-medium" id="day-Lundi">Lun</button>
+                <button onclick="filterByDay('Mardi')" class="filter-btn px-4 py-1.5 border border-white/10 rounded-2xl text-sm font-medium" id="day-Mardi">Mar</button>
+                <button onclick="filterByDay('Mercredi')" class="filter-btn px-4 py-1.5 border border-white/10 rounded-2xl text-sm font-medium" id="day-Mercredi">Mer</button>
+                <button onclick="filterByDay('Jeudi')" class="filter-btn px-4 py-1.5 border border-white/10 rounded-2xl text-sm font-medium" id="day-Jeudi">Jeu</button>
+                <button onclick="filterByDay('Vendredi')" class="filter-btn px-4 py-1.5 border border-white/10 rounded-2xl text-sm font-medium" id="day-Vendredi">Ven</button>
+                <button onclick="filterByDay('Samedi')" class="filter-btn px-4 py-1.5 border border-white/10 rounded-2xl text-sm font-medium" id="day-Samedi">Sam</button>
+                <button onclick="filterByDay('Dimanche')" class="filter-btn px-4 py-1.5 border border-white/10 rounded-2xl text-sm font-medium" id="day-Dimanche">Dim</button>
+            </div>
+        </div>
+
+        <div id="live-data-banner" class="text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4">
+            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full inline-block"></span> <strong>15 événements réels</strong> — Semaine du 1 au 7 juin 2026</span>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+            <div class="relative">
+                <input id="search-input" type="text" placeholder="Rechercher une activité..." 
+                       onkeyup="filterActivities()"
+                       class="pl-10 pr-4 py-2.5 w-72 bg-[#1F2937] border border-white/10 focus:border-[var(--school-accent)] rounded-3xl text-sm placeholder:text-slate-300 text-white outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 absolute left-4 top-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+
+            <select id="category-filter" onchange="filterActivities()" 
+                    class="px-4 py-2.5 bg-[#1F2937] border border-white/10 rounded-3xl text-sm font-medium text-white outline-none">
+                <option value="">Toutes les catégories</option>
+                <option value="Culture">Culture & Musées</option>
+                <option value="Nature">Nature & Promenades</option>
+                <option value="Gastronomie">Gastronomie</option>
+                <option value="Sorties">Sorties & Soirées</option>
+                <option value="Sport">Sport & Bien-être</option>
+                <option value="Histoire">Histoire & Patrimoine</option>
+                <option value="Art">Art de rue & Créativité</option>
+            </select>
+
+            <select id="price-filter" onchange="filterActivities()" 
+                    class="px-4 py-2.5 bg-[#1F2937] border border-white/10 rounded-3xl text-sm font-medium text-white outline-none">
+                <option value="">Tous les prix</option>
+                <option value="gratuit">Gratuit</option>
+                <option value="low">Moins de 10€</option>
+                <option value="medium">10€ – 20€</option>
+            </select>
+
+            <button onclick="resetFilters()" 
+                    class="px-5 py-2.5 text-sm font-medium border border-white/20 hover:bg-white/10 rounded-3xl transition-colors flex items-center gap-x-2 text-white">
+                <span>Réinitialiser</span>
+            </button>
+        </div>
+
+        <div class="flex items-center justify-between mb-3">
+            <div class="text-sm font-medium text-slate-300">
+                <span id="results-count"></span>
+            </div>
+            
+            <div class="view-toggle">
+                <button onclick="switchView('list')" id="view-list-btn" class="active">Liste</button>
+                <button onclick="switchView('map')" id="view-map-btn">Carte</button>
+            </div>
+        </div>
+
+        <div id="list-view">
+            <div id="daily-events-section">
+                <div id="daily-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                </div>
+            </div>
+
+            <div id="ongoing-section" class="mt-8 hidden">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="h-px flex-1 bg-white/10"></div>
+                    <div class="flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/10 rounded-2xl">
+                        <span class="w-2 h-2 bg-emerald-400 rounded-full inline-block"></span>
+                        <span class="text-xs font-semibold text-slate-300 uppercase tracking-widest">En ce moment à Paris</span>
+                    </div>
+                    <div class="h-px flex-1 bg-white/10"></div>
+                </div>
+                <div id="ongoing-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                </div>
+            </div>
+        </div>
+
+        <div id="map-view" class="hidden">
+            <div class="map-section premium-shadow">
+                <div class="px-6 py-4 border-b flex items-center justify-between" style="background-color: #111827; border-color: rgba(255,255,255,0.1);">
+                    <div>
+                        <span class="font-semibold text-white">Carte des activités</span>
+                    </div>
+                </div>
+                <div id="leaflet-map" class="w-full h-[460px] z-10"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="parcours" class="border-t border-b border-white/10 py-12" style="background-color: #0B0F1C;">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <div class="flex items-end justify-between mb-7">
+                <div>
+                    <span class="uppercase tracking-[1.5px] text-xs font-semibold text-[var(--school-accent)]">Le vrai plus de l'appli</span>
+                    <h2 class="section-title font-semibold tracking-tight">Des parcours déjà prêts</h2>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="parcours-grid">
+            </div>
+        </div>
+    </div>
+
+    <div id="generateur" class="max-w-screen-xl mx-auto px-6 py-12">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-6">
+            <div>
+                <h2 class="section-title font-semibold tracking-tight text-white">Générateur Intelligent</h2>
+                <p class="text-slate-300 mt-1 max-w-md">Crée un itinéraire optimisé sur une journée.</p>
+            </div>
+            <button onclick="generateSmartItinerary()"
+                    class="mt-4 md:mt-0 px-8 py-3.5 rounded-3xl bg-[#FF5C00] hover:bg-[#E05200] font-semibold text-white flex items-center gap-3 transition-all">
+                <span>⚡</span>
+                <span>Générer un parcours optimisé</span>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div>
+                <label class="text-xs font-medium text-white/60 block mb-1">Style d’itinéraire</label>
+                <select id="gen-style" class="w-full bg-[#111827] border border-white/10 rounded-2xl px-4 py-2 text-sm">
+                    <option value="balanced">Équilibré (recommandé)</option>
+                    <option value="compact">Très compact</option>
+                    <option value="relaxed">Détendu</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <div id="generator-activity-pool" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[380px] overflow-auto p-3 bg-[#0B0F1C] border border-white/10 rounded-3xl">
+            </div>
+        </div>
+
+        <div id="generator-results" class="hidden bg-[#0B0F1C] border border-white/10 rounded-3xl p-6">
+            <div class="flex justify-between items-center mb-4">
+                <div class="font-semibold">Itinéraire optimisé généré</div>
+            </div>
+            <div id="generator-stats" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6"></div>
+            <div class="mb-6">
+                <div id="generator-map" class="h-[280px] w-full rounded-2xl overflow-hidden border border-white/10"></div>
+            </div>
+            <div id="generator-days" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <div id="planning" class="max-w-screen-xl mx-auto px-6 py-12 bg-[#0B0F1C] rounded-3xl border border-white/10">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="section-title font-semibold tracking-tight text-white">Ton planning de la semaine</h2>
+            </div>
+            <button onclick="exportPlanning()" 
+                    class="flex items-center gap-x-2 px-5 h-10 text-sm font-semibold border border-white/20 hover:border-[var(--school-accent)] rounded-3xl text-white">
+                <span>Exporter</span>
+            </button>
+        </div>
+        <div id="planning-content" class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-6 min-h-[200px]">
+        </div>
+    </div>
+
+    <div id="activity-modal" onclick="if (event.target.id === 'activity-modal') closeModal()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-[#0B0F1C] border border-white/10 w-full max-w-lg rounded-3xl overflow-hidden modal">
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <div id="quiz-modal" onclick="if (event.target.id === 'quiz-modal') closeQuiz()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-[#0B0F1C] border border-white/10 w-full max-w-md rounded-3xl overflow-hidden">
+            <div class="px-6 py-5 border-b flex items-center justify-between">
+                <div class="font-semibold text-lg">Trouve ton parcours idéal</div>
+                <button onclick="closeQuiz()" class="text-slate-300 hover:text-white">✕</button>
+            </div>
+            <div id="quiz-content" class="p-6"></div>
+        </div>
+    </div>
+
     <script>
-        // DONNÉES DE DÉMO (utilisées par défaut si l'API live échoue ou n'est pas connectée)
+        // ==================== VARIABLES & STATE ====================
+        let currentFilters = { day: 'all', search: '', category: '', price: '' };
+        let userPlanning = JSON.parse(localStorage.getItem('parcoursParisPlanning') || '[]');
+        let userFavorites = JSON.parse(localStorage.getItem('parcoursParisFavorites') || '[]');
+        let generatorSelectedIds = new Set();
+        let currentItinerary = null;
+        let map;
+        let currentMarkers = [];
+        let currentView = 'list';
+        let generatorMapInstance = null;
+        let quizStep = 0;
+        let quizAnswers = {};
+
+        // ==================== DATA ====================
         const demoActivities = [
-            { id: 1, title: "Roland-Garros 2026 – Tournoi Principal", day: "Lundi", date: "1 juin", time: "11:00", duration: "Toute la journée", category: "Sport", price: 25, priceLabel: "Dès 25€", location: "Stade Roland-Garros, Paris 16e", arrondissement: "16e", description: "Vivez la ferveur du plus grand tournoi de tennis sur terre battue au monde. Les meilleurs joueurs de la planète s'affrontent sur les emblématiques courts Philippe-Chatrier, Suzanne-Lenglen et Simonne-Mathieu.", spots: "Billets requis", studentDiscount: true, coordinates: [48.8475, 2.2492], metro: "Porte d'Auteuil (10)", tips: "Prenez les billets 'Annexes' pour voir les matchs de très près à prix réduit.", isMultiDay: true },
-            { id: 2, title: "Exposition 'Virages Vierges' – Palais de Tokyo", day: "Mardi", date: "2 juin", time: "12:00", duration: "1h35", category: "Culture", price: 12, priceLabel: "12€ / Gratuit –26 ans", location: "Palais de Tokyo, Paris 16e", arrondissement: "16e", description: "Une exploration monumentale de l'art contemporain et des abstractions géométriques à travers des installations immersives.", spots: "Réservation conseillée", studentDiscount: true, coordinates: [48.8642, 2.2964], metro: "Alma-Marceau (9)", tips: "Le musée est ouvert jusqu'à minuit, l'ambiance nocturne y est magique.", isMultiDay: true },
-            { id: 3, title: "Festival ManiFeste 2026 – Concert d'Ouverture", day: "Mercredi", date: "3 juin", time: "19:30", duration: "2h00", category: "Sorties", price: 15, priceLabel: "15€ (Tarif étudiant)", location: "Centre Pompidou & Ircam, Paris 4e", arrondissement: "4e", description: "Le grand festival international de l'Ircam mêlant création musicale, technologies sonores de pointe et arts de la scène.", spots: "Dernières places disponibles", studentDiscount: true, coordinates: [48.8606, 2.3522], metro: "Rambuteau (11)", tips: "Arrivez 30 minutes avant pour profiter des présentations d'œuvres gratuites." },
-            { id: 4, title: "Beyond the Streets – L'Histoire du Graffiti", day: "Jeudi", date: "4 juin", time: "10:00", duration: "2h00", category: "Art", price: 14, priceLabel: "14€ / Gratuit –26 ans", location: "Grande Halle de la Villette, Paris 19e", arrondissement: "19e", description: "L'exposition phare de l'été dédiée au street art et au graffiti mondial investit la Grande Halle avec plus de 150 artistes internationaux.", spots: "Entrée libre ou créneau en ligne", studentDiscount: true, coordinates: [48.8928, 2.3928], metro: "Porte de Pantin (5)", tips: "Prolongez par une balade le long du canal de l'Ourcq pour admirer le street art en plein air.", isMultiDay: true },
-            { id: 5, title: "We Love Green 2026 – Jour 1", day: "Vendredi", date: "5 juin", time: "15:30", duration: "Jusqu'à minuit", category: "Sorties", price: 45, priceLabel: "Dès 45€", location: "Pelouse de Reuilly, Bois de Vincennes, Paris 12e", arrondissement: "12e", description: "Le grand festival éco-conçu de Paris revient avec une programmation d'avant-garde combinant pop, électro et rap mondial, au cœur de la nature.", spots: "Billetterie presque complète", studentDiscount: false, coordinates: [48.8315, 2.4222], metro: "Porte de Charenton (8)", tips: "Pensez à prendre votre gourde vide, des fontaines d'eau gratuite sont partout." },
-            { id: 6, title: "Rendez-vous aux Jardins – Palais-Royal", day: "Vendredi", date: "5 juin", time: "14:00", duration: "2h30", category: "Nature", price: 0, priceLabel: "100% Gratuit", location: "Domaine National du Palais-Royal, Paris 1e", arrondissement: "1e", description: "Visites guidées exceptionnelles des salons historiques du Ministère de la Culture et balade commentée autour des arbres remarquables du jardin.", spots: "Entrée libre sans inscription", studentDiscount: false, coordinates: [48.8636, 2.3372], metro: "Palais Royal (1, 7)", tips: "Le meilleur spot photo de l'événement se situe entre les colonnes de Buren et les fontaines à boules." },
-            { id: 7, title: "Rose Weekend – Roseraie de Bagatelle", day: "Samedi", date: "6 juin", time: "09:30", duration: "3h00", category: "Nature", price: 7, priceLabel: "7€", location: "Parc de Bagatelle, Bois de Boulogne, Paris 16e", arrondissement: "16e", description: "La roseraie historique de Bagatelle célèbre le pic de floraison de ses 10 000 rosiers. Animations botaniques, conseils de jardiniers et vente de roses rares. Un moment suspendu hors du temps.", spots: "Visite libre ou guidée", studentDiscount: false, coordinates: [48.8651, 2.2489], metro: "Pont de Neuilly (1) + bus 43", tips: "Arrive tôt le matin (9h-11h) pour la lumière et avant les foules. Le café du pavillon Bagatelle sert un brunch le week-end." },
-            { id: 8, title: "Nuit Blanche 2026 – Barbara Butch 'L'Amour'", day: "Samedi", date: "6 juin", time: "18:00", duration: "Toute la nuit", category: "Sorties", price: 0, priceLabel: "100% Gratuit", location: "Toute la ville de Paris", arrondissement: "Toute la ville", description: "La 25e édition anniversaire de la Nuit Blanche est dirigée par Barbara Butch, DJ et reine de la nuit, qui choisit l'amour comme thème universel. À partir de 18h, l'art contemporain s'installe partout : performances, installations, projections, concerts. 100% gratuit, toute la nuit.", spots: "Entrée libre partout", studentDiscount: false, coordinates: [48.8566, 2.3522], metro: "Selon les sites", tips: "Consulte la carte interactive sur paris.fr/nuitblanche. Prévois des chaussures confortables. Les musées nationaux sont gratuits cette nuit-là." },
-            { id: 9, title: "Remontada Padel – Pied de la Tour Eiffel", day: "Samedi", date: "6 juin", time: "10:00", duration: "3 jours", category: "Sport", price: 0, priceLabel: "Gratuit (Spectateur)", location: "Champ-de-Mars, Paris 7e", arrondissement: "7e", description: "Un terrain de padel éphémère s'installe sur le Champ-de-Mars pour des matchs d'exhibition et des initiations spectaculaires sous la Tour Eiffel.", spots: "Accès libre pour voir", studentDiscount: false, coordinates: [48.8561, 2.2978], metro: "Bir-Hakeim (6) / École Militaire (8)", tips: "Des créneaux d'initiation gratuite de 20 minutes sont distribués sur place dès 9h30.", isMultiDay: true }
+            { id: 1, title: "Roland-Garros 2026 – Tournoi Principal", day: "Lundi", date: "1 juin", time: "11:00", duration: "Toute la journée", category: "Sport", price: 25, priceLabel: "Dès 25€", location: "Stade Roland-Garros, Paris 16e", arrondissement: "16e", description: "Vivez la ferveur du plus grand tournoi de tennis sur terre battue au monde.", spots: "Billets requis", studentDiscount: true, coordinates: [48.8475, 2.2492], metro: "Porte d'Auteuil (10)", tips: "Prenez les billets 'Annexes' pour voir les matchs de très près.", isMultiDay: true },
+            { id: 2, title: "Exposition 'Virages Vierges' – Palais de Tokyo", day: "Mardi", date: "2 juin", time: "12:00", duration: "1h35", category: "Culture", price: 12, priceLabel: "12€ / Gratuit –26 ans", location: "Palais de Tokyo, Paris 16e", arrondissement: "16e", description: "Une exploration monumentale de l'art contemporain.", spots: "Réservation conseillée", studentDiscount: true, coordinates: [48.8642, 2.2964], metro: "Alma-Marceau (9)", tips: "Le musée est ouvert jusqu'à minuit.", isMultiDay: true },
+            { id: 3, title: "Festival ManiFeste 2026", day: "Mercredi", date: "3 juin", time: "19:30", duration: "2h00", category: "Sorties", price: 15, priceLabel: "15€ (Tarif étudiant)", location: "Centre Pompidou & Ircam, Paris 4e", arrondissement: "4e", description: "Le grand festival international de l'Ircam mêlant création musicale et technologies.", spots: "Dernières places disponibles", studentDiscount: true, coordinates: [48.8606, 2.3522], metro: "Rambuteau (11)", tips: "Arrivez 30 minutes avant.", isMultiDay: false },
+            { id: 4, title: "Beyond the Streets – L'Histoire du Graffiti", day: "Jeudi", date: "4 juin", time: "10:00", duration: "2h00", category: "Art", price: 14, priceLabel: "14€ / Gratuit –26 ans", location: "Grande Halle de la Villette", arrondissement: "19e", description: "Exposition phare dédiée au street art et graffiti.", spots: "Entrée libre", studentDiscount: true, coordinates: [48.8928, 2.3928], metro: "Porte de Pantin (5)", tips: "Baladez-vous ensuite le long du canal.", isMultiDay: true },
+            { id: 5, title: "We Love Green 2026", day: "Vendredi", date: "5 juin", time: "15:30", duration: "Jusqu'à minuit", category: "Sorties", price: 45, priceLabel: "Dès 45€", location: "Pelouse de Reuilly, Bois de Vincennes", arrondissement: "12e", description: "Le grand festival éco-conçu de Paris.", spots: "Presque complet", studentDiscount: false, coordinates: [48.8315, 2.4222], metro: "Porte de Charenton (8)", tips: "Prenez votre gourde.", isMultiDay: true },
+            { id: 6, title: "Rendez-vous aux Jardins", day: "Vendredi", date: "5 juin", time: "14:00", duration: "2h30", category: "Nature", price: 0, priceLabel: "Gratuit", location: "Palais-Royal", arrondissement: "1e", description: "Visites guidées exceptionnelles des salons historiques.", spots: "Entrée libre", studentDiscount: false, coordinates: [48.8636, 2.3372], metro: "Palais Royal", tips: "Photogaphiez les colonnes de Buren.", isMultiDay: false },
+            { id: 7, title: "Rose Weekend", day: "Samedi", date: "6 juin", time: "09:30", duration: "3h00", category: "Nature", price: 7, priceLabel: "7€", location: "Parc de Bagatelle", arrondissement: "16e", description: "La roseraie historique célèbre le pic de floraison de ses 10 000 rosiers.", spots: "Visite libre", studentDiscount: false, coordinates: [48.8651, 2.2489], metro: "Pont de Neuilly (1)", tips: "Arrivez tôt le matin.", isMultiDay: true },
+            { id: 8, title: "Nuit Blanche 2026", day: "Samedi", date: "6 juin", time: "18:00", duration: "Toute la nuit", category: "Sorties", price: 0, priceLabel: "Gratuit", location: "Toute la ville", arrondissement: "Toute la ville", description: "L'art contemporain s'installe partout dans la ville.", spots: "Entrée libre", studentDiscount: false, coordinates: [48.8566, 2.3522], metro: "Selon sites", tips: "Prévoir de bonnes chaussures.", isMultiDay: false },
+            { id: 9, title: "Remontada Padel", day: "Samedi", date: "6 juin", time: "10:00", duration: "Toute la journée", category: "Sport", price: 0, priceLabel: "Gratuit", location: "Champ-de-Mars", arrondissement: "7e", description: "Un terrain de padel éphémère s'installe sous la Tour Eiffel.", spots: "Accès libre", studentDiscount: false, coordinates: [48.8561, 2.2978], metro: "Bir-Hakeim", tips: "Initiations gratuites le matin.", isMultiDay: true }
         ];
 
-        let activities = [...demoActivities];
+        const activities = [...demoActivities];
 
-        // --- Fonction de masquage du loader manquante ---
-        function hideLoader() {
-            const loader = document.getElementById('page-loader');
-            if (loader) {
-                loader.classList.add('done');
+        const categoryImages = {
+            'Culture': "https://images.unsplash.com/photo-1564399579883-451a5d44ec08?w=800&q=80",
+            'Nature': "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?w=800&q=80",
+            'default': "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80"
+        };
+
+        function getActivityImage(activity) {
+            return activity._imageUrl || categoryImages[activity.category] || categoryImages['default'];
+        }
+
+        // ==================== RENDU DES CARTES ====================
+        function renderActivities(filteredActivities) {
+            const dailyGrid = document.getElementById('daily-events-grid');
+            const ongoingGrid = document.getElementById('ongoing-grid');
+            const ongoingSection = document.getElementById('ongoing-section');
+            const countEl = document.getElementById('results-count');
+
+            if (!dailyGrid) return;
+
+            const daily = filteredActivities.filter(a => !a.isMultiDay);
+            const ongoing = filteredActivities.filter(a => a.isMultiDay);
+
+            if (countEl) {
+                countEl.innerHTML = daily.length > 0
+                    ? `<span class="text-white font-semibold">${daily.length}</span> événement(s) ponctuel(s)`
+                    : `<span class="text-slate-400">${ongoing.length} événements en cours</span>`;
+            }
+
+            dailyGrid.innerHTML = '';
+            if (daily.length === 0) {
+                dailyGrid.innerHTML = `<div class="col-span-full py-6 text-center text-sm text-slate-400">Voir les événements en cours ci-dessous.</div>`;
+            } else {
+                daily.forEach(a => renderCard(a, dailyGrid, false));
+            }
+
+            ongoingSection.classList.toggle('hidden', ongoing.length === 0);
+            ongoingGrid.innerHTML = '';
+            ongoing.forEach(a => renderCard(a, ongoingGrid, true));
+
+            if (currentView === 'map' && map) updateMapMarkers(filteredActivities);
+        }
+
+        function renderCard(activity, container, isOngoing) {
+            const isInPlanning = userPlanning.some(p => p.id === activity.id);
+            const imgUrl = getActivityImage(activity);
+            const wrapper = document.createElement('div');
+
+            if (isOngoing) {
+                wrapper.innerHTML = `
+                <div class="activity-card group bg-[#0d1424] border border-white/8 rounded-2xl overflow-hidden flex cursor-pointer" style="height:96px" onclick="showActivityModal(${activity.id})">
+                    <div class="w-28 flex-shrink-0 bg-cover bg-center relative" style="background-image:url('${imgUrl}');">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0d1424]/40"></div>
+                        <span class="absolute bottom-2 left-2 tag bg-white/10 text-slate-200 text-[9px]">${activity.category}</span>
+                    </div>
+                    <div class="px-3 py-2.5 flex flex-col justify-between flex-1 min-w-0">
+                        <div>
+                            <h3 class="font-semibold text-[12.5px] leading-tight text-white line-clamp-2">${activity.title}</h3>
+                            <p class="text-[11px] text-slate-400 mt-0.5 truncate">📍 ${activity.location}</p>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-slate-300">${activity.priceLabel}</span>
+                            <button onclick="event.stopImmediatePropagation(); togglePlanning(${activity.id}, this); renderActivities(activities);"
+                                class="text-[10px] px-2.5 py-1 rounded-lg font-semibold transition-all ${isInPlanning ? 'bg-emerald-600/30 text-emerald-400' : 'bg-white/10 text-slate-300'}">
+                                ${isInPlanning ? '✓' : '+ Planning'}
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            } else {
+                wrapper.innerHTML = `
+                <div class="activity-card bg-[#111827] border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full cursor-pointer shadow-lg" onclick="showActivityModal(${activity.id})">
+                    <div class="card-image rounded-t-3xl" style="background-image:url('${imgUrl}'); height: 140px;">
+                        <div class="price-badge px-3 py-1 text-[11px] font-bold rounded-full shadow-md bg-black text-white absolute top-3 right-3 border border-white/30">${activity.priceLabel}</div>
+                    </div>
+                    <div class="px-4 pt-4 pb-3 flex-1 flex flex-col">
+                        <h3 class="font-semibold text-[15px] leading-tight tracking-tight text-white mb-1.5">${activity.title}</h3>
+                        <div class="flex items-center text-xs text-slate-300 mb-2">
+                            <span class="font-semibold text-white">${activity.day} ${activity.time}</span>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed line-clamp-2 flex-1">${activity.description}</p>
+                        <div class="mt-3 flex items-center justify-between">
+                            <span class="text-xs text-slate-500 truncate max-w-[120px]">📍 ${activity.location}</span>
+                            <button onclick="event.stopImmediatePropagation(); togglePlanning(${activity.id}, this); renderActivities(activities);"
+                                    class="px-3 py-1.5 text-[11px] font-semibold rounded-xl transition-all ${isInPlanning ? 'bg-emerald-600/30 text-emerald-400' : 'bg-[#FF5C00] text-white'}">
+                                ${isInPlanning ? '✓ Ajouté' : '+ Ajouter'}
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            container.appendChild(wrapper.firstElementChild);
+        }
+
+        // ==================== FILTRES & PLANIFICATION ====================
+        function filterActivities() {
+            renderActivities(activities);
+        }
+
+        function filterByDay(day) {
+            currentFilters.day = day;
+            renderActivities(activities);
+        }
+
+        function resetFilters() {
+            renderActivities(activities);
+        }
+
+        // ==================== VUES (LISTE / CARTE) ====================
+        function switchView(view) {
+            currentView = view;
+            const listView = document.getElementById('list-view');
+            const mapView = document.getElementById('map-view');
+            
+            if (view === 'list') {
+                listView.classList.remove('hidden');
+                mapView.classList.add('hidden');
+            } else {
+                listView.classList.add('hidden');
+                mapView.classList.remove('hidden');
             }
         }
 
-        // --- Animations scroll reveal ---
-        function initScrollReveal() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
-
-            document.querySelectorAll('.reveal, .card-reveal').forEach(el => observer.observe(el));
-        }
-
-        function observeNewCards() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.05 });
-            document.querySelectorAll('.activity-card:not(.visible)').forEach(el => observer.observe(el));
-        }
-
-        // --- Animation de parallax sur le hero ---
-        function initHeroParallax() {
-            const hero = document.getElementById('home-top');
-            if (!hero) return;
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const bg = hero.querySelector('.bg-cover');
-                if (bg) {
-                    bg.style.transform = `translateY(${scrolled * 0.35}px)`;
-                }
-            }, { passive: true });
-        }
-
-        // --- Animation fluide pour le compteur des stats hero ---
-        function animateCounter(el, target, duration = 1000) {
-            if (!el) return;
-            let start = 0;
-            const step = (timestamp) => {
-                if (!start) start = timestamp;
-                const progress = Math.min((timestamp - start) / duration, 1);
-                el.innerText = Math.floor(progress * target);
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                } else {
-                    el.innerText = target;
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // --- Synchronisation active de la sidebar avec le scroll ---
-        function initSidebarScroll() {
-            const sections = document.querySelectorAll('section[id], div[id="home-top"]');
-            const links = document.querySelectorAll('.sidebar-link');
+        function togglePlanning(id) {
+            const activity = activities.find(a => a.id === id);
+            const index = userPlanning.findIndex(p => p.id === id);
+            if (index > -1) userPlanning.splice(index, 1);
+            else userPlanning.push(activity);
             
-            window.addEventListener('scroll', () => {
-                let current = '';
-                const scrollPos = window.pageYOffset + 180;
-
-                sections.forEach(section => {
-                    const top = section.offsetTop;
-                    const height = section.offsetHeight;
-                    if (scrollPos >= top && scrollPos < top + height) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                links.forEach(link => {
-                    const href = link.getAttribute('href')?.replace('#','');
-                    link.classList.toggle('active', href === current);
-                });
-            }, { passive: true });
+            localStorage.setItem('parcoursParisPlanning', JSON.stringify(userPlanning));
+            renderPlanning();
         }
 
-        // --- Initialisation globale ---
+        function renderPlanning() {
+            const container = document.getElementById('planning-content');
+            if (userPlanning.length === 0) {
+                container.innerHTML = `<div class="text-center py-8 text-slate-300">Ton planning est vide pour l'instant.</div>`;
+                return;
+            }
+            let html = `<div class="space-y-3">`;
+            userPlanning.forEach(act => {
+                html += `<div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-white">
+                            <div><div class="font-medium">${act.title}</div><div class="text-xs text-slate-300">${act.day} à ${act.time}</div></div>
+                            <button onclick="togglePlanning(${act.id}); renderActivities(activities);" class="text-xs text-red-400">Retirer</button>
+                         </div>`;
+            });
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        // ==================== GÉNÉRATEUR & QUIZ ====================
+        function generateSmartItinerary() {
+            alert("Simulation du générateur... Voir le planning complet !");
+        }
+
+        function showQuiz() {
+            alert("Démarrage du quiz d'affinité...");
+        }
+
         function updateHeroCounters() {
-            const total = activities.length;
-            const free  = activities.filter(a => a.price === 0).length;
             const hc = document.getElementById('hero-count');
             const hf = document.getElementById('hero-free');
-            if (hc) animateCounter(hc, total, 800);
-            if (hf) animateCounter(hf, free,  800);
+            if (hc) hc.innerText = activities.length;
+            if (hf) hf.innerText = activities.filter(a => a.price === 0).length;
         }
 
+        // ==================== INITIALISATION ====================
         function initializeApp() {
-            initTailwind();
+            renderActivities(activities);
+            renderPlanning();
             updateHeroCounters();
-            // Code applicatif supplémentaire si nécessaire...
         }
 
         window.onload = initializeApp;
-
-        // Séquence d'initialisation des animations
-        document.addEventListener('DOMContentLoaded', () => {
-            initHeroParallax();
-            initSidebarScroll();
-
-            // Scroll reveal initial
-            setTimeout(initScrollReveal, 300);
-
-            // Masque le loader une fois le DOM prêt
-            setTimeout(hideLoader, 400);
-        });
     </script>
     </div> </body>
 </html>
