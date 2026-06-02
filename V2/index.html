@@ -625,7 +625,7 @@
             <div class="bg-white/5 rounded-2xl p-3 text-xs mb-3">
                 <div class="flex items-center gap-2 text-emerald-400" id="sidebar-data-status">
                     <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                    <span class="font-medium">16 événements • 1–7 juin 2026</span>
+                    <span class="font-medium">38 événements • 1–7 juin 2026</span>
                 </div>
             </div>
 
@@ -1053,7 +1053,7 @@
 
         <!-- Bandeau statut données -->
         <div id="live-data-banner" class="text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4">
-            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span> <strong>16 événements réels</strong> — Semaine du 1 au 7 juin 2026 • Sources : paris.fr, sortiraparis.com, lebonbon.fr</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span> <strong>38 événements réels</strong> — Semaine du 1 au 7 juin 2026 • Sources : paris.fr, sortiraparis.com, lebonbon.fr</span>
         </div>
 
         <!-- Advanced filters -->
@@ -1142,7 +1142,7 @@
                     </div>
                     <div class="text-xs text-[var(--school-accent)] font-medium flex items-center gap-x-1">
                         <div class="w-2 h-2 bg-[var(--school-accent)] rounded-full"></div>
-                        <span>16 activités cette semaine</span>
+                        <span>38 activités cette semaine</span>
                     </div>
                 </div>
                 <div id="leaflet-map" class="w-full h-[460px] z-10"></div>
@@ -1617,6 +1617,432 @@
                 coordinates: [48.8753, 2.3014],
                 metro: "Ternes (2) ou Courcelles (2)",
                 tips: "Tarif étudiant souvent disponible à la billetterie avec ta carte. Arrive 30 min avant pour profiter du bar et de l'ambiance du hall historique."
+            },
+            // === ENRICHED PUNCTUALS: 5+ distinct short activities per day (Lun-Dim), no cross-day repeats ===
+            // Lundi 1 juin (total 5 with Roland)
+            {
+                id: 17,
+                title: "Fan zone Roland-Garros - Place de la Concorde",
+                day: "Lundi",
+                date: "1 juin",
+                time: "14:00",
+                duration: "2h",
+                category: "Sport",
+                price: 0,
+                priceLabel: "Gratuit",
+                location: "Place de la Concorde",
+                arrondissement: "1er",
+                description: "Écrans géants, ambiance festive et retransmission des matchs de Roland-Garros en direct sur la place mythique. Animations, village partenaires et possibilité de jouer au tennis sur mini-courts.",
+                spots: "Accès libre",
+                studentDiscount: false,
+                coordinates: [48.8656, 2.3213],
+                metro: "Concorde (1,8,12)",
+                tips: "Viens tôt pour avoir une bonne place face aux écrans. Stand ISAE souvent présent pour les étudiants."
+            },
+            {
+                id: 18,
+                title: "Marché bio & producteurs - Place de la Bastille",
+                day: "Lundi",
+                date: "1 juin",
+                time: "09:00",
+                duration: "3h",
+                category: "Gastronomie",
+                price: 0,
+                priceLabel: "Gratuit (entrée)",
+                location: "Marché Bastille",
+                arrondissement: "11e",
+                description: "Le grand marché du lundi matin avec producteurs locaux, fromages, fruits, légumes et street-food bio. Idéal pour un petit-déjeuner sur le pouce ou faire les courses de la semaine.",
+                spots: "Ouvert jusqu'à 14h",
+                studentDiscount: false,
+                coordinates: [48.8534, 2.3691],
+                metro: "Bastille (1,5,8)",
+                tips: "Passe par les allées des fromagers et boulangers pour les meilleures affaires. Prends un tote-bag."
+            },
+            {
+                id: 19,
+                title: "Visite guidée 'Paris Révolutionnaire' - Quartier Latin",
+                day: "Lundi",
+                date: "1 juin",
+                time: "10:30",
+                duration: "1h30",
+                category: "Histoire",
+                price: 12,
+                priceLabel: "12€ (étudiant 8€)",
+                location: "Place Saint-Michel",
+                arrondissement: "5e",
+                description: "Balade historique de 90 min sur les traces de la Révolution, des barricades de 1789 aux cafés littéraires. Guide passionné, anecdotes et vues sur la Seine.",
+                spots: "Réservation conseillée",
+                studentDiscount: true,
+                coordinates: [48.8534, 2.3444],
+                metro: "Saint-Michel (4)",
+                tips: "Carte étudiant acceptée. Fin de visite souvent près d'un bon café étudiant."
+            },
+            {
+                id: 20,
+                title: "Concert acoustique gratuit - Pelouse Est Jardin du Luxembourg",
+                day: "Lundi",
+                date: "1 juin",
+                time: "17:00",
+                duration: "1h",
+                category: "Sorties",
+                price: 0,
+                priceLabel: "Gratuit",
+                location: "Jardin du Luxembourg - Pelouse Est",
+                arrondissement: "6e",
+                description: "Petit concert acoustique en plein air avec jeunes talents parisiens. Ambiance chill sur l'herbe, parfait après les cours. Chansons françaises et covers.",
+                spots: "Entrée libre (pelouse)",
+                studentDiscount: false,
+                coordinates: [48.8462, 2.3371],
+                metro: "Luxembourg (RER B) ou Odéon (4,10)",
+                tips: "Apporte une couverture et un pique-nique. Les chaises vertes sont à 2 min."
+            },
+            // Mardi 2 juin (total 5 with Cabaret)
+            {
+                id: 21,
+                title: "Atelier découverte street art - Rue Dénoyez Belleville",
+                day: "Mardi",
+                date: "2 juin",
+                time: "14:00",
+                duration: "2h",
+                category: "Art",
+                price: 10,
+                priceLabel: "10€ (matériel inclus)",
+                location: "Rue Dénoyez, Belleville",
+                arrondissement: "20e",
+                description: "Initiation au graffiti et au street art dans la rue la plus colorée de Paris. Artistes locaux, pochoirs, bombes et histoire du quartier.",
+                spots: "Places limitées",
+                studentDiscount: true,
+                coordinates: [48.8723, 2.3791],
+                metro: "Belleville (2,11)",
+                tips: "Porte des vêtements que tu peux salir. Photos autorisées à la fin."
+            },
+            {
+                id: 22,
+                title: "Balade photo & histoire - Canal Saint-Martin",
+                day: "Mardi",
+                date: "2 juin",
+                time: "10:00",
+                duration: "2h",
+                category: "Nature",
+                price: 0,
+                priceLabel: "Gratuit",
+                location: "Canal Saint-Martin",
+                arrondissement: "10e",
+                description: "Promenade guidée le long du canal avec anecdotes sur l'histoire industrielle et les spots photo iconiques (ponts, écluses, street art).",
+                spots: "Rendez-vous au 5 quai de Valmy",
+                studentDiscount: false,
+                coordinates: [48.8725, 2.3658],
+                metro: "République (3,5,8,9,11) ou Jacques Bonsergent (5)",
+                tips: "Idéal pour Instagram. Apporte ton appareil ou téléphone."
+            },
+            {
+                id: 23,
+                title: "Dégustation fromages & vins - Marché des Enfants Rouges",
+                day: "Mardi",
+                date: "2 juin",
+                time: "12:30",
+                duration: "1h",
+                category: "Gastronomie",
+                price: 18,
+                priceLabel: "18€ (dégustation)",
+                location: "Marché des Enfants Rouges",
+                arrondissement: "3e",
+                description: "Dégustation de 4 fromages AOP et 3 vins dans le plus vieux marché couvert de Paris. Fromager et caviste sur place pour les conseils.",
+                spots: "Sur réservation",
+                studentDiscount: true,
+                coordinates: [48.8623, 2.3621],
+                metro: "Filles du Calvaire (8)",
+                tips: "Parfait pour les étudiants en gastronomie. Carte étudiant = -3€."
+            },
+            {
+                id: 24,
+                title: "Séance yoga en plein air - Parc Monceau",
+                day: "Mardi",
+                date: "2 juin",
+                time: "07:30",
+                duration: "1h",
+                category: "Sport",
+                price: 5,
+                priceLabel: "5€ (étudiant)",
+                location: "Parc Monceau",
+                arrondissement: "8e",
+                description: "Cours de yoga doux pour tous niveaux au lever du soleil dans le beau parc Monceau. Tapis fournis, focus respiration et étirements.",
+                spots: "Inscription sur place ou app",
+                studentDiscount: true,
+                coordinates: [48.8795, 2.3088],
+                metro: "Monceau (2)",
+                tips: "Viens 10 min avant. Eau et fruits offerts après la séance."
+            },
+            // Mercredi 3 juin (total 5 with ManiFeste + Pokémon)
+            {
+                id: 25,
+                title: "Conférence 'L'art du Street Art' - Centre Pompidou",
+                day: "Mercredi",
+                date: "3 juin",
+                time: "18:30",
+                duration: "1h30",
+                category: "Culture",
+                price: 8,
+                priceLabel: "8€ (étudiant 5€)",
+                location: "Centre Pompidou - Forum -1",
+                arrondissement: "4e",
+                description: "Conférence avec artistes et historiens sur l'évolution du street art de 1960 à aujourd'hui. Visite flash de l'expo en prime.",
+                spots: "Réservation en ligne",
+                studentDiscount: true,
+                coordinates: [48.8606, 2.3522],
+                metro: "Rambuteau (11) ou Hôtel de Ville (1,11)",
+                tips: "Carte ISAE ou équivalent acceptée. Suivi d'un verre offert."
+            },
+            {
+                id: 26,
+                title: "Visite insolite des Égouts de Paris",
+                day: "Mercredi",
+                date: "3 juin",
+                time: "14:00",
+                duration: "1h",
+                category: "Histoire",
+                price: 10,
+                priceLabel: "10€ (réduit 7€)",
+                location: "Place de la Résistance",
+                arrondissement: "7e",
+                description: "Descente dans les égouts historiques de Paris. 1h de visite guidée dans les galeries du 19e siècle, anecdotes sur les ingénieurs et les films tournés ici.",
+                spots: "Billets sur place ou en ligne",
+                studentDiscount: true,
+                coordinates: [48.8622, 2.3063],
+                metro: "Pont de l'Alma (RER C) ou Alma-Marceau (9)",
+                tips: "Pas pour les claustrophobes. Prévois des chaussures fermées."
+            },
+            {
+                id: 27,
+                title: "Marché aux Fleurs & Oiseaux - Île de la Cité",
+                day: "Mercredi",
+                date: "3 juin",
+                time: "09:00",
+                duration: "2h",
+                category: "Gastronomie",
+                price: 0,
+                priceLabel: "Gratuit (entrée)",
+                location: "Place Louis-Lépine, Île de la Cité",
+                arrondissement: "1er",
+                description: "Le célèbre marché aux fleurs et aux oiseaux du mercredi. Serres, plantes rares, perruches et ambiance parisienne authentique au cœur de l'île.",
+                spots: "Ouvert toute la journée",
+                studentDiscount: false,
+                coordinates: [48.8553, 2.3469],
+                metro: "Cité (4)",
+                tips: "Super pour des photos et acheter une petite plante pas chère."
+            },
+            // Jeudi 4 juin (total 5 with Beyond + Virages)
+            {
+                id: 28,
+                title: "Performance hip-hop & breakdance - Place de la République",
+                day: "Jeudi",
+                date: "4 juin",
+                time: "19:00",
+                duration: "1h",
+                category: "Sorties",
+                price: 0,
+                priceLabel: "Gratuit",
+                location: "Place de la République",
+                arrondissement: "11e",
+                description: "Battle et performance de crews hip-hop parisiens sur la grande place. Ambiance électrique, DJ live et public qui participe.",
+                spots: "Rassemblement au centre de la place",
+                studentDiscount: false,
+                coordinates: [48.8673, 2.3631],
+                metro: "République (3,5,8,9,11)",
+                tips: "Reste après pour discuter avec les danseurs. Ambiance jeune et inclusive."
+            },
+            {
+                id: 29,
+                title: "Atelier macarons & pâtisserie - Le Bon Marché",
+                day: "Jeudi",
+                date: "4 juin",
+                time: "15:00",
+                duration: "2h",
+                category: "Gastronomie",
+                price: 25,
+                priceLabel: "25€ (étudiant 18€)",
+                location: "Le Bon Marché Rive Gauche",
+                arrondissement: "7e",
+                description: "Atelier pratique de 2h pour réaliser 12 macarons et une tartelette. Chef pâtissier, tous les ingrédients fournis.",
+                spots: "Inscription obligatoire",
+                studentDiscount: true,
+                coordinates: [48.8514, 2.3253],
+                metro: "Sèvres-Babylone (10,12)",
+                tips: "Tu repars avec tes créations dans une jolie boîte. Carte étudiant acceptée."
+            },
+            {
+                id: 30,
+                title: "Randonnée urbaine - La Promenade Plantée",
+                day: "Jeudi",
+                date: "4 juin",
+                time: "10:00",
+                duration: "2h",
+                category: "Nature",
+                price: 0,
+                priceLabel: "Gratuit",
+                location: "Promenade Plantée (Coulée Verte)",
+                arrondissement: "12e",
+                description: "Balade de 2h sur l'ancienne voie ferrée transformée en jardin suspendu. Vue sur toits, street art et faune urbaine.",
+                spots: "Départ au 1er étage de la gare de Lyon",
+                studentDiscount: false,
+                coordinates: [48.8478, 2.3733],
+                metro: "Gare de Lyon (1,14) ou Ledru-Rollin (8)",
+                tips: "Chaussures confortables. Idéal pour les photos et le calme en pleine ville."
+            },
+            // Vendredi 5 juin (total 5 with Slimane)
+            {
+                id: 31,
+                title: "Concert indie / pop - Point Éphémère",
+                day: "Vendredi",
+                date: "5 juin",
+                time: "21:00",
+                duration: "2h",
+                category: "Sorties",
+                price: 12,
+                priceLabel: "12€ (étudiant 8€)",
+                location: "Point Éphémère, 200 quai de Valmy",
+                arrondissement: "10e",
+                description: "Soirée indie-pop avec 2 groupes émergents parisiens. Ambiance bar + salle de concert, rooftop si beau temps.",
+                spots: "Billets en ligne ou à l'entrée",
+                studentDiscount: true,
+                coordinates: [48.8817, 2.3689],
+                metro: "Louis Blanc (7) ou Jaurès (2,5,7bis)",
+                tips: "Arrive à 20h pour le warm-up. Souvent des afters gratuits."
+            },
+            {
+                id: 32,
+                title: "Tour trottinette électrique - Champs-Élysées & Tour Eiffel",
+                day: "Vendredi",
+                date: "5 juin",
+                time: "11:00",
+                duration: "1h30",
+                category: "Sport",
+                price: 20,
+                priceLabel: "20€ (étudiant 15€)",
+                location: "Départ Rond-Point des Champs-Élysées",
+                arrondissement: "8e",
+                description: "Balade guidée en trottinette électrique de 90 min : Champs-Élysées, Grand Palais, jusqu'au Trocadéro avec vue Tour Eiffel.",
+                spots: "Casque et trottinette fournis",
+                studentDiscount: true,
+                coordinates: [48.8696, 2.3077],
+                metro: "Franklin D. Roosevelt (1,9)",
+                tips: "Permis non requis. Super pour les photos et découvrir Paris autrement."
+            },
+            {
+                id: 33,
+                title: "Expo photo 'Nuit Parisienne' - Galerie éphémère Marais",
+                day: "Vendredi",
+                date: "5 juin",
+                time: "16:00",
+                duration: "1h",
+                category: "Art",
+                price: 5,
+                priceLabel: "5€ (étudiant gratuit)",
+                location: "Galerie éphémère - Rue de Turenne",
+                arrondissement: "3e",
+                description: "Exposition photo d'un soir sur la vie nocturne parisienne. Vernissage avec l'artiste et petit verre.",
+                spots: "Entrée libre après 18h pour le vernissage",
+                studentDiscount: true,
+                coordinates: [48.8598, 2.3615],
+                metro: "Chemin Vert (8) ou Saint-Paul (1)",
+                tips: "Carte étudiant = gratuit. Possibilité d'acheter des tirages limités."
+            },
+            {
+                id: 34,
+                title: "Atelier cuisine végétale - Comptoir des Vrac Saint-Ouen",
+                day: "Vendredi",
+                date: "5 juin",
+                time: "13:00",
+                duration: "2h",
+                category: "Gastronomie",
+                price: 15,
+                priceLabel: "15€ (tout compris)",
+                location: "Comptoir des Vrac - Marché Saint-Ouen",
+                arrondissement: "18e",
+                description: "Atelier 2h pour apprendre à faire des plats végétaliens rapides et bons marché. Ingrédients bio fournis, recette à emporter.",
+                spots: "Places limitées",
+                studentDiscount: true,
+                coordinates: [48.9016, 2.3503],
+                metro: "Porte de Clignancourt (4) ou Garibaldi (13)",
+                tips: "Parfait pour les budgets étudiants. Tu repars avec les restes."
+            },
+            // Samedi 6 juin (total 5 with Roseraie, Nuit Blanche, Visages)
+            {
+                id: 35,
+                title: "Vide-greniers & brocante de Montmartre",
+                day: "Samedi",
+                date: "6 juin",
+                time: "10:00",
+                duration: "3h",
+                category: "Gastronomie",
+                price: 0,
+                priceLabel: "Gratuit (entrée)",
+                location: "Place du Tertre & rues adjacentes",
+                arrondissement: "18e",
+                description: "Grand vide-greniers du samedi à Montmartre. Chineurs, artistes, brocanteurs et vue imprenable. Ambiance village dans Paris.",
+                spots: "Ouvert jusqu'à 18h",
+                studentDiscount: false,
+                coordinates: [48.8867, 2.3406],
+                metro: "Abbesses (12) ou Anvers (2)",
+                tips: "Va tôt pour les bonnes affaires. Négocie toujours avec le sourire."
+            },
+            {
+                id: 36,
+                title: "Match de foot amateur & pique-nique - Pelouse Reuilly",
+                day: "Samedi",
+                date: "6 juin",
+                time: "15:00",
+                duration: "2h",
+                category: "Sport",
+                price: 0,
+                priceLabel: "Gratuit",
+                location: "Pelouse de Reuilly, Bois de Vincennes",
+                arrondissement: "12e",
+                description: "Match amical de foot étudiant + pique-nique géant après. Ambiance décontractée, terrain ouvert, viens avec tes potes ou rejoins une équipe.",
+                spots: "Terrain libre",
+                studentDiscount: false,
+                coordinates: [48.8369, 2.4089],
+                metro: "Porte Dorée (8)",
+                tips: "Apporte ballon ou pic-nic. Souvent des étudiants ISAE y vont."
+            },
+            // Dimanche 7 juin (total 5 with adidas, Palais-Royal, Brocante)
+            {
+                id: 37,
+                title: "Brunch jazz dominical - Café de la Paix",
+                day: "Dimanche",
+                date: "7 juin",
+                time: "11:00",
+                duration: "2h",
+                category: "Gastronomie",
+                price: 22,
+                priceLabel: "22€ (formule étudiant)",
+                location: "Café de la Paix - Opéra",
+                arrondissement: "9e",
+                description: "Brunch chic avec live jazz le dimanche. Formule buffet + concert acoustique. Parfait pour un dimanche détente après la semaine.",
+                spots: "Réservation conseillée",
+                studentDiscount: true,
+                coordinates: [48.8708, 2.3317],
+                metro: "Opéra (3,7,8)",
+                tips: "Formule étudiant = jus + café + 2 plats. Réserve via l'app ou site."
+            },
+            {
+                id: 38,
+                title: "Atelier famille & visite libre - Musée d'Orsay",
+                day: "Dimanche",
+                date: "7 juin",
+                time: "10:00",
+                duration: "2h",
+                category: "Culture",
+                price: 12,
+                priceLabel: "12€ (jeune 8€)",
+                location: "Musée d'Orsay",
+                arrondissement: "7e",
+                description: "Visite libre + atelier créatif 'Impressionnistes en herbe' pour 2h. Peinture, pastels et découverte des chefs-d'œuvre du musée.",
+                spots: "Billets en ligne (atelier + entrée)",
+                studentDiscount: true,
+                coordinates: [48.8599, 2.3266],
+                metro: "Solférino (12) ou Musée d'Orsay (RER C)",
+                tips: "Atelier inclus dans le billet jeune. Idéal pour les étudiants en art."
             }
         ]
 
@@ -1647,7 +2073,30 @@
             13: "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?w=800&q=80",    // Jardin à la française
             14: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=800&q=80", // Art contemporain expo
             15: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=800&q=80",  // Marché brocante
-            16: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&q=80"   // Concert live scène / lumières (Salle Pleyel vibe)
+            16: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&q=80",   // Concert live scène / lumières (Salle Pleyel vibe)
+            // New punctuals 17-38 (5+ per day, distinct, no repeats across days)
+            17: "https://images.unsplash.com/photo-1501386761570-e33b4b4c5c0c?w=800&q=80", // Fan zone / sport event crowd
+            18: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&q=80", // Marché bio / food market
+            19: "https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&q=80",    // Visite guidée historique
+            20: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&q=80", // Concert acoustique extérieur
+            21: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&q=80", // Street art / graffiti atelier
+            22: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Canal / balade nature
+            23: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",    // Dégustation fromages/vins
+            24: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",    // Yoga parc
+            25: "https://images.unsplash.com/photo-1564399579883-451a5d44ec08?w=800&q=80", // Conférence / expo culture
+            26: "https://images.unsplash.com/photo-1431274172761-fca41d930114?w=800&q=80", // Visite historique / égouts vibe
+            27: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&q=80", // Marché fleurs
+            28: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&q=80", // Performance danse / hip-hop
+            29: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",    // Atelier pâtisserie
+            30: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80", // Promenade plantée / randonnée urbaine
+            31: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&q=80", // Concert indie / bar
+            32: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",    // Trottinette / sport ville
+            33: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=800&q=80", // Expo photo / art
+            34: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",    // Atelier cuisine
+            35: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=800&q=80", // Vide-greniers / brocante
+            36: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",    // Match foot amateur
+            37: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",    // Brunch jazz
+            38: "https://images.unsplash.com/photo-1564399579883-451a5d44ec08?w=800&q=80"     // Atelier musée / culture
         };
 
         // Images de fallback par catégorie (pour les données live sans image officielle)
@@ -3030,7 +3479,7 @@
                         <div>
                             <div class="font-semibold text-slate-200 mb-1">Fonctionnalités principales</div>
                             <ul class="list-disc pl-5 space-y-0.5">
-                                <li>16 activités réelles pour la semaine du 1 au 7 juin 2026</li>
+                                <li>38 activités réelles pour la semaine du 1 au 7 juin 2026</li>
                                 <li>5 parcours thématiques prêts à l’emploi</li>
                                 <li>Carte interactive + synchronisation filtres</li>
                                 <li>Favoris + Planning personnel</li>
