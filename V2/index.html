@@ -298,299 +298,27 @@
         }
 
         @media (max-width: 1024px) {
-            .sidebar { display: none; }
-            .main-content { margin-left: 0; }
-        }
-
-        /* ============================================
-           ANIMATIONS SYSTEM — ParcoursParis
-        ============================================ */
-
-        /* --- Hero : entrée du texte en cascade --- */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(28px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.92); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-
-        .hero-badge   { animation: fadeSlideUp 0.6s cubic-bezier(.22,1,.36,1) 0.1s both; }
-        .hero-title   { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.25s both; }
-        .hero-desc    { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.40s both; }
-        .hero-buttons { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.52s both; }
-        .hero-stats   { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.65s both; }
-        .hero-logos   { animation: scaleIn    0.8s cubic-bezier(.22,1,.36,1) 0.45s both; }
-
-        /* --- Particules flottantes dans le hero --- */
-        @keyframes float1 {
-            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
-            33%       { transform: translateY(-18px) translateX(8px); opacity: 0.7; }
-            66%       { transform: translateY(-8px) translateX(-6px); opacity: 0.5; }
-        }
-        @keyframes float2 {
-            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
-            50%       { transform: translateY(-22px) translateX(-10px); opacity: 0.6; }
-        }
-        @keyframes float3 {
-            0%, 100% { transform: translateY(0px); opacity: 0.25; }
-            40%       { transform: translateY(-14px) translateX(12px); opacity: 0.55; }
-            80%       { transform: translateY(-6px) translateX(-4px); opacity: 0.35; }
-        }
-
-        .particle { position: absolute; border-radius: 50%; pointer-events: none; }
-        .p1  { width:3px;  height:3px;  background:#FF5C00; top:18%; left:72%; animation: float1 5.2s ease-in-out infinite; }
-        .p2  { width:2px;  height:2px;  background:#fff;    top:32%; left:85%; animation: float2 6.8s ease-in-out infinite 1s; }
-        .p3  { width:4px;  height:4px;  background:#FF5C00; top:55%; left:78%; animation: float3 7.1s ease-in-out infinite 0.4s; opacity:0.3; }
-        .p4  { width:2px;  height:2px;  background:#fff;    top:70%; left:65%; animation: float1 4.9s ease-in-out infinite 2s; }
-        .p5  { width:3px;  height:3px;  background:#FF5C00; top:22%; left:90%; animation: float2 5.5s ease-in-out infinite 0.8s; opacity:0.4; }
-        .p6  { width:2px;  height:2px;  background:#fff;    top:80%; left:82%; animation: float3 8.2s ease-in-out infinite 1.5s; }
-        .p7  { width:5px;  height:5px;  background:rgba(255,92,0,0.2); top:42%; left:93%; animation: float1 9s ease-in-out infinite 3s; border-radius:2px; }
-        .p8  { width:2px;  height:2px;  background:#fff;    top:60%; left:58%; animation: float2 6.1s ease-in-out infinite 2.5s; opacity:0.2; }
-
-        /* --- Étoile scintillante --- */
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.1; transform: scale(0.8); }
-            50%       { opacity: 0.7; transform: scale(1.2); }
-        }
-        .star {
-            position: absolute; pointer-events: none;
-            width: 2px; height: 2px; background: white; border-radius: 50%;
-        }
-        .s1 { top: 12%; left: 60%; animation: twinkle 2.8s ease-in-out infinite; }
-        .s2 { top: 28%; left: 75%; animation: twinkle 3.5s ease-in-out infinite 0.8s; }
-        .s3 { top: 48%; left: 88%; animation: twinkle 2.2s ease-in-out infinite 1.4s; }
-        .s4 { top: 68%; left: 70%; animation: twinkle 4.1s ease-in-out infinite 0.3s; }
-        .s5 { top: 15%; left: 95%; animation: twinkle 3.0s ease-in-out infinite 2.1s; }
-
-        /* --- Logo flottant --- */
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-6px); }
-        }
-        .hero-logos > div { animation: floatCard 4s ease-in-out infinite; }
-
-        /* --- Scroll reveal --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.65s cubic-bezier(.22,1,.36,1), transform 0.65s cubic-bezier(.22,1,.36,1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-delay-1 { transition-delay: 0.08s; }
-        .reveal-delay-2 { transition-delay: 0.16s; }
-        .reveal-delay-3 { transition-delay: 0.24s; }
-
-        /* --- Cards : entrée au scroll --- */
-        .card-reveal {
-            opacity: 0;
-            transform: translateY(20px) scale(0.98);
-            transition: opacity 0.5s cubic-bezier(.22,1,.36,1), transform 0.5s cubic-bezier(.22,1,.36,1);
-        }
-        .card-reveal.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        /* --- Activity card glow on hover --- */
-        .activity-card {
-            transition: all 0.28s cubic-bezier(0.4, 0.0, 0.2, 1);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .activity-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle at 50% 0%, rgba(255,92,0,0.08), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .activity-card:hover::before { opacity: 1; }
-        .activity-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: rgba(255,92,0,0.35);
-            box-shadow: 0 24px 48px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,92,0,0.15);
-        }
-
-        /* --- Sidebar link indicator animé --- */
-        .sidebar-link {
-            position: relative;
-            overflow: hidden;
-        }
-        .sidebar-link::after {
-            content: '';
-            position: absolute;
-            left: 0; top: 50%;
-            transform: translateY(-50%) scaleY(0);
-            width: 3px; height: 60%;
-            background: #FF5C00;
-            border-radius: 0 2px 2px 0;
-            transition: transform 0.2s ease;
-        }
-        .sidebar-link:hover::after { transform: translateY(-50%) scaleY(1); }
-        .sidebar-link.active::after { transform: translateY(-50%) scaleY(0); }
-
-        /* --- Shimmer sur les badges de statut --- */
-        @keyframes shimmer {
-            0%   { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-        .shimmer-text {
-            background: linear-gradient(90deg, #FF5C00 25%, #ffaa77 50%, #FF5C00 75%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-        }
-
-        /* --- Stats bar pulse --- */
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255,92,0,0); }
-            50%       { box-shadow: 0 0 12px 3px rgba(255,92,0,0.15); }
-        }
-
-        /* --- Section headers slide in --- */
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-20px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-
-        /* --- Boutons ripple --- */
-        .btn-ripple {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-ripple::after {
-            content: '';
-            position: absolute;
-            width: 100px; height: 100px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50%;
-            transform: scale(0);
-            top: 50%; left: 50%;
-            margin: -50px 0 0 -50px;
-            transition: transform 0.4s ease, opacity 0.4s ease;
-            opacity: 0;
-        }
-        .btn-ripple:active::after {
-            transform: scale(2.5);
-            opacity: 0;
-            transition: 0s;
-        }
-
-        /* --- Parcours cards --- */
-        .parcours-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .parcours-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
-            border-color: rgba(255,92,0,0.3) !important;
-        }
-
-        /* --- Incontournables hover lift --- */
-        .inco-card {
-            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-        }
-        .inco-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255,92,0,0.4) !important;
-            box-shadow: 0 12px 32px -8px rgba(255,92,0,0.15);
-        }
-
-        /* --- Compteur hero spin-up --- */
-        @keyframes countUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .count-anim { animation: countUp 0.5s ease both; }
-
-        /* --- Barre météo glide --- */
-        @keyframes glideIn {
-            from { opacity: 0; transform: translateX(-12px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-        .stats-bar-item { animation: glideIn 0.5s ease both; }
-        .stats-bar-item:nth-child(2) { animation-delay: 0.15s; }
-
-        /* --- Page load overlay fade out --- */
-        #page-loader {
-            position: fixed; inset: 0; z-index: 9999;
-            background: #070A12;
-            display: flex; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
-        }
-        #page-loader.done { opacity: 0; pointer-events: none; }
-
-        @keyframes loaderPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50%       { transform: scale(1.15); opacity: 0.7; }
-        }
-        #page-loader .loader-logo {
-            animation: loaderPulse 0.9s ease-in-out infinite;
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
 <body class="bg-[#070A12] text-white">
-
-    <!-- Page loader -->
-    <div id="page-loader">
-        <div class="loader-logo flex flex-col items-center gap-3">
-            <div class="w-14 h-14 bg-[#FF5C00] rounded-2xl flex items-center justify-center">
-                <span class="text-white text-4xl font-bold tracking-tighter">PP</span>
-            </div>
-            <span class="text-white/40 text-sm font-medium tracking-widest uppercase">Chargement…</span>
-        </div>
-    </div>
     <!-- VERTICAL SIDEBAR NAV (left) -->
     <aside class="sidebar fixed top-0 left-0 h-screen flex flex-col z-50 hidden lg:flex">
         <!-- Logo -->
         <div class="px-6 py-7 border-b border-white/10">
-            <div class="flex items-center gap-x-3 mb-4">
+            <div class="flex items-center gap-x-3">
                 <div class="w-11 h-11 bg-[#FF5C00] rounded-2xl flex items-center justify-center flex-shrink-0">
                     <span class="text-white text-3xl font-bold tracking-tighter">PP</span>
                 </div>
                 <div class="leading-none">
                     <div class="font-semibold text-2xl tracking-tighter">Parcours<span class="text-[#FF5C00]">Paris</span></div>
                 </div>
-            </div>
-            <!-- Logos partenaires -->
-            <div class="flex items-center gap-3 bg-white rounded-xl px-3 py-2">
-                <!-- ISAE-Supmeca -->
-                <svg viewBox="0 0 120 60" class="h-8 flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
-                    <text x="2" y="22" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#2D3358" letter-spacing="2">Isae</text>
-                    <line x1="2" y1="30" x2="118" y2="30" stroke="#E8421A" stroke-width="2.5"/>
-                    <text x="2" y="50" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#2D3358" letter-spacing="1">supméca</text>
-                    <!-- Bird silhouette simplified -->
-                    <path d="M72 8 Q80 3 90 6 Q95 8 92 12 Q88 10 82 11 Z" fill="#2D3358"/>
-                    <path d="M88 5 L96 2 L94 8 Z" fill="#2D3358"/>
-                </svg>
-                <div class="w-px h-8 bg-gray-300"></div>
-                <!-- UIMM / Mécavenir -->
-                <svg viewBox="0 0 130 55" class="h-8 flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="0" width="50" height="55" fill="#0078BF"/>
-                    <rect x="0" y="28" width="50" height="27" fill="#E8421A"/>
-                    <text x="3" y="16" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="white">UIMM</text>
-                    <text x="2" y="26" font-family="Arial,sans-serif" font-size="5" fill="white">PÔLE FORMATION</text>
-                    <text x="2" y="38" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="white">LA FABRIQUE</text>
-                    <text x="2" y="47" font-family="Arial,sans-serif" font-size="5.5" font-weight="700" fill="white">DE L'AVENIR</text>
-                    <text x="56" y="20" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="#0078BF">MECAVENIR</text>
-                    <line x1="55" y1="25" x2="128" y2="25" stroke="#0078BF" stroke-width="1"/>
-                    <text x="56" y="36" font-family="Arial,sans-serif" font-size="6" fill="#444">L'excellence</text>
-                    <text x="56" y="45" font-family="Arial,sans-serif" font-size="6" fill="#444">par l'apprentissage</text>
-                </svg>
             </div>
         </div>
 
@@ -644,18 +372,7 @@
             </div>
             <span class="font-semibold tracking-tighter text-xl">Parcours<span class="text-[#FF5C00]">Paris</span></span>
         </div>
-        <div class="flex items-center gap-2">
-            <!-- Logos partenaires mobile -->
-            <div class="flex items-center gap-1.5 bg-white rounded-lg px-2 py-1">
-                <span class="text-[#2D3358] font-bold text-[9px] tracking-wide leading-tight">Isae<br><span class="text-[8px] font-semibold">supméca</span></span>
-                <div class="w-px h-5 bg-gray-300"></div>
-                <div class="flex flex-col leading-none">
-                    <span class="bg-[#0078BF] text-white font-bold text-[8px] px-1 rounded-sm">UIMM</span>
-                    <span class="text-[#0078BF] font-bold text-[7px] mt-0.5">MECAVENIR</span>
-                </div>
-            </div>
-            <button onclick="showQuiz()" class="text-sm px-3 py-1.5 bg-white/10 rounded-xl">Quiz</button>
-        </div>
+        <button onclick="showQuiz()" class="text-sm px-3 py-1.5 bg-white/10 rounded-xl">Quiz</button>
     </div>
 
     <!-- MAIN CONTENT (shifted for sidebar) -->
@@ -667,122 +384,65 @@
         <!-- Background with real Paris imagery (Eiffel Tower focused) -->
         <div class="absolute inset-0 pointer-events-none">
             
-            <!-- Main Paris photo — opacité augmentée pour plus de visibilité -->
+            <!-- Main Paris photo with strong Eiffel Tower presence -->
             <div class="absolute inset-0 bg-cover bg-center"
                  style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80'); 
-                        opacity: 0.52; 
-                        filter: contrast(1.05) brightness(0.7) saturate(0.8);">
+                        opacity: 0.28; 
+                        filter: contrast(1.15) brightness(0.58) saturate(0.65);">
             </div>
             
-            <!-- Dégradé gauche fort pour lisibilité du texte -->
-            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0F1C] via-[#0B0F1C]/80 to-transparent"></div>
-            <!-- Dégradé haut/bas léger -->
-            <div class="absolute inset-0 bg-gradient-to-b from-[#0B0F1C]/30 via-transparent to-[#070A12]"></div>
-
-            <!-- Particules flottantes -->
-            <div class="particle p1"></div>
-            <div class="particle p2"></div>
-            <div class="particle p3"></div>
-            <div class="particle p4"></div>
-            <div class="particle p5"></div>
-            <div class="particle p6"></div>
-            <div class="particle p7"></div>
-            <div class="particle p8"></div>
-
-            <!-- Étoiles scintillantes -->
-            <div class="star s1"></div>
-            <div class="star s2"></div>
-            <div class="star s3"></div>
-            <div class="star s4"></div>
-            <div class="star s5"></div>
+            <!-- Dark overlays for readability and depth -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0F1C] via-[#0B0F1C]/75 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0B0F1C]/40 via-transparent to-[#070A12]"></div>
+            <div class="absolute inset-0 bg-gradient-to-l from-[#0B0F1C]/30 to-transparent"></div>
+            
         </div>
 
         <div class="max-w-screen-xl mx-auto px-6 pt-14 pb-16 relative z-10">
-            <div class="flex items-start justify-between gap-12">
+            <div class="max-w-3xl">
                 
-                <!-- Colonne gauche : texte -->
-                <div class="max-w-xl">
-                    <!-- Badge -->
-                    <div class="hero-badge inline-flex items-center gap-x-2 mb-6">
-                        <div class="flex items-center bg-white/10 backdrop-blur px-4 h-8 rounded-2xl text-sm font-medium tracking-wide border border-white/20">
-                            <span class="text-[var(--school-accent)] mr-2">●</span> 
-                            Paris • 2026
-                        </div>
-                    </div>
-                    
-                    <h1 class="hero-title text-6xl md:text-[72px] leading-[1.0] tracking-[-0.045em] font-semibold heading-serif mb-6">
-                        Paris, cette semaine.<br>
-                        <span class="text-[var(--school-accent)] text-3xl md:text-[38px] font-medium tracking-tight">1 — 7 juin 2026.</span>
-                    </h1>
-                    
-                    <p class="hero-desc text-xl text-slate-300 max-w-md mb-9">
-                        Roland-Garros, Nuit Blanche, We Love Green, Rendez-vous aux Jardins… Les vrais événements de la semaine, avec parcours prêts à suivre.
-                    </p>
-
-                    <div class="hero-buttons flex flex-wrap gap-4">
-                        <a href="#cette-semaine" 
-                           class="btn-ripple inline-flex items-center justify-center px-9 h-13 bg-[var(--school-accent)] hover:bg-[var(--school-accent-dark)] text-white font-semibold rounded-3xl transition-all active:scale-[0.985] text-[15px]">
-                            Découvrir cette semaine
-                        </a>
-                        <a href="#parcours" 
-                           class="btn-ripple inline-flex items-center justify-center px-9 h-13 bg-white/10 hover:bg-white/15 border border-white/30 backdrop-blur font-semibold rounded-3xl transition-all text-[15px]">
-                            Explorer les parcours
-                        </a>
-                    </div>
-
-                    <div class="hero-stats mt-12 grid grid-cols-3 gap-8 max-w-md text-sm">
-                        <div>
-                            <div class="font-semibold text-4xl tracking-[-1.5px] text-white" id="hero-count">—</div>
-                            <div class="text-[var(--school-muted)] mt-1 leading-tight">événements<br>cette semaine</div>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-4xl tracking-[-1.5px] text-white">5</div>
-                            <div class="text-[var(--school-muted)] mt-1 leading-tight">parcours<br>thématiques</div>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-4xl tracking-[-1.5px] text-white" id="hero-free">—</div>
-                            <div class="text-[var(--school-muted)] mt-1 leading-tight">activités<br>100% gratuites</div>
-                        </div>
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-x-2 mb-6">
+                    <div class="flex items-center bg-white/10 backdrop-blur px-4 h-8 rounded-2xl text-sm font-medium tracking-wide border border-white/20">
+                        <span class="text-[var(--school-accent)] mr-2">●</span> 
+                        Paris • 2026
                     </div>
                 </div>
+                
+                <h1 class="text-6xl md:text-[72px] leading-[1.0] tracking-[-0.045em] font-semibold heading-serif mb-6">
+                    Paris, cette semaine.<br>
+                    <span class="text-[var(--school-accent)] text-3xl md:text-[38px] font-medium tracking-tight">1 — 7 juin 2026.</span>
+                </h1>
+                
+                <p class="text-xl text-slate-300 max-w-md mb-9">
+                    Roland-Garros, Nuit Blanche, We Love Green, Rendez-vous aux Jardins… 15 vrais événements de la semaine, avec parcours prêts à suivre.
+                </p>
 
-                <!-- Colonne droite : logos partenaires (desktop uniquement) -->
-                <div class="hero-logos hidden lg:flex flex-col items-end justify-start pt-4 gap-4 flex-shrink-0">
-                    <div class="bg-white/95 backdrop-blur rounded-2xl px-5 py-4 shadow-xl flex flex-col items-center gap-3">
-                        <div class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Projet réalisé à</div>
-                        <!-- ISAE-Supmeca -->
-                        <div class="flex flex-col items-center">
-                            <svg viewBox="0 0 180 72" class="w-44" xmlns="http://www.w3.org/2000/svg">
-                                <text x="4" y="30" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#2D3358" letter-spacing="3">Isae</text>
-                                <!-- oiseau simplifié -->
-                                <path d="M100 10 Q115 4 128 8 Q134 11 130 16 Q124 13 116 15 L105 18 Z" fill="#2D3358"/>
-                                <path d="M125 5 L138 1 L135 10 Z" fill="#2D3358"/>
-                                <path d="M105 18 Q112 22 120 19" stroke="#2D3358" stroke-width="1.5" fill="none"/>
-                                <line x1="4" y1="40" x2="174" y2="40" stroke="#E8421A" stroke-width="3.5"/>
-                                <text x="4" y="66" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#2D3358" letter-spacing="2">supméca</text>
-                            </svg>
-                        </div>
-                        <div class="w-full h-px bg-gray-200"></div>
-                        <!-- UIMM Mécavenir -->
-                        <div class="flex items-center gap-3">
-                            <svg viewBox="0 0 58 60" class="h-12" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0" y="0" width="58" height="60" rx="4" fill="#0078BF"/>
-                                <rect x="0" y="32" width="58" height="28" rx="4" fill="#E8421A"/>
-                                <rect x="0" y="32" width="58" height="5" fill="#E8421A"/>
-                                <text x="5" y="20" font-family="Arial,sans-serif" font-size="14" font-weight="900" fill="white" letter-spacing="1">UIMM</text>
-                                <text x="5" y="30" font-family="Arial,sans-serif" font-size="5.5" fill="white" letter-spacing="0.3">PÔLE FORMATION IDF</text>
-                                <text x="5" y="42" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="white">LA FABRIQUE</text>
-                                <text x="5" y="52" font-family="Arial,sans-serif" font-size="6" font-weight="700" fill="white">DE L'AVENIR</text>
-                            </svg>
-                            <div class="flex flex-col">
-                                <span class="text-[#0078BF] font-black text-base tracking-wide leading-none">MECAVENIR</span>
-                                <div class="h-px bg-[#0078BF] mt-1 mb-1 w-full"></div>
-                                <span class="text-gray-500 text-[10px] leading-tight">L'excellence<br>par l'apprentissage</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#cette-semaine" 
+                       class="inline-flex items-center justify-center px-9 h-13 bg-[var(--school-accent)] hover:bg-[var(--school-accent-dark)] text-white font-semibold rounded-3xl transition-all active:scale-[0.985] text-[15px]">
+                        Découvrir cette semaine
+                    </a>
+                    <a href="#parcours" 
+                       class="inline-flex items-center justify-center px-9 h-13 bg-white/10 hover:bg-white/15 border border-white/30 backdrop-blur font-semibold rounded-3xl transition-all text-[15px]">
+                        Explorer les parcours
+                    </a>
                 </div>
 
+                <div class="mt-12 grid grid-cols-3 gap-8 max-w-md text-sm">
+                    <div>
+                        <div class="font-semibold text-4xl tracking-[-1.5px] text-white">15</div>
+                        <div class="text-[var(--school-muted)] mt-1 leading-tight">événements<br>réels</div>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-4xl tracking-[-1.5px] text-white">5</div>
+                        <div class="text-[var(--school-muted)] mt-1 leading-tight">parcours<br>thématiques</div>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-4xl tracking-[-1.5px] text-white">6</div>
+                        <div class="text-[var(--school-muted)] mt-1 leading-tight">activités<br>100% gratuites</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -844,7 +504,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             
             <!-- Tour Eiffel -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Tour Eiffel</h3>
@@ -858,7 +518,7 @@
             </div>
 
             <!-- Arc de Triomphe -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Arc de Triomphe</h3>
@@ -872,7 +532,7 @@
             </div>
 
             <!-- Louvre -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Musée du Louvre</h3>
@@ -886,7 +546,7 @@
             </div>
 
             <!-- Notre-Dame -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Cathédrale Notre-Dame</h3>
@@ -900,7 +560,7 @@
             </div>
 
             <!-- Sacré-Cœur -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Sacré-Cœur</h3>
@@ -914,7 +574,7 @@
             </div>
 
             <!-- Musée d'Orsay -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Musée d’Orsay</h3>
@@ -928,7 +588,7 @@
             </div>
 
             <!-- Sainte-Chapelle -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Sainte-Chapelle</h3>
@@ -942,7 +602,7 @@
             </div>
 
             <!-- Panthéon -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Panthéon</h3>
@@ -956,7 +616,7 @@
             </div>
 
             <!-- Invalides -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Hôtel des Invalides</h3>
@@ -970,7 +630,7 @@
             </div>
 
             <!-- Opéra Garnier -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Opéra Garnier</h3>
@@ -984,7 +644,7 @@
             </div>
 
             <!-- Pont Alexandre III -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Pont Alexandre III</h3>
@@ -994,11 +654,11 @@
                 </div>
                 <p class="text-sm text-slate-300 mt-3">Le plus beau pont de Paris. Dorures, statues et vue parfaite sur les Invalides et la Tour Eiffel.</p>
                 <div class="text-xs text-white/60 mt-2">Idéal pour les photos romantiques.</div>
-                <a href="https://www.paris.fr/lieux/pont-alexandre-iii-6860" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">En savoir plus →</a>
+                <a href="https://www.parisinfo.com/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">En savoir plus →</a>
             </div>
 
             <!-- Centre Pompidou -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Centre Pompidou</h3>
@@ -1012,7 +672,7 @@
             </div>
 
             <!-- Jardin du Luxembourg -->
-            <div class="inco-card reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-[#FF5C00]/40 transition-colors">
                 <div class="flex items-start justify-between">
                     <div>
                         <h3 class="font-semibold text-lg">Jardin du Luxembourg</h3>
@@ -1022,7 +682,7 @@
                 </div>
                 <p class="text-sm text-slate-300 mt-3">Le plus beau jardin public de Paris. Chaises vertes, bassin, palais et ambiance parisienne authentique.</p>
                 <div class="text-xs text-white/60 mt-2">Parfait pour se reposer et lire.</div>
-                <a href="https://www.senat.fr/visite/jardin/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">En savoir plus →</a>
+                <a href="https://www.paris.fr/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">En savoir plus →</a>
             </div>
 
         </div>
@@ -1107,29 +767,9 @@
         </div>
 
         <div id="list-view">
-            <!-- Zone 1 : Événements ponctuels du jour sélectionné -->
-            <div id="daily-events-section">
-                <div id="daily-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                </div>
+            <div id="activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <!-- Populated dynamically by JS -->
             </div>
-
-            <!-- Zone 2 : Événements continus (expos, festivals, toute la semaine) -->
-            <div id="ongoing-section" class="mt-8 hidden">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="h-px flex-1 bg-white/10"></div>
-                    <div class="flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/10 rounded-2xl">
-                        <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span>
-                        <span class="text-xs font-semibold text-slate-300 uppercase tracking-widest">En ce moment à Paris</span>
-                    </div>
-                    <div class="h-px flex-1 bg-white/10"></div>
-                </div>
-                <p class="text-xs text-slate-500 mb-4 text-center">Expositions, festivals et événements disponibles toute la semaine</p>
-                <div id="ongoing-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                </div>
-            </div>
-
-            <!-- Ancien container gardé pour compatibilité avec le reste du JS -->
-            <div id="activities-grid" class="hidden"></div>
         </div>
 
         <!-- CARTE INTERACTIVE -->
@@ -1282,6 +922,9 @@
                     <button onclick="loadFromParisOpenData().then(ok => showToast(ok ? '✅ Données mises à jour !' : '⚠️ Indisponible, réessaie plus tard'))" 
                             class="flex items-center gap-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-2xl text-xs font-medium transition-colors">
                         <span>🔄 Forcer une nouvelle tentative</span>
+                    </button>
+                    <button onclick="showDataSources()" class="px-4 py-2 border border-white/20 hover:bg-white/10 rounded-2xl text-xs font-medium transition-colors text-white">
+                        Comment automatiser
                     </button>
                     <button onclick="showAbout()" class="hover:text-white underline text-xs">À propos</button>
                 </div>
@@ -1600,14 +1243,6 @@
                 tips: "Va tôt le matin pour les meilleures trouvailles. Amène du cash (beaucoup de marchands n'acceptent pas les cartes). Les allées Serpette et Biron sont les plus premium."
             }
         ]
-
-        // Marque automatiquement les événements multi-jours dans les données statiques
-        activities.forEach(a => {
-            if (a.isMultiDay === undefined) {
-                const d = (a.duration || '').toLowerCase();
-                a.isMultiDay = d.includes('jour') || d.includes('semaine') || d.includes('toute') || d.includes('nuit');
-            }
-        });
 
         // === PHOTOS RÉELLES DES LIEUX EXACTS (Unsplash, licence libre) ===
         // Toutes ces URLs sont validées et correspondent visuellement aux endroits cités
@@ -1931,115 +1566,90 @@
 
         // ==================== RENDER ACTIVITIES ====================
         function renderActivities(filteredActivities) {
-            const dailyGrid      = document.getElementById('daily-events-grid');
-            const ongoingGrid    = document.getElementById('ongoing-grid');
-            const ongoingSection = document.getElementById('ongoing-section');
-            const countEl        = document.getElementById('results-count');
+            const container = document.getElementById('activities-grid');
+            container.innerHTML = '';
 
-            if (!dailyGrid) return; // fallback safety
-
-            // Sépare ponctuels vs continus
-            const daily   = filteredActivities.filter(a => !a.isMultiDay);
-            const ongoing = filteredActivities.filter(a =>  a.isMultiDay);
-
-            // Déduplique les continus (même titre = même expo répétée sur plusieurs jours)
-            const ongoingUnique = [];
-            const seen = new Set();
-            ongoing.forEach(a => {
-                const key = a.title.trim().toLowerCase().substring(0, 50);
-                if (!seen.has(key)) { seen.add(key); ongoingUnique.push(a); }
-            });
-
+            // Update results count
+            const countEl = document.getElementById('results-count');
             if (countEl) {
-                countEl.innerHTML = daily.length > 0
-                    ? \`<span class="text-white font-semibold">\${daily.length}</span> événement\${daily.length > 1 ? 's' : ''} ponctuel\${daily.length > 1 ? 's' : ''}\`
-                      + (ongoingUnique.length > 0 ? \` <span class="text-slate-500">+ \${ongoingUnique.length} en cours</span>\` : '')
-                    : (ongoingUnique.length > 0 ? \`<span class="text-slate-400">\${ongoingUnique.length} événements en cours cette semaine</span>\` : 'Aucun résultat');
+                countEl.innerHTML = `${filteredActivities.length} activité${filteredActivities.length > 1 ? 's' : ''} trouvée${filteredActivities.length > 1 ? 's' : ''}`;
             }
 
-            // Zone 1 : ponctuels
-            dailyGrid.innerHTML = '';
-            if (daily.length === 0) {
-                dailyGrid.innerHTML = \`<div class="col-span-full py-6 text-center text-sm text-slate-400">
-                    Pas d'événement ponctuel ce jour — voir les événements "En ce moment" ci-dessous.
-                    <button onclick="resetFilters()" class="ml-2 text-[var(--school-accent)] underline">Tous les jours</button>
-                </div>\`;
-            } else {
-                daily.forEach(a => renderCard(a, dailyGrid, false));
-            }
-
-            // Zone 2 : continus
-            ongoingSection.classList.toggle('hidden', ongoingUnique.length === 0);
-            ongoingGrid.innerHTML = '';
-            ongoingUnique.forEach(a => renderCard(a, ongoingGrid, true));
-
-            // Map
-            if (currentView === 'map' && map) updateMapMarkers(filteredActivities);
-            requestAnimationFrame(() => observeNewCards());
-        }
-
-        function renderCard(activity, container, isOngoing) {
-            const isInPlanning = userPlanning.some(p => p.id === activity.id);
-            const imgUrl = getActivityImage(activity);
-            const isFavorite = userFavorites.includes(activity.id);
-            const catColor = getCategoryColor(activity.category);
-            const wrapper = document.createElement('div');
-
-            if (isOngoing) {
-                // Carte compacte horizontale pour les événements continus
-                wrapper.innerHTML = \`
-                <div class="activity-card group bg-[#0d1424] border border-white/8 rounded-2xl overflow-hidden flex cursor-pointer" style="height:96px" onclick="showActivityModal(\${activity.id})">
-                    <div class="w-28 flex-shrink-0 bg-cover bg-center relative" style="background-image:url('\${imgUrl}');background-color:#1a2035;">
-                        <img src="\${imgUrl}" style="display:none" onerror="this.parentElement.style.backgroundImage='url(\${categoryImages[activity.category]||categoryImages.default})'">
-                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0d1424]/40"></div>
-                        <span class="absolute bottom-2 left-2 tag \${catColor} text-[9px]">\${activity.category}</span>
+            if (filteredActivities.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-10 text-center">
+                        <p class="text-slate-300">Aucune activité ne correspond à tes filtres.</p>
+                        <button onclick="resetFilters()" class="mt-4 text-sm text-[var(--school-accent)] font-medium hover:underline">Réinitialiser les filtres</button>
                     </div>
-                    <div class="px-3 py-2.5 flex flex-col justify-between flex-1 min-w-0">
-                        <div>
-                            <h3 class="font-semibold text-[12.5px] leading-tight text-white line-clamp-2 group-hover:text-[#FF5C00] transition-colors">\${activity.title}</h3>
-                            <p class="text-[11px] text-slate-400 mt-0.5 truncate">📍 \${activity.location}</p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-bold \${activity.price===0?'text-[#FF5C00]':'text-slate-300'}">\${activity.priceLabel}</span>
-                            <button onclick="event.stopImmediatePropagation(); togglePlanning(\${activity.id}, this); renderActivities(getCurrentFilteredActivities());"
-                                class="text-[10px] px-2.5 py-1 rounded-lg font-semibold transition-all \${isInPlanning?'bg-emerald-600/30 text-emerald-400':'bg-white/10 hover:bg-[#FF5C00] text-slate-300 hover:text-white'}">
-                                \${isInPlanning ? '✓' : '+ Planning'}
+                `;
+                // Also update map if visible
+                if (currentView === 'map' && map) {
+                    updateMapMarkers([]);
+                }
+                return;
+            }
+
+            filteredActivities.forEach(activity => {
+                const isInPlanning = userPlanning.some(p => p.id === activity.id);
+                
+                const imgUrl = getActivityImage(activity);
+                const isFavorite = userFavorites.includes(activity.id);
+
+                const cardHTML = `
+                    <div class="activity-card bg-[#111827] border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full cursor-pointer shadow-lg" onclick="showActivityModal(${activity.id})">
+                        <!-- Image Header -->
+                        <div class="card-image rounded-t-3xl" id="card-img-${activity.id}" style="background-image: url('${imgUrl}'); background-color: #1a2035;">
+                            <img src="${imgUrl}" style="display:none" onerror="document.getElementById('card-img-${activity.id}').style.backgroundImage='url(${categoryImages[activity.category] || categoryImages.default})'">
+                            <div class="price-badge px-3 py-1 text-[11px] font-bold rounded-full shadow-md ${activity.price === 0 ? 'bg-[#FF5C00] text-white' : 'bg-black text-white'} border border-white/30">
+                                ${activity.priceLabel}
+                            </div>
+                            
+                            <!-- Favorite Heart -->
+                            <button onclick="event.stopImmediatePropagation(); toggleFavorite(${activity.id}, this)" 
+                                    class="absolute top-3 left-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/60 backdrop-blur hover:bg-black/80 transition-all">
+                                <span class="text-lg leading-none ${isFavorite ? 'text-red-500' : 'text-slate-300 hover:text-slate-200'}">♥</span>
                             </button>
+
+                            <div class="absolute bottom-3 left-3">
+                                <span class="tag ${getCategoryColor(activity.category)} shadow-sm">${activity.category}</span>
+                            </div>
+                        </div>
+
+                        <div class="px-4 pt-4 pb-3 flex-1 flex flex-col">
+                            <div class="flex items-start justify-between gap-2 mb-1.5">
+                                <h3 class="font-semibold text-[15.5px] leading-tight tracking-[-0.015em] line-clamp-2 flex-1 pr-1 text-white">${activity.title}</h3>
+                            </div>
+                            
+                            <div class="flex items-center text-xs text-slate-300 mb-3">
+                                <span class="font-medium tabular-nums">${activity.time}</span>
+                                <span class="mx-1.5 text-slate-300">•</span>
+                                <span>${activity.duration}</span>
+                            </div>
+
+                            <div class="flex items-center text-sm text-slate-200 mb-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 mr-1.5 flex-shrink-0 text-[var(--school-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314-11.314z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span class="line-clamp-1 text-xs">${activity.location}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto border-t border-white/10 px-4 py-3.5 flex items-center justify-between bg-white/5 text-xs">
+                            <div class="font-medium text-slate-300">
+                                ${activity.arrondissement}
+                            </div>
+                            
+                            <div class="flex items-center gap-x-1" onclick="event.stopImmediatePropagation(); togglePlanning(${activity.id}, this)">
+                                <button class="text-xs font-semibold px-4 h-8 rounded-2xl flex items-center transition-all active:scale-[0.985] ${isInPlanning ? 'bg-[var(--school-accent)] text-white' : 'bg-white/10 border border-white/20 hover:bg-white/20 text-white'}">
+                                    ${isInPlanning ? '✓ Dans le planning' : '+ Ajouter'}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>\`;
-            } else {
-                // Carte pleine pour les événements ponctuels
-                wrapper.innerHTML = \`
-                <div class="activity-card bg-[#111827] border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full cursor-pointer shadow-lg" onclick="showActivityModal(\${activity.id})">
-                    <div class="card-image rounded-t-3xl" id="card-img-\${activity.id}" style="background-image:url('\${imgUrl}');background-color:#1a2035;">
-                        <img src="\${imgUrl}" style="display:none" onerror="document.getElementById('card-img-\${activity.id}')&&(document.getElementById('card-img-\${activity.id}').style.backgroundImage='url(\${categoryImages[activity.category]||categoryImages.default})')">
-                        <div class="price-badge px-3 py-1 text-[11px] font-bold rounded-full shadow-md \${activity.price===0?'bg-[#FF5C00] text-white':'bg-black text-white'} border border-white/30">\${activity.priceLabel}</div>
-                        <button onclick="event.stopImmediatePropagation(); toggleFavorite(\${activity.id}, this)"
-                                class="absolute top-3 left-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/60 backdrop-blur hover:bg-black/80 transition-all">
-                            <span class="text-lg leading-none \${isFavorite?'text-red-500':'text-slate-300'}">♥</span>
-                        </button>
-                        <div class="absolute bottom-3 left-3"><span class="tag \${catColor} shadow-sm">\${activity.category}</span></div>
-                    </div>
-                    <div class="px-4 pt-4 pb-3 flex-1 flex flex-col">
-                        <h3 class="font-semibold text-[15px] leading-tight tracking-tight line-clamp-2 text-white mb-1.5">\${activity.title}</h3>
-                        <div class="flex items-center text-xs text-slate-300 mb-2">
-                            <span class="font-semibold text-white">\${activity.day} \${activity.time}</span>
-                            <span class="mx-1.5 text-white/20">•</span>
-                            <span>\${activity.duration}</span>
-                        </div>
-                        <p class="text-xs text-slate-400 leading-relaxed line-clamp-2 flex-1">\${activity.description}</p>
-                        <div class="mt-3 flex items-center justify-between">
-                            <span class="text-xs text-slate-500 truncate max-w-[120px]">📍 \${activity.location}</span>
-                            <button onclick="event.stopImmediatePropagation(); togglePlanning(\${activity.id}, this); renderActivities(getCurrentFilteredActivities());"
-                                    class="px-3 py-1.5 text-[11px] font-semibold rounded-xl transition-all \${isInPlanning?'bg-emerald-600/30 text-emerald-400':'bg-[var(--school-accent)] hover:bg-[var(--school-accent-dark)] text-white'}">
-                                \${isInPlanning ? '✓ Ajouté' : '+ Ajouter'}
-                            </button>
-                        </div>
-                    </div>
-                </div>\`;
-            }
-            container.appendChild(wrapper.firstElementChild);
+                `;
+                container.innerHTML += cardHTML;
+            });
         }
 
         function getCategoryColor(category) {
@@ -2332,111 +1942,27 @@
 
                 // Parse les records en format ParcoursParis
                 const DAY_NAMES = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-                const WEEK_DAYS = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
-
-                // Calcule le jour le plus pertinent dans la semaine courante pour cet événement
-                function getBestDay(r) {
-                    const start = r.date_start ? new Date(r.date_start) : new Date();
-                    const end   = r.date_end   ? new Date(r.date_end)   : start;
-                    const diffDays = (end - start) / 86400000;
-
-                    // Événement sur plusieurs jours/semaines → on le distribue sur le bon jour de la semaine courante
-                    if (diffDays > 1) {
-                        // Trouve le premier jour de cette semaine où l'événement est actif
-                        const now = new Date();
-                        const dow = now.getDay();
-                        const monday = new Date(now);
-                        monday.setDate(now.getDate() - ((dow + 6) % 7));
-                        monday.setHours(0,0,0,0);
-
-                        for (let d = 0; d < 7; d++) {
-                            const candidate = new Date(monday);
-                            candidate.setDate(monday.getDate() + d);
-                            if (candidate >= start && candidate <= end) {
-                                return { day: WEEK_DAYS[d], dateStr: candidate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) };
-                            }
-                        }
-                    }
-                    // Événement ponctuel → on garde son jour réel
-                    return {
-                        day: DAY_NAMES[start.getDay()],
-                        dateStr: start.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })
-                    };
-                }
-
-                // Pour les événements multi-semaines, génère un exemplaire par jour de la semaine courante
-                function expandRecord(r, baseIndex) {
-                    const start = r.date_start ? new Date(r.date_start) : new Date();
-                    const end   = r.date_end   ? new Date(r.date_end)   : start;
-                    const diffDays = (end - start) / 86400000;
-
-                    if (diffDays <= 1) return [{ r, dayOverride: null, dateOverride: null }];
-
-                    // Événement multi-jours : on crée une entrée par jour de la semaine
-                    const now = new Date();
-                    const dow = now.getDay();
-                    const monday = new Date(now);
-                    monday.setDate(now.getDate() - ((dow + 6) % 7));
-                    monday.setHours(0,0,0,0);
-
-                    const entries = [];
-                    for (let d = 0; d < 7; d++) {
-                        const candidate = new Date(monday);
-                        candidate.setDate(monday.getDate() + d);
-                        if (candidate >= new Date(start.toDateString()) && candidate <= new Date(end.toDateString())) {
-                            entries.push({
-                                r,
-                                dayOverride: WEEK_DAYS[d],
-                                dateOverride: candidate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })
-                            });
-                        }
-                    }
-                    return entries.length > 0 ? entries : [{ r, dayOverride: null, dateOverride: null }];
-                }
-
-                // Expansion : on crée un objet activité par jour couvert dans la semaine
-                const expanded = [];
-                records.forEach(r => {
-                    expandRecord(r, 0).forEach(entry => expanded.push(entry));
-                });
-
-                const liveActivities = expanded.slice(0, 30).map(({ r, dayOverride, dateOverride }, i) => {
+                const liveActivities = records.slice(0, 25).map((r, i) => {
                     const startDate = r.date_start ? new Date(r.date_start) : new Date();
-                    const day     = dayOverride || DAY_NAMES[startDate.getDay()];
-                    const dateStr = dateOverride || startDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
-                    const timeStr = r.date_start ? r.date_start.substring(11,16) : '10:00';
+                    const day     = DAY_NAMES[startDate.getDay()];
+                    const dateStr = startDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+                    const timeStr = r.date_start ? r.date_start.substring(11,16) : '14:00';
 
-                    // Durée — uniquement si event ponctuel (< 2 jours)
-                    let duration = 'Toute la semaine';
+                    let duration = '2h';
                     if (r.date_end && r.date_start) {
                         const h = (new Date(r.date_end) - new Date(r.date_start)) / 3600000;
                         if (h > 0 && h < 24) {
                             const hh = Math.floor(h), mm = Math.round((h-hh)*60);
                             duration = hh > 0 ? (mm > 0 ? `${hh}h${mm}` : `${hh}h`) : `${mm}min`;
-                        } else if (h >= 24 && h < 48) {
-                            duration = '2 jours';
                         }
                     }
 
-                    // Prix — parsing robuste
                     let price = 0, priceLabel = 'Gratuit';
-                    const pt = (r.price_type || '').toLowerCase().trim();
-                    const pd = (r.price_detail || '').trim();
-                    if (pt && pt !== 'gratuit' && pt !== 'non renseigné' && pt !== '') {
-                        // Cherche le premier nombre dans price_detail
-                        const match = pd.match(/(\d+(?:[.,]\d+)?)/);
-                        const raw = match ? parseFloat(match[1].replace(',', '.')) : 0;
-                        if (raw > 0 && raw < 500) { // filtre les prix aberrants
-                            price = raw;
-                            priceLabel = `${raw}€`;
-                        } else if (pt.includes('payant')) {
-                            price = 10;
-                            priceLabel = 'Payant';
-                        }
-                        // Tarif réduit étudiant
-                        if (pd.toLowerCase().includes('étudiant') || pd.toLowerCase().includes('reduit')) {
-                            priceLabel += ' (réduit dispo)';
-                        }
+                    const pt = (r.price_type || '').toLowerCase();
+                    if (pt && pt !== 'gratuit' && pt !== 'non renseigné') {
+                        const raw = parseFloat((r.price_detail || '').replace(/[^0-9.]/g,'')) || 0;
+                        price = raw > 0 ? raw : 8;
+                        priceLabel = raw > 0 ? `${raw}€` : 'Payant';
                     }
 
                     let coords = [48.8566 + (Math.random()-0.5)*0.04, 2.3522 + (Math.random()-0.5)*0.04];
@@ -2463,10 +1989,7 @@
                         tips: `Source : Ville de Paris • ${dateStr}`,
                         _imageUrl: r.cover_url || null,
                         _sourceUrl: r.url || 'https://www.paris.fr/quefaire',
-                        _isLive: true,
-                        isMultiDay: (r.date_end && r.date_start)
-                            ? (new Date(r.date_end) - new Date(r.date_start)) / 86400000 > 1
-                            : false
+                        _isLive: true
                     };
                 });
 
@@ -2885,36 +2408,23 @@
         }
 
         // ==================== INITIALIZATION ====================
-        function updateHeroCounters() {
-            const total = activities.length;
-            const free  = activities.filter(a => a.price === 0).length;
-            const hc = document.getElementById('hero-count');
-            const hf = document.getElementById('hero-free');
-            if (hc) hc.textContent = total;
-            if (hf) hf.textContent = free;
-        }
-
         function initializeApp() {
             initTailwind();
 
+            // Les données sont déjà des vrais événements de la semaine (statiques + vérifiés)
+            // On garde une copie pour pouvoir revenir dessus si l'API enrichit les données
             if (demoActivities.length === 0) {
                 demoActivities = activities.slice();
             }
 
+            // Rendu initial avec les vraies données de la semaine
             renderActivities(activities);
             renderParcours();
             renderPlanning();
-            updateHeroCounters();
-
-            // Cache le loader dès que le contenu est rendu
-            hideLoader();
-            initHeroParallax();
-            initSidebarScroll();
-            setTimeout(initScrollReveal, 200);
 
             // Tentative optionnelle d'enrichissement via l'API Paris Open Data
+            // Si elle échoue, les données réelles statiques restent affichées (pas de dégradation)
             loadFromParisOpenData({ silent: true }).then(success => {
-                updateHeroCounters();
                 if (success) {
                     console.log(`%c[ParcoursParis] ✅ ${activities.length} événements enrichis depuis Paris Open Data`, 'color:#10b981');
                 } else {
@@ -2981,7 +2491,7 @@
                             </ul>
                         </div>
                         
-                        <p class="text-xs pt-3 text-slate-300">Application développée dans le cadre du cours de Management de Projet — ISAE-Supmeca / UIMM Mécavenir, 2026.</p>
+                        <p class="text-xs pt-3 text-slate-300">Prototype développé en HTML + Tailwind + JavaScript pur. Déploiement possible sur Vercel/Netlify en 30 secondes.</p>
                     </div>
                 </div>
                 <div class="border-t px-6 py-4 bg-slate-50 text-xs text-slate-300">
@@ -3473,157 +2983,7 @@
         }
 
         // Start the app
-        // ============================================
-        // ANIMATIONS JAVASCRIPT — ParcoursParis
-        // ============================================
-
-        // --- Page loader ---
-        function hideLoader() {
-            const loader = document.getElementById('page-loader');
-            if (loader) {
-                loader.classList.add('done');
-                setTimeout(() => loader.remove(), 600);
-            }
-        }
-
-        // --- Compteur animé (compte de 0 → target) ---
-        function animateCounter(el, target, duration = 900) {
-            if (!el || isNaN(target)) return;
-            const start = performance.now();
-            const startVal = 0;
-            function step(now) {
-                const progress = Math.min((now - start) / duration, 1);
-                const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-                el.textContent = Math.round(startVal + (target - startVal) * ease);
-                if (progress < 1) requestAnimationFrame(step);
-                else el.textContent = target;
-            }
-            requestAnimationFrame(step);
-        }
-
-        // --- Scroll reveal avec IntersectionObserver ---
-        function initScrollReveal() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-            // Observe tous les éléments reveal
-            document.querySelectorAll('.reveal, .card-reveal').forEach(el => observer.observe(el));
-
-            // Observer les cards d'activités (ajoutées dynamiquement)
-            const cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        cardObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-
-            document.querySelectorAll('.activity-card').forEach((el, i) => {
-                el.classList.add('card-reveal');
-                el.style.transitionDelay = `${Math.min(i * 0.06, 0.4)}s`;
-                cardObserver.observe(el);
-            });
-
-            return cardObserver; // on le réutilise après re-render
-        }
-
-        // --- Observer les nouvelles cards après re-render des activités ---
-        let _cardObserver = null;
-        function observeNewCards() {
-            if (!_cardObserver) {
-                _cardObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            _cardObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.05, rootMargin: '0px 0px -10px 0px' });
-            }
-            document.querySelectorAll('.activity-card:not(.visible)').forEach((el, i) => {
-                if (!el.classList.contains('card-reveal')) {
-                    el.classList.add('card-reveal');
-                    el.style.transitionDelay = `${Math.min(i * 0.05, 0.35)}s`;
-                }
-                _cardObserver.observe(el);
-            });
-        }
-
-        // --- Parallax léger sur le hero au scroll ---
-        function initHeroParallax() {
-            const heroBg = document.querySelector('#home-top .bg-cover');
-            if (!heroBg) return;
-            window.addEventListener('scroll', () => {
-                const scrollY = window.scrollY;
-                if (scrollY < 600) {
-                    heroBg.style.transform = `translateY(${scrollY * 0.22}px)`;
-                }
-            }, { passive: true });
-        }
-
-        // --- Sidebar : highlight du lien actif selon le scroll ---
-        function initSidebarScroll() {
-            const sections = ['home-top','cette-semaine','parcours','incontournables','generateur','planning'];
-            const links = document.querySelectorAll('.sidebar-link');
-
-            window.addEventListener('scroll', () => {
-                let current = 'home-top';
-                sections.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el && window.scrollY >= el.offsetTop - 120) current = id;
-                });
-                links.forEach(link => {
-                    const href = link.getAttribute('href')?.replace('#','');
-                    link.classList.toggle('active', href === current);
-                });
-            }, { passive: true });
-        }
-
-        // --- Mise à jour des compteurs hero avec animation ---
-        const _origUpdateHeroCounters = updateHeroCounters;
-        window.updateHeroCounters = function() {
-            const total = activities.length;
-            const free  = activities.filter(a => a.price === 0).length;
-            const hc = document.getElementById('hero-count');
-            const hf = document.getElementById('hero-free');
-            if (hc) animateCounter(hc, total, 800);
-            if (hf) animateCounter(hf, free,  800);
-        };
-
-        // --- Hook : observer les cards après chaque renderActivities ---
-        const _origRenderActivities = renderActivities;
-        window.renderActivities = function(list) {
-            _origRenderActivities(list);
-            requestAnimationFrame(() => observeNewCards());
-        };
-
         window.onload = initializeApp;
-
-        // Séquence d'initialisation des animations
-        document.addEventListener('DOMContentLoaded', () => {
-            initHeroParallax();
-            initSidebarScroll();
-            setTimeout(initScrollReveal, 300);
-            setTimeout(hideLoader, 400);
-        });
-
-        // Failsafe : si DOMContentLoaded est déjà passé (script en bas de body)
-        if (document.readyState === 'interactive' || document.readyState === 'complete') {
-            initHeroParallax();
-            initSidebarScroll();
-            setTimeout(initScrollReveal, 300);
-            setTimeout(hideLoader, 400);
-        }
-
-        // Filet de sécurité absolu : cache le loader après 3s quoi qu'il arrive
-        setTimeout(hideLoader, 3000);
     </script>
     </div> <!-- end main-content -->
 </body>
