@@ -1601,11 +1601,12 @@
             }
         ]
 
-        // Marque automatiquement les événements multi-jours dans les données statiques
+        // Marque automatiquement les événements multi-jours (plusieurs jours / semaine) dans les données statiques.
+        // On utilise ' jours' (avec espace) pour distinguer "3 jours" (long) de "journée" (événement du jour).
         activities.forEach(a => {
             if (a.isMultiDay === undefined) {
                 const d = (a.duration || '').toLowerCase();
-                a.isMultiDay = d.includes('jour') || d.includes('semaine') || d.includes('toute') || d.includes('nuit');
+                a.isMultiDay = d.includes('semaine') || d.includes(' jours') || d.includes('plusieurs');
             }
         });
 
@@ -1908,7 +1909,8 @@
             let filtered = [...activities];
 
             if (currentFilters.day !== 'all') {
-                filtered = filtered.filter(a => a.day === currentFilters.day);
+                // Day filter only restricts punctual activities; long-running ("En ce moment") always shown if they pass other filters
+                filtered = filtered.filter(a => a.isMultiDay || a.day === currentFilters.day);
             }
             if (currentFilters.search) {
                 const s = currentFilters.search.toLowerCase();
@@ -2094,7 +2096,8 @@
             let filtered = [...activities];
 
             if (currentFilters.day !== 'all') {
-                filtered = filtered.filter(a => a.day === currentFilters.day);
+                // Day filter only restricts punctual activities; long-running ("En ce moment") always shown if they pass other filters
+                filtered = filtered.filter(a => a.isMultiDay || a.day === currentFilters.day);
             }
 
             if (currentFilters.search) {
@@ -3295,9 +3298,71 @@
             const container = document.getElementById('generator-activity-pool');
             if (!container) return;
 
+            // Normalize selection set: remove stale ids (e.g. after live data reload), and ensure long-duration activities are represented only once (by canonical first id)
+            const currentIds = new Set(activities.map(a => a.id));
+            const longKeyToCanonical = new Map();
+            activities.forEach(act => {
+                if (act.isMultiDay) {
+                    const key = (act.title || '').trim().toLowerCase().substring(0, 60);
+                    if (!longKeyToCanonical.has(key)) longKeyToCanonical.set(key, act.id);
+                }
+            });
+            const toRemove = [];
+            generatorSelectedIds.forEach(id => {
+                if (!currentIds.has(id)) { toRemove.push(id); return; }
+                const act = activities.find(a => a.id === id);
+                if (act && act.isMultiDay) {
+                    const key = (act.title || '').trim().toLowerCase().substring(0, 60);
+                    const canon = longKeyToCanonical.get(key);
+                    if (canon && canon !== id) toRemove.push(id);
+                }
+            });
+            toRemove.forEach(id => generatorSelectedIds.delete(id));
+            // Re-map any long selections to their canonical rep id (ensures checkbox matches the rendered card)
+            const normalized = new Set();
+            generatorSelectedIds.forEach(id => {
+                if (!currentIds.has(id)) return;
+                const act = activities.find(a => a.id === id);
+                if (act && act.isMultiDay) {
+                    const key = (act.title || '').trim().toLowerCase().substring(0, 60);
+                    const canon = longKeyToCanonical.get(key);
+                    if (canon) normalized.add(canon);
+                } else {
+                    normalized.add(id);
+                }
+            });
+            generatorSelectedIds.clear();
+            normalized.forEach(id => generatorSelectedIds.add(id));
+
+            // Auto pre-seed a few if none selected (e.g. after live data replaced the array)
+            if (generatorSelectedIds.size === 0 && activities.length > 0) {
+                let seeded = 0;
+                activities.forEach(act => {
+                    if (seeded >= 6) return;
+                    if (act.isMultiDay) {
+                        const key = (act.title || '').trim().toLowerCase().substring(0, 60);
+                        if (longKeyToCanonical.get(key) !== act.id) return; // only canon rep
+                    }
+                    generatorSelectedIds.add(act.id);
+                    seeded++;
+                });
+            }
+
             container.innerHTML = '';
 
+            // Deduplicate long-running activities in the *visible list* so each appears only once in generator (even if live data expanded them per-day)
+            const poolActs = [];
+            const seenLong = new Set();
             activities.forEach(act => {
+                if (act.isMultiDay) {
+                    const key = (act.title || '').trim().toLowerCase().substring(0, 60);
+                    if (seenLong.has(key)) return;
+                    seenLong.add(key);
+                }
+                poolActs.push(act);
+            });
+
+            poolActs.forEach(act => {
                 const isSelected = generatorSelectedIds.has(act.id);
 
                 const card = document.createElement('div');
