@@ -1975,7 +1975,10 @@
 
             // Map
             if (currentView === 'map' && map) updateMapMarkers(filteredActivities);
-            requestAnimationFrame(() => observeNewCards());
+            // double raf pour laisser le temps au layout avant d'observer les cartes nouvellement insérées
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => observeNewCards());
+            });
         }
 
         function renderCard(activity, container, isOngoing) {
@@ -2470,35 +2473,54 @@
                     };
                 });
 
-                // Sauvegarde + remplacement
-                if (demoActivities.length === 0) demoActivities = activities.slice();
-                activities.length = 0;
-                liveActivities.forEach(a => activities.push(a));
-                isUsingLiveData = true;
+                // Sauvegarde + remplacement UNIQUEMENT si on a des données live utiles.
+                // Sinon on garde les données démo curatorées (pour la semaine 1-7 juin 2026).
+                if (liveActivities.length > 0) {
+                    if (demoActivities.length === 0) demoActivities = activities.slice();
+                    activities.length = 0;
+                    liveActivities.forEach(a => activities.push(a));
+                    isUsingLiveData = true;
 
-                resetFilters();
-                renderGeneratorActivityPool();
-                if (currentView === 'map' && map) updateMapMarkers(activities);
+                    resetFilters();
+                    renderGeneratorActivityPool();
+                    if (currentView === 'map' && map) updateMapMarkers(activities);
 
-                // Bandeau vert ✅
-                if (bannerEl) {
-                    bannerEl.className = 'text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4';
-                    bannerEl.innerHTML = `<span class="inline-flex items-center gap-1.5">
-                        <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span>
-                        <strong>${liveActivities.length} événements en direct</strong> — 
-                        <a href="https://opendata.paris.fr/explore/dataset/que-faire-a-paris-/" target="_blank" class="underline">Paris Open Data</a>
-                        &nbsp;• Semaine ${dateFrom} → ${dateTo}
-                        &nbsp;<button onclick="loadFromParisOpenData()" class="underline opacity-50 hover:opacity-100 ml-2">↻ Actualiser</button>
-                    </span>`;
+                    // Bandeau vert ✅
+                    if (bannerEl) {
+                        bannerEl.className = 'text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4';
+                        bannerEl.innerHTML = `<span class="inline-flex items-center gap-1.5">
+                            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span>
+                            <strong>${liveActivities.length} événements en direct</strong> — 
+                            <a href="https://opendata.paris.fr/explore/dataset/que-faire-a-paris-/" target="_blank" class="underline">Paris Open Data</a>
+                            &nbsp;• Semaine ${dateFrom} → ${dateTo}
+                            &nbsp;<button onclick="loadFromParisOpenData()" class="underline opacity-50 hover:opacity-100 ml-2">↻ Actualiser</button>
+                        </span>`;
+                    }
+                    if (sidebarEl) {
+                        sidebarEl.className = 'flex items-center gap-2 text-emerald-400';
+                        sidebarEl.innerHTML = `<div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                            <span class="font-medium">${liveActivities.length} en direct</span>`;
+                    }
+
+                    if (!silent) showToast(`${liveActivities.length} événements chargés depuis Paris Open Data ✓`);
+                    return true;
+                } else {
+                    // 0 résultats live pour la période courante → on conserve les données statiques 2026
+                    if (bannerEl) {
+                        bannerEl.className = 'text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4';
+                        bannerEl.innerHTML = `<span class="inline-flex items-center gap-1.5">
+                            <span class="w-2 h-2 bg-emerald-400 rounded-full inline-block"></span>
+                            <strong>${activities.length} événements réels</strong> — Semaine 1-7 juin 2026 • Sources : paris.fr
+                            &nbsp;<button onclick="loadFromParisOpenData()" class="underline opacity-60 hover:opacity-100 ml-2">↻ Réessayer</button>
+                        </span>`;
+                    }
+                    if (sidebarEl) {
+                        sidebarEl.className = 'flex items-center gap-2 text-emerald-400';
+                        sidebarEl.innerHTML = `<div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                            <span class="font-medium">${activities.length} événements • juin 2026</span>`;
+                    }
+                    return false;
                 }
-                if (sidebarEl) {
-                    sidebarEl.className = 'flex items-center gap-2 text-emerald-400';
-                    sidebarEl.innerHTML = `<div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                        <span class="font-medium">${liveActivities.length} en direct</span>`;
-                }
-
-                if (!silent) showToast(`${liveActivities.length} événements chargés depuis Paris Open Data ✓`);
-                return true;
 
             } catch (err) {
                 console.info('[ParcoursParis] Données live indisponibles :', err.message);
@@ -3554,6 +3576,17 @@
                 }
                 _cardObserver.observe(el);
             });
+
+            // Failsafe pour cartes dans le viewport initial : l'IntersectionObserver ne déclenche
+            // pas toujours immédiatement après insertion + ajout de .card-reveal (surtout au 1er render).
+            // Sans ça les cartes restent opacity:0 même si présentes dans le DOM.
+            document.querySelectorAll('.activity-card.card-reveal:not(.visible)').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.classList.add('visible');
+                    if (_cardObserver) _cardObserver.unobserve(el);
+                }
+            });
         }
 
         // --- Parallax léger sur le hero au scroll ---
@@ -3601,7 +3634,10 @@
         const _origRenderActivities = renderActivities;
         window.renderActivities = function(list) {
             _origRenderActivities(list);
-            requestAnimationFrame(() => observeNewCards());
+            // double raf pour laisser le temps au layout avant d'observer les cartes nouvellement insérées
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => observeNewCards());
+            });
         };
 
         window.onload = initializeApp;
