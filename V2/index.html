@@ -295,11 +295,6 @@
 
         .main-content {
             margin-left: 250px;
-            /* Initial state: content is logically "behind" loader. We reveal it explicitly
-               when hiding the loader (in the coordinated rAF) to avoid any paint of activities
-               "behind" the animation or late disappear. */
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         @media (max-width: 1024px) {
@@ -630,7 +625,7 @@
             <div class="bg-white/5 rounded-2xl p-3 text-xs mb-3">
                 <div class="flex items-center gap-2 text-emerald-400" id="sidebar-data-status">
                     <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                    <span class="font-medium">événements • semaine en cours (auto)</span>
+                    <span class="font-medium">15 événements • 1–7 juin 2026</span>
                 </div>
             </div>
 
@@ -717,7 +712,7 @@
                     
                     <h1 class="hero-title text-6xl md:text-[72px] leading-[1.0] tracking-[-0.045em] font-semibold heading-serif mb-6">
                         Paris, cette semaine.<br>
-                        <span class="text-[var(--school-accent)] text-3xl md:text-[38px] font-medium tracking-tight">semaine en cours (auto).</span>
+                        <span class="text-[var(--school-accent)] text-3xl md:text-[38px] font-medium tracking-tight">1 — 7 juin 2026.</span>
                     </h1>
                     
                     <p class="hero-desc text-xl text-slate-300 max-w-md mb-9">
@@ -1058,7 +1053,7 @@
 
         <!-- Bandeau statut données -->
         <div id="live-data-banner" class="text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4">
-            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span> <strong>événements réels</strong> — Semaine en cours (auto via Open Data) • Sources : paris.fr</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span> <strong>15 événements réels</strong> — Semaine du 1 au 7 juin 2026 • Sources : paris.fr, sortiraparis.com, lebonbon.fr</span>
         </div>
 
         <!-- Advanced filters -->
@@ -1147,7 +1142,7 @@
                     </div>
                     <div class="text-xs text-[var(--school-accent)] font-medium flex items-center gap-x-1">
                         <div class="w-2 h-2 bg-[var(--school-accent)] rounded-full"></div>
-                        <span>activités cette semaine (auto)</span>
+                        <span>15 activités cette semaine</span>
                     </div>
                 </div>
                 <div id="leaflet-map" class="w-full h-[460px] z-10"></div>
@@ -1603,37 +1598,14 @@
                 coordinates: [48.9016, 2.3503],
                 metro: "Garibaldi ou Porte de Clignancourt (13)",
                 tips: "Va tôt le matin pour les meilleures trouvailles. Amène du cash (beaucoup de marchands n'acceptent pas les cartes). Les allées Serpette et Biron sont les plus premium."
-            },
-            {
-                id: 16,
-                title: "Slimane en concert – Salle Pleyel",
-                day: "Vendredi",
-                date: "5 juin",
-                time: "20:00",
-                duration: "2h",
-                category: "Sorties",
-                price: 35,
-                priceLabel: "35€ (tarif réduit étudiant dispo)",
-                location: "Salle Pleyel, 252 rue du Faubourg Saint-Honoré",
-                arrondissement: "8e",
-                description: "Slimane, la voix qui fait vibrer la France, se produit à la Salle Pleyel pour un concert pop émouvant et puissant. Hits, ballades et surprises au programme dans l'une des salles les plus acoustiques de Paris. Parfait pour une soirée musicale en semaine.",
-                spots: "Réservation conseillée sur sallepleyel.com",
-                studentDiscount: true,
-                coordinates: [48.8753, 2.3014],
-                metro: "Ternes (2) ou Courcelles (2)",
-                tips: "Tarif étudiant souvent disponible à la billetterie avec ta carte. Arrive 30 min avant pour profiter du bar et de l'ambiance du hall historique."
             }
         ]
 
-        // Marque automatiquement les événements multi-jours (plusieurs jours / semaine) dans les données statiques.
-        // On utilise ' jours' (avec espace) pour distinguer "3 jours" (long) de "journée" (événement du jour).
+        // Marque automatiquement les événements multi-jours dans les données statiques
         activities.forEach(a => {
             if (a.isMultiDay === undefined) {
                 const d = (a.duration || '').toLowerCase();
-                a.isMultiDay = d.includes('semaine') || d.includes(' jours') || d.includes('plusieurs');
-            }
-            if (!a._sourceUrl) {
-                a._sourceUrl = 'https://www.paris.fr/quefaire';
+                a.isMultiDay = d.includes('jour') || d.includes('semaine') || d.includes('toute') || d.includes('nuit');
             }
         });
 
@@ -1654,8 +1626,7 @@
             12: "https://images.unsplash.com/photo-1585011664466-b7bbe92f34ef?w=800&q=80", // Pokémon coloré
             13: "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?w=800&q=80",    // Jardin à la française
             14: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=800&q=80", // Art contemporain expo
-            15: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=800&q=80",  // Marché brocante
-            16: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&q=80"   // Concert live scène / lumières (Salle Pleyel vibe)
+            15: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=800&q=80"  // Marché brocante
         };
 
         // Images de fallback par catégorie (pour les données live sans image officielle)
@@ -1937,8 +1908,7 @@
             let filtered = [...activities];
 
             if (currentFilters.day !== 'all') {
-                // Day filter only restricts punctual activities; long-running ("En ce moment") always shown if they pass other filters
-                filtered = filtered.filter(a => a.isMultiDay || a.day === currentFilters.day);
+                filtered = filtered.filter(a => a.day === currentFilters.day);
             }
             if (currentFilters.search) {
                 const s = currentFilters.search.toLowerCase();
@@ -1981,61 +1951,27 @@
             });
 
             if (countEl) {
-                if (daily.length > 0) {
-                    countEl.innerHTML = `<span class="text-white font-semibold">${daily.length}</span> événement${daily.length > 1 ? 's' : ''} ponctuel${daily.length > 1 ? 's' : ''}`
-                      + (ongoingUnique.length > 0 ? ` <span class="text-slate-500">+ ${ongoingUnique.length} en cours</span>` : '');
-                } else if (ongoingUnique.length > 0) {
-                    countEl.innerHTML = `<span class="text-white font-semibold">${ongoingUnique.length}</span> événement${ongoingUnique.length > 1 ? 's' : ''} cette semaine`;
-                } else {
-                    countEl.innerHTML = 'Aucun résultat';
-                }
+                countEl.innerHTML = daily.length > 0
+                    ? `<span class="text-white font-semibold">${daily.length}</span> événement${daily.length > 1 ? 's' : ''} ponctuel${daily.length > 1 ? 's' : ''}`
+                      + (ongoingUnique.length > 0 ? ` <span class="text-slate-500">+ ${ongoingUnique.length} en cours</span>` : '')
+                    : (ongoingUnique.length > 0 ? `<span class="text-slate-400">${ongoingUnique.length} événements en cours cette semaine</span>` : 'Aucun résultat');
             }
 
-            // Zone 1 : ponctuels / activités du jour (main "Que faire cette semaine ?")
-            // Pour un jour spécifique : on montre les événements distincts qui "tombent" ce jour-là
-            // (ponctuels + l'occurrence du jour pour les événements multi-jours, grâce à l'expansion live).
-            // Sur "Tous les jours" : seulement les vrais ponctuels (courts) dans la grille principale,
-            // les longs dans la bande "En ce moment".
+            // Zone 1 : ponctuels
             dailyGrid.innerHTML = '';
-            let dailyToShow;
-            if (currentFilters.day !== 'all') {
-                dailyToShow = filteredActivities.filter(a => a.day === currentFilters.day);
-            } else {
-                dailyToShow = daily; // only pure short punctuals
-            }
-            if (dailyToShow.length === 0) {
-                const dayLabel = (currentFilters.day && currentFilters.day !== 'all') ? ` (${currentFilters.day})` : '';
+            if (daily.length === 0) {
                 dailyGrid.innerHTML = `<div class="col-span-full py-6 text-center text-sm text-slate-400">
-                    Pas d'événement ce jour${dayLabel} dans la sélection.<br>
+                    Pas d'événement ponctuel ce jour — voir les événements "En ce moment" ci-dessous.
                     <button onclick="resetFilters()" class="ml-2 text-[var(--school-accent)] underline">Tous les jours</button>
                 </div>`;
             } else {
-                dailyToShow.forEach(a => renderCard(a, dailyGrid, false));
+                daily.forEach(a => renderCard(a, dailyGrid, false));
             }
 
-            // Update count to reflect what's actually shown in main grid for day-specific view
-            if (countEl && currentFilters.day !== 'all' && dailyToShow.length > 0) {
-                countEl.innerHTML = `<span class="text-white font-semibold">${dailyToShow.length}</span> événement${dailyToShow.length > 1 ? 's' : ''} ce jour`;
-            }
-
-            // Zone 2 : continus ("En ce moment à Paris") - seulement sur "Tous les jours"
-            const showOngoingBand = (currentFilters.day === 'all') && ongoingUnique.length > 0;
-            ongoingSection.classList.toggle('hidden', !showOngoingBand);
+            // Zone 2 : continus
+            ongoingSection.classList.toggle('hidden', ongoingUnique.length === 0);
             ongoingGrid.innerHTML = '';
-            if (showOngoingBand) {
-                ongoingUnique.forEach(a => renderCard(a, ongoingGrid, true));
-            }
-
-            // Force .visible sync (no rAF delay) for cards that are in/near viewport right after append.
-            // Cards are created with card-reveal (opacity:0), so without this they can cause "disappear"
-            // flash or stay hidden until async observe. In-view ones (the main grid at top) get shown
-            // immediately when loader hides. Below-fold ones keep card-reveal for proper IO scroll reveal.
-            document.querySelectorAll('.activity-card:not(.visible)').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight + 100 && rect.bottom > -50) {
-                    el.classList.add('visible');
-                }
-            });
+            ongoingUnique.forEach(a => renderCard(a, ongoingGrid, true));
 
             // Map
             if (currentView === 'map' && map) updateMapMarkers(filteredActivities);
@@ -2052,7 +1988,7 @@
             if (isOngoing) {
                 // Carte compacte horizontale pour les événements continus
                 wrapper.innerHTML = `
-                <div class="activity-card card-reveal group bg-[#0d1424] border border-white/8 rounded-2xl overflow-hidden flex cursor-pointer" style="height:96px" onclick="showActivityModal(${activity.id})">
+                <div class="activity-card group bg-[#0d1424] border border-white/8 rounded-2xl overflow-hidden flex cursor-pointer" style="height:96px" onclick="showActivityModal(${activity.id})">
                     <div class="w-28 flex-shrink-0 bg-cover bg-center relative" style="background-image:url('${imgUrl}');background-color:#1a2035;">
                         <img src="${imgUrl}" style="display:none" onerror="this.parentElement.style.backgroundImage='url(${categoryImages[activity.category]||categoryImages.default})'">
                         <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0d1424]/40"></div>
@@ -2075,7 +2011,7 @@
             } else {
                 // Carte pleine pour les événements ponctuels
                 wrapper.innerHTML = `
-                <div class="activity-card card-reveal bg-[#111827] border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full cursor-pointer shadow-lg" onclick="showActivityModal(${activity.id})">
+                <div class="activity-card bg-[#111827] border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full cursor-pointer shadow-lg" onclick="showActivityModal(${activity.id})">
                     <div class="card-image rounded-t-3xl" id="card-img-${activity.id}" style="background-image:url('${imgUrl}');background-color:#1a2035;">
                         <img src="${imgUrl}" style="display:none" onerror="document.getElementById('card-img-${activity.id}')&&(document.getElementById('card-img-${activity.id}').style.backgroundImage='url(${categoryImages[activity.category]||categoryImages.default})')">
                         <div class="price-badge px-3 py-1 text-[11px] font-bold rounded-full shadow-md ${activity.price===0?'bg-[#FF5C00] text-white':'bg-black text-white'} border border-white/30">${activity.priceLabel}</div>
@@ -2158,8 +2094,7 @@
             let filtered = [...activities];
 
             if (currentFilters.day !== 'all') {
-                // Day filter only restricts punctual activities; long-running ("En ce moment") always shown if they pass other filters
-                filtered = filtered.filter(a => a.isMultiDay || a.day === currentFilters.day);
+                filtered = filtered.filter(a => a.day === currentFilters.day);
             }
 
             if (currentFilters.search) {
@@ -2537,24 +2472,15 @@
 
                 // Sauvegarde + remplacement
                 if (demoActivities.length === 0) demoActivities = activities.slice();
-
-                // Always feed live data into activities for automatic update (per week, distinct per day via expansion)
-                // The static is only small fallback. Live provides the _sourceUrl links to paris.fr .
                 activities.length = 0;
                 liveActivities.forEach(a => activities.push(a));
                 isUsingLiveData = true;
 
-                if (!silent) {
-                    // Explicit forcer: full reset to all + re-render
-                    resetFilters();
-                } else {
-                    // Silent: just re-render the list with current filters (no reset search/day if user changed)
-                    renderActivities(activities);
-                }
+                resetFilters();
                 renderGeneratorActivityPool();
                 if (currentView === 'map' && map) updateMapMarkers(activities);
 
-                // Live banner always on success (since we feed live data)
+                // Bandeau vert ✅
                 if (bannerEl) {
                     bannerEl.className = 'text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4';
                     bannerEl.innerHTML = `<span class="inline-flex items-center gap-1.5">
@@ -2582,14 +2508,14 @@
                     bannerEl.className = 'text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4';
                     bannerEl.innerHTML = `<span class="inline-flex items-center gap-1.5">
                         <span class="w-2 h-2 bg-emerald-400 rounded-full inline-block"></span>
-                        <strong>${activities.length} événements réels</strong> — Semaine en cours (fallback) • Sources : paris.fr
+                        <strong>${activities.length} événements réels</strong> — Semaine 1-7 juin 2026 • Sources : paris.fr
                         &nbsp;<button onclick="loadFromParisOpenData()" class="underline opacity-60 hover:opacity-100 ml-2">↻ Réessayer</button>
                     </span>`;
                 }
                 if (sidebarEl) {
                     sidebarEl.className = 'flex items-center gap-2 text-emerald-400';
                     sidebarEl.innerHTML = `<div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                        <span class="font-medium">${activities.length} événements • auto</span>`;
+                        <span class="font-medium">${activities.length} événements • juin 2026</span>`;
                 }
                 return false;
             }
@@ -2980,6 +2906,8 @@
             renderPlanning();
             updateHeroCounters();
 
+            // Cache le loader dès que le contenu est rendu
+            hideLoader();
             initHeroParallax();
             initSidebarScroll();
             setTimeout(initScrollReveal, 200);
@@ -3029,31 +2957,6 @@
             if (homeTop) homeTop.style.display = 'block';
 
             console.log('%c[ParcoursParis] Application initialisée — données automatisées (live si possible)', 'color:#64748b');
-
-            // Hide loader only after the initial renderActivities has populated the grids AND the
-            // post-render observeNewCards has had a chance to apply .card-reveal + .visible for
-            // cards already in viewport. This eliminates the flash of activities "behind" the
-            // loading overlay followed by them disappearing (due to reveal logic) once the loader fades.
-            requestAnimationFrame(() => {
-                observeNewCards();
-                // Belt-and-suspenders: force .visible on any activity cards for the initial render.
-                // The reveal logic (card-reveal + observers) can leave them at opacity 0 due to timing
-                // (display restore, loader, rAFs, layout). This guarantees the activities are visible
-                // once the loader is hidden.
-                document.querySelectorAll('.activity-card').forEach(el => {
-                    el.classList.add('visible');
-                });
-                // Reveal the main content now that cards are ready (pairs with the initial opacity:0 on .main-content)
-                const mc = document.querySelector('.main-content');
-                if (mc) mc.style.opacity = '1';
-                hideLoader();
-            });
-            // Also force after the display block restore in case rAF timing is tight
-            setTimeout(() => {
-                document.querySelectorAll('.activity-card').forEach(el => el.classList.add('visible'));
-                const mc = document.querySelector('.main-content');
-                if (mc) mc.style.opacity = '1';
-            }, 50);
         }
 
         function showAbout() {
@@ -3070,7 +2973,7 @@
                         <div>
                             <div class="font-semibold text-slate-200 mb-1">Fonctionnalités principales</div>
                             <ul class="list-disc pl-5 space-y-0.5">
-                                <li>Activités réelles alimentées automatiquement depuis l'Open Data de la Ville de Paris (par semaine)</li>
+                                <li>15 activités réelles pour la semaine du 1 au 7 juin 2026</li>
                                 <li>5 parcours thématiques prêts à l’emploi</li>
                                 <li>Carte interactive + synchronisation filtres</li>
                                 <li>Favoris + Planning personnel</li>
@@ -3392,71 +3295,9 @@
             const container = document.getElementById('generator-activity-pool');
             if (!container) return;
 
-            // Normalize selection set: remove stale ids (e.g. after live data reload), and ensure long-duration activities are represented only once (by canonical first id)
-            const currentIds = new Set(activities.map(a => a.id));
-            const longKeyToCanonical = new Map();
-            activities.forEach(act => {
-                if (act.isMultiDay) {
-                    const key = (act.title || '').trim().toLowerCase().substring(0, 60);
-                    if (!longKeyToCanonical.has(key)) longKeyToCanonical.set(key, act.id);
-                }
-            });
-            const toRemove = [];
-            generatorSelectedIds.forEach(id => {
-                if (!currentIds.has(id)) { toRemove.push(id); return; }
-                const act = activities.find(a => a.id === id);
-                if (act && act.isMultiDay) {
-                    const key = (act.title || '').trim().toLowerCase().substring(0, 60);
-                    const canon = longKeyToCanonical.get(key);
-                    if (canon && canon !== id) toRemove.push(id);
-                }
-            });
-            toRemove.forEach(id => generatorSelectedIds.delete(id));
-            // Re-map any long selections to their canonical rep id (ensures checkbox matches the rendered card)
-            const normalized = new Set();
-            generatorSelectedIds.forEach(id => {
-                if (!currentIds.has(id)) return;
-                const act = activities.find(a => a.id === id);
-                if (act && act.isMultiDay) {
-                    const key = (act.title || '').trim().toLowerCase().substring(0, 60);
-                    const canon = longKeyToCanonical.get(key);
-                    if (canon) normalized.add(canon);
-                } else {
-                    normalized.add(id);
-                }
-            });
-            generatorSelectedIds.clear();
-            normalized.forEach(id => generatorSelectedIds.add(id));
-
-            // Auto pre-seed a few if none selected (e.g. after live data replaced the array)
-            if (generatorSelectedIds.size === 0 && activities.length > 0) {
-                let seeded = 0;
-                activities.forEach(act => {
-                    if (seeded >= 6) return;
-                    if (act.isMultiDay) {
-                        const key = (act.title || '').trim().toLowerCase().substring(0, 60);
-                        if (longKeyToCanonical.get(key) !== act.id) return; // only canon rep
-                    }
-                    generatorSelectedIds.add(act.id);
-                    seeded++;
-                });
-            }
-
             container.innerHTML = '';
 
-            // Deduplicate long-running activities in the *visible list* so each appears only once in generator (even if live data expanded them per-day)
-            const poolActs = [];
-            const seenLong = new Set();
             activities.forEach(act => {
-                if (act.isMultiDay) {
-                    const key = (act.title || '').trim().toLowerCase().substring(0, 60);
-                    if (seenLong.has(key)) return;
-                    seenLong.add(key);
-                }
-                poolActs.push(act);
-            });
-
-            poolActs.forEach(act => {
                 const isSelected = generatorSelectedIds.has(act.id);
 
                 const card = document.createElement('div');
@@ -3639,17 +3480,10 @@
         // --- Page loader ---
         function hideLoader() {
             const loader = document.getElementById('page-loader');
-            if (!loader || loader.dataset.hiding) return;
-            loader.dataset.hiding = 'true';
-            loader.style.transition = 'opacity 0.5s ease';
-            loader.style.opacity = '0';
-            loader.style.pointerEvents = 'none';
-            // Always reveal main content when loader goes away (in case other hide paths or safety timeout)
-            const mc = document.querySelector('.main-content');
-            if (mc) mc.style.opacity = '1';
-            setTimeout(() => {
-                if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-            }, 600);
+            if (loader) {
+                loader.classList.add('done');
+                setTimeout(() => loader.remove(), 600);
+            }
         }
 
         // --- Compteur animé (compte de 0 → target) ---
@@ -3692,15 +3526,9 @@
             }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
 
             document.querySelectorAll('.activity-card').forEach((el, i) => {
-                if (!el.classList.contains('card-reveal')) {
-                    el.classList.add('card-reveal');
-                }
+                el.classList.add('card-reveal');
                 el.style.transitionDelay = `${Math.min(i * 0.06, 0.4)}s`;
                 cardObserver.observe(el);
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight + 100 && rect.bottom > -50) {
-                    el.classList.add('visible');
-                }
             });
 
             return cardObserver; // on le réutilise après re-render
@@ -3725,15 +3553,7 @@
                     el.style.transitionDelay = `${Math.min(i * 0.05, 0.35)}s`;
                 }
                 _cardObserver.observe(el);
-                // For cards already in (or near) viewport on setup (e.g. initial load), show immediately
-                // so they don't stay hidden after loader or cause "disappear" after render.
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight + 100 && rect.bottom > -50) {
-                    el.classList.add('visible');
-                }
             });
-            // Note: no blanket force here anymore (to preserve scroll-reveal for cards below initial viewport).
-            // The per-rect check above promotes in-view ones, and renderActivities has sync in-view force.
         }
 
         // --- Parallax léger sur le hero au scroll ---
@@ -3791,8 +3611,7 @@
             initHeroParallax();
             initSidebarScroll();
             setTimeout(initScrollReveal, 300);
-            // Note: do NOT hideLoader here — renderActivities (which populates the activity cards) happens in initializeApp on window.onload.
-            // Early hide would remove the overlay before content is ready, or cause timing races with reveals.
+            setTimeout(hideLoader, 400);
         });
 
         // Failsafe : si DOMContentLoaded est déjà passé (script en bas de body)
@@ -3800,7 +3619,7 @@
             initHeroParallax();
             initSidebarScroll();
             setTimeout(initScrollReveal, 300);
-            // Do not call hideLoader here; it is coordinated inside initializeApp after the initial renders.
+            setTimeout(hideLoader, 400);
         }
 
         // Filet de sécurité absolu : cache le loader après 3s quoi qu'il arrive
