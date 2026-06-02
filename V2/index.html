@@ -625,7 +625,7 @@
             <div class="bg-white/5 rounded-2xl p-3 text-xs mb-3">
                 <div class="flex items-center gap-2 text-emerald-400" id="sidebar-data-status">
                     <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                    <span class="font-medium">15 événements • 1–7 juin 2026</span>
+                    <span class="font-medium">16 événements • 1–7 juin 2026</span>
                 </div>
             </div>
 
@@ -1053,7 +1053,7 @@
 
         <!-- Bandeau statut données -->
         <div id="live-data-banner" class="text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4">
-            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span> <strong>15 événements réels</strong> — Semaine du 1 au 7 juin 2026 • Sources : paris.fr, sortiraparis.com, lebonbon.fr</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block"></span> <strong>16 événements réels</strong> — Semaine du 1 au 7 juin 2026 • Sources : paris.fr, sortiraparis.com, lebonbon.fr</span>
         </div>
 
         <!-- Advanced filters -->
@@ -1142,7 +1142,7 @@
                     </div>
                     <div class="text-xs text-[var(--school-accent)] font-medium flex items-center gap-x-1">
                         <div class="w-2 h-2 bg-[var(--school-accent)] rounded-full"></div>
-                        <span>15 activités cette semaine</span>
+                        <span>16 activités cette semaine</span>
                     </div>
                 </div>
                 <div id="leaflet-map" class="w-full h-[460px] z-10"></div>
@@ -1598,6 +1598,25 @@
                 coordinates: [48.9016, 2.3503],
                 metro: "Garibaldi ou Porte de Clignancourt (13)",
                 tips: "Va tôt le matin pour les meilleures trouvailles. Amène du cash (beaucoup de marchands n'acceptent pas les cartes). Les allées Serpette et Biron sont les plus premium."
+            },
+            {
+                id: 16,
+                title: "Slimane en concert – Salle Pleyel",
+                day: "Vendredi",
+                date: "5 juin",
+                time: "20:00",
+                duration: "2h",
+                category: "Sorties",
+                price: 35,
+                priceLabel: "35€ (tarif réduit étudiant dispo)",
+                location: "Salle Pleyel, 252 rue du Faubourg Saint-Honoré",
+                arrondissement: "8e",
+                description: "Slimane, la voix qui fait vibrer la France, se produit à la Salle Pleyel pour un concert pop émouvant et puissant. Hits, ballades et surprises au programme dans l'une des salles les plus acoustiques de Paris. Parfait pour une soirée musicale en semaine.",
+                spots: "Réservation conseillée sur sallepleyel.com",
+                studentDiscount: true,
+                coordinates: [48.8753, 2.3014],
+                metro: "Ternes (2) ou Courcelles (2)",
+                tips: "Tarif étudiant souvent disponible à la billetterie avec ta carte. Arrive 30 min avant pour profiter du bar et de l'ambiance du hall historique."
             }
         ]
 
@@ -1627,7 +1646,8 @@
             12: "https://images.unsplash.com/photo-1585011664466-b7bbe92f34ef?w=800&q=80", // Pokémon coloré
             13: "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?w=800&q=80",    // Jardin à la française
             14: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=800&q=80", // Art contemporain expo
-            15: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=800&q=80"  // Marché brocante
+            15: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=800&q=80",  // Marché brocante
+            16: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&q=80"   // Concert live scène / lumières (Salle Pleyel vibe)
         };
 
         // Images de fallback par catégorie (pour les données live sans image officielle)
@@ -1962,8 +1982,10 @@
             // Zone 1 : ponctuels
             dailyGrid.innerHTML = '';
             if (daily.length === 0) {
+                const dayLabel = (currentFilters.day && currentFilters.day !== 'all') ? ` (${currentFilters.day})` : '';
                 dailyGrid.innerHTML = `<div class="col-span-full py-6 text-center text-sm text-slate-400">
-                    Pas d'événement ponctuel ce jour — voir les événements "En ce moment" ci-dessous.
+                    Pas d'événement ponctuel ce jour${dayLabel} dans la sélection.<br>
+                    Il y a des activités ponctuelles les autres jours de la semaine — clique « Tous les jours » pour tout voir.
                     <button onclick="resetFilters()" class="ml-2 text-[var(--school-accent)] underline">Tous les jours</button>
                 </div>`;
             } else {
@@ -2976,7 +2998,7 @@
                         <div>
                             <div class="font-semibold text-slate-200 mb-1">Fonctionnalités principales</div>
                             <ul class="list-disc pl-5 space-y-0.5">
-                                <li>15 activités réelles pour la semaine du 1 au 7 juin 2026</li>
+                                <li>16 activités réelles pour la semaine du 1 au 7 juin 2026</li>
                                 <li>5 parcours thématiques prêts à l’emploi</li>
                                 <li>Carte interactive + synchronisation filtres</li>
                                 <li>Favoris + Planning personnel</li>
