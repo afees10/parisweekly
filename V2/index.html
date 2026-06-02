@@ -1973,29 +1973,43 @@
             });
 
             if (countEl) {
-                countEl.innerHTML = daily.length > 0
-                    ? `<span class="text-white font-semibold">${daily.length}</span> événement${daily.length > 1 ? 's' : ''} ponctuel${daily.length > 1 ? 's' : ''}`
-                      + (ongoingUnique.length > 0 ? ` <span class="text-slate-500">+ ${ongoingUnique.length} en cours</span>` : '')
-                    : (ongoingUnique.length > 0 ? `<span class="text-slate-400">${ongoingUnique.length} événements en cours cette semaine</span>` : 'Aucun résultat');
+                if (daily.length > 0) {
+                    countEl.innerHTML = `<span class="text-white font-semibold">${daily.length}</span> événement${daily.length > 1 ? 's' : ''} ponctuel${daily.length > 1 ? 's' : ''}`
+                      + (ongoingUnique.length > 0 ? ` <span class="text-slate-500">+ ${ongoingUnique.length} en cours</span>` : '');
+                } else if (ongoingUnique.length > 0) {
+                    countEl.innerHTML = `<span class="text-white font-semibold">${ongoingUnique.length}</span> événement${ongoingUnique.length > 1 ? 's' : ''} cette semaine`;
+                } else {
+                    countEl.innerHTML = 'Aucun résultat';
+                }
             }
 
-            // Zone 1 : ponctuels
+            // Zone 1 : ponctuels (main "Que faire cette semaine ?")
             dailyGrid.innerHTML = '';
-            if (daily.length === 0) {
+            let dailyToShow = daily;
+            const useFallback = (daily.length === 0 && currentFilters.day === 'all');
+            if (useFallback && (ongoingUnique.length > 0 || filteredActivities.length > 0)) {
+                // Live data (or filters) often produces mostly/only multi-day events.
+                // Fall back to showing available events in the main grid so "Que faire cette semaine ?" is never empty.
+                dailyToShow = ongoingUnique.length > 0 ? ongoingUnique : filteredActivities;
+            }
+            if (dailyToShow.length === 0) {
                 const dayLabel = (currentFilters.day && currentFilters.day !== 'all') ? ` (${currentFilters.day})` : '';
                 dailyGrid.innerHTML = `<div class="col-span-full py-6 text-center text-sm text-slate-400">
-                    Pas d'événement ponctuel ce jour${dayLabel} dans la sélection.<br>
-                    Il y a des activités ponctuelles les autres jours de la semaine — clique « Tous les jours » pour tout voir.
+                    Pas d'événement ce jour${dayLabel} dans la sélection.<br>
                     <button onclick="resetFilters()" class="ml-2 text-[var(--school-accent)] underline">Tous les jours</button>
                 </div>`;
             } else {
-                daily.forEach(a => renderCard(a, dailyGrid, false));
+                dailyToShow.forEach(a => renderCard(a, dailyGrid, false));
             }
 
-            // Zone 2 : continus
-            ongoingSection.classList.toggle('hidden', ongoingUnique.length === 0);
+            // Zone 2 : continus ("En ce moment à Paris")
+            // Hide the compact band when we fell back (to avoid showing the same longs twice, once as full cards above and compact below).
+            const showOngoingBand = !useFallback && ongoingUnique.length > 0;
+            ongoingSection.classList.toggle('hidden', !showOngoingBand);
             ongoingGrid.innerHTML = '';
-            ongoingUnique.forEach(a => renderCard(a, ongoingGrid, true));
+            if (showOngoingBand) {
+                ongoingUnique.forEach(a => renderCard(a, ongoingGrid, true));
+            }
 
             // Map
             if (currentView === 'map' && map) updateMapMarkers(filteredActivities);
@@ -2987,8 +3001,19 @@
             // loading overlay followed by them disappearing (due to reveal logic) once the loader fades.
             requestAnimationFrame(() => {
                 observeNewCards();
+                // Belt-and-suspenders: force .visible on any activity cards for the initial render.
+                // The reveal logic (card-reveal + observers) can leave them at opacity 0 due to timing
+                // (display restore, loader, rAFs, layout). This guarantees the activities are visible
+                // once the loader is hidden.
+                document.querySelectorAll('.activity-card').forEach(el => {
+                    el.classList.add('visible');
+                });
                 hideLoader();
             });
+            // Also force after the display block restore in case rAF timing is tight
+            setTimeout(() => {
+                document.querySelectorAll('.activity-card').forEach(el => el.classList.add('visible'));
+            }, 50);
         }
 
         function showAbout() {
@@ -3664,6 +3689,8 @@
                     el.classList.add('visible');
                 }
             });
+            // Extra guarantee for initial load / after re-renders: any remaining hidden cards get shown.
+            document.querySelectorAll('.activity-card:not(.visible)').forEach(el => el.classList.add('visible'));
         }
 
         // --- Parallax léger sur le hero au scroll ---
