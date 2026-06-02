@@ -2012,7 +2012,7 @@
             if (isOngoing) {
                 // Carte compacte horizontale pour les événements continus
                 wrapper.innerHTML = `
-                <div class="activity-card group bg-[#0d1424] border border-white/8 rounded-2xl overflow-hidden flex cursor-pointer" style="height:96px" onclick="showActivityModal(${activity.id})">
+                <div class="activity-card card-reveal group bg-[#0d1424] border border-white/8 rounded-2xl overflow-hidden flex cursor-pointer" style="height:96px" onclick="showActivityModal(${activity.id})">
                     <div class="w-28 flex-shrink-0 bg-cover bg-center relative" style="background-image:url('${imgUrl}');background-color:#1a2035;">
                         <img src="${imgUrl}" style="display:none" onerror="this.parentElement.style.backgroundImage='url(${categoryImages[activity.category]||categoryImages.default})'">
                         <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0d1424]/40"></div>
@@ -2035,7 +2035,7 @@
             } else {
                 // Carte pleine pour les événements ponctuels
                 wrapper.innerHTML = `
-                <div class="activity-card bg-[#111827] border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full cursor-pointer shadow-lg" onclick="showActivityModal(${activity.id})">
+                <div class="activity-card card-reveal bg-[#111827] border border-white/10 rounded-3xl overflow-hidden flex flex-col h-full cursor-pointer shadow-lg" onclick="showActivityModal(${activity.id})">
                     <div class="card-image rounded-t-3xl" id="card-img-${activity.id}" style="background-image:url('${imgUrl}');background-color:#1a2035;">
                         <img src="${imgUrl}" style="display:none" onerror="document.getElementById('card-img-${activity.id}')&&(document.getElementById('card-img-${activity.id}').style.backgroundImage='url(${categoryImages[activity.category]||categoryImages.default})')">
                         <div class="price-badge px-3 py-1 text-[11px] font-bold rounded-full shadow-md ${activity.price===0?'bg-[#FF5C00] text-white':'bg-black text-white'} border border-white/30">${activity.priceLabel}</div>
@@ -2931,8 +2931,6 @@
             renderPlanning();
             updateHeroCounters();
 
-            // Cache le loader dès que le contenu est rendu
-            hideLoader();
             initHeroParallax();
             initSidebarScroll();
             setTimeout(initScrollReveal, 200);
@@ -2982,6 +2980,15 @@
             if (homeTop) homeTop.style.display = 'block';
 
             console.log('%c[ParcoursParis] Application initialisée — données automatisées (live si possible)', 'color:#64748b');
+
+            // Hide loader only after the initial renderActivities has populated the grids AND the
+            // post-render observeNewCards has had a chance to apply .card-reveal + .visible for
+            // cards already in viewport. This eliminates the flash of activities "behind" the
+            // loading overlay followed by them disappearing (due to reveal logic) once the loader fades.
+            requestAnimationFrame(() => {
+                observeNewCards();
+                hideLoader();
+            });
         }
 
         function showAbout() {
@@ -3567,14 +3574,14 @@
         // --- Page loader ---
         function hideLoader() {
             const loader = document.getElementById('page-loader');
-            if (loader) {
-                loader.style.transition = 'opacity 0.5s ease';
-                loader.style.opacity = '0';
-                loader.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-                }, 600);
-            }
+            if (!loader || loader.dataset.hiding) return;
+            loader.dataset.hiding = 'true';
+            loader.style.transition = 'opacity 0.5s ease';
+            loader.style.opacity = '0';
+            loader.style.pointerEvents = 'none';
+            setTimeout(() => {
+                if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+            }, 600);
         }
 
         // --- Compteur animé (compte de 0 → target) ---
@@ -3617,9 +3624,15 @@
             }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
 
             document.querySelectorAll('.activity-card').forEach((el, i) => {
-                el.classList.add('card-reveal');
+                if (!el.classList.contains('card-reveal')) {
+                    el.classList.add('card-reveal');
+                }
                 el.style.transitionDelay = `${Math.min(i * 0.06, 0.4)}s`;
                 cardObserver.observe(el);
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight + 100 && rect.bottom > -50) {
+                    el.classList.add('visible');
+                }
             });
 
             return cardObserver; // on le réutilise après re-render
@@ -3644,6 +3657,12 @@
                     el.style.transitionDelay = `${Math.min(i * 0.05, 0.35)}s`;
                 }
                 _cardObserver.observe(el);
+                // For cards already in (or near) viewport on setup (e.g. initial load), show immediately
+                // so they don't stay hidden after loader or cause "disappear" after render.
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight + 100 && rect.bottom > -50) {
+                    el.classList.add('visible');
+                }
             });
         }
 
@@ -3702,7 +3721,8 @@
             initHeroParallax();
             initSidebarScroll();
             setTimeout(initScrollReveal, 300);
-            setTimeout(hideLoader, 400);
+            // Note: do NOT hideLoader here — renderActivities (which populates the activity cards) happens in initializeApp on window.onload.
+            // Early hide would remove the overlay before content is ready, or cause timing races with reveals.
         });
 
         // Failsafe : si DOMContentLoaded est déjà passé (script en bas de body)
@@ -3710,7 +3730,7 @@
             initHeroParallax();
             initSidebarScroll();
             setTimeout(initScrollReveal, 300);
-            setTimeout(hideLoader, 400);
+            // Do not call hideLoader here; it is coordinated inside initializeApp after the initial renders.
         }
 
         // Filet de sécurité absolu : cache le loader après 3s quoi qu'il arrive
