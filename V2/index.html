@@ -282,6 +282,7 @@
         .star { position: absolute; pointer-events: none; width: 2px; height: 2px; background: white; border-radius: 50%; }
         .s1 { top: 12%; left: 60%; animation: twinkle 2.8s ease-in-out infinite; }
 
+        /* C'est CE code CSS et le JS associé qui faisaient l'animation des incontournables */
         .reveal, .card-reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -675,7 +676,7 @@
         let userFavorites = JSON.parse(localStorage.getItem('parcoursParisFavorites') || '[]');
         let isUsingLiveData = false;
         let currentItinerary = null; // FIX : Explicit declaration
-        let demoActivities = [...activities]; // Garder une copie des données d'origine
+        let demoActivities = [...activities];
 
         let map = null;
         let currentMarkers = [];
@@ -735,7 +736,8 @@
                 mapView.classList.remove('hidden');
                 listBtn.classList.remove('active');
                 mapBtn.classList.add('active');
-                // FIX : Timeout et map.invalidateSize() pour éviter les tuiles grises
+                
+                // FIX : Timeout et map.invalidateSize() pour Leaflet
                 setTimeout(() => {
                     initMap();
                     if (map) map.invalidateSize(); 
@@ -768,7 +770,7 @@
                     }
                 });
 
-                // 2. RÉPARTITION ÉQUITABLE SUR LA SEMAINE (FIX)
+                // 2. RÉPARTITION ÉQUITABLE SUR LA SEMAINE
                 const DAY_NAMES = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
                 let dayDistributor = 0; 
 
@@ -812,7 +814,7 @@
                         _imageUrl: r.cover_url || null,
                         _sourceUrl: r.url || null,
                         _isLive: true,
-                        isMultiDay: false // FIX : Force tout dans la grille principale
+                        isMultiDay: false
                     };
                 });
 
@@ -858,7 +860,6 @@
             
             if (!dailyGrid) return;
 
-            // FIX : Cacher l'ancien affichage "En cours"
             if (ongoingSection) {
                 ongoingSection.style.display = 'none';
                 ongoingSection.classList.add('hidden');
@@ -886,7 +887,6 @@
                     const img = a._imageUrl || categoryImages[a.category] || categoryImages.default;
                     const wrapper = document.createElement('div');
                     
-                    // FIX : ID unique pour la carte avec un préfixe
                     wrapper.innerHTML = `
                     <div class="activity-card bg-[#111827] rounded-3xl overflow-hidden flex flex-col h-full shadow-lg" onclick="showActivityModal(${a.id})">
                         <div class="card-image rounded-t-3xl" id="card-img-daily-${a.id}" style="background-image:url('${img}')">
@@ -1065,7 +1065,6 @@
             let selected = activities.filter(a => generatorSelectedIds.has(a.id));
             if (selected.length < 2) return alert("Cochez au moins 2 activités dans la liste.");
 
-            // FIX : Correction du parseur de durée
             selected = selected.map(a => {
                 let normalized = { ...a };
                 if (a.coordinates && Array.isArray(a.coordinates)) {
@@ -1076,7 +1075,7 @@
                 if (typeof a.duration === 'string') {
                     const low = a.duration.toLowerCase();
                     if (low.includes('jour') || low.includes('nuit') || low.includes('semaine')) {
-                        normalized.duration = 4.0; // Assume 4h max pour l'algorithme
+                        normalized.duration = 4.0;
                     } else {
                         const parsed = parseFloat(low.replace('h', '').replace(',', '.'));
                         normalized.duration = isNaN(parsed) ? 1.5 : parsed;
@@ -1087,7 +1086,6 @@
                 return normalized;
             });
 
-            // Tri chronologique
             selected.sort((a,b) => (a.time || '00:00').localeCompare(b.time || '00:00'));
 
             const itinerary = {
@@ -1095,7 +1093,7 @@
                 stats: { activities: selected.length, cost: selected.reduce((s,x)=>s+(x.price||0),0), travel: selected.length * 15 }
             };
 
-            currentItinerary = itinerary; // FIX : Assigné explicitement
+            currentItinerary = itinerary;
 
             document.getElementById('generator-stats').innerHTML = `
                 <div class="bg-white/5 p-3 rounded-xl text-center"><b>Activités</b><br>${itinerary.stats.activities}</div>
@@ -1146,10 +1144,40 @@
         function closeQuiz() { document.getElementById('quiz-modal').classList.add('hidden'); document.getElementById('quiz-modal').classList.remove('flex'); }
         function showAbout() { alert("ParcoursParis v2.0 - Projet de Management de Projet 2026. Réalisé par l'équipe étudiante ISAE-Supmeca & Mécavenir."); }
 
-        // ==================== INITS ====================
+        // ==================== INITS & ANIMATIONS ====================
         function updateHeroCounters() {
             document.getElementById('hero-count').textContent = activities.length;
             document.getElementById('hero-free').textContent = activities.filter(a => a.price === 0).length;
+        }
+
+        // 1. Restaurer l'animation d'apparition des Incontournables au scroll (LE CORRECTIF DU "TROU NOIR")
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // 2. Restaurer la sélection active dans le menu de gauche au scroll
+        function initSidebarScroll() {
+            const sections = ['home-top','cette-semaine','parcours','incontournables','generateur','planning'];
+            const links = document.querySelectorAll('.sidebar-link');
+            window.addEventListener('scroll', () => {
+                let current = 'home-top';
+                sections.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && window.scrollY >= el.offsetTop - 150) current = id;
+                });
+                links.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+                });
+            }, { passive: true });
         }
 
         function initializeApp() {
@@ -1158,6 +1186,10 @@
             renderPlanning();
             renderGeneratorActivityPool();
             updateHeroCounters();
+
+            // Initialiser les animations
+            initScrollReveal();
+            initSidebarScroll();
 
             // Retrait de l'overlay de chargement
             setTimeout(() => {
@@ -1171,6 +1203,8 @@
             // Appel asynchrone pour charger le flux Paris Open Data en direct
             loadFromParisOpenData({ silent: true }).then(() => {
                 updateHeroCounters();
+                // Relancer l'observeur si de nouveaux éléments avec la classe .reveal sont apparus
+                initScrollReveal(); 
             });
         }
 
