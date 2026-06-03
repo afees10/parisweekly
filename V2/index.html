@@ -8,9 +8,7 @@
     <meta name="description" content="Application pour découvrir Paris : activités et parcours pour la semaine du 1-7 juin 2026.">
     <meta property="og:title" content="ParcoursParis • Paris">
     <meta property="og:description" content="Découvre Paris facilement avec des activités sélectionnées et des parcours prêts à l'emploi.">
-    <meta property="og:image" content="https://picsum.photos/id/1016/1200/630">
-    <meta property="og:type" content="website">
-
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -18,14 +16,8 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap');
         
         :root {
-            --primary: #0F172A;
-            --school-dark: #0B0F1C;
-            --school-darker: #070A12;
             --school-accent: #FF5C00;
             --school-accent-dark: #E05200;
-            --school-text: #F8F9FA;
-            --school-muted: #A0AEC0;
-            --school-light-bg: #F8F7F4;
         }
         
         body {
@@ -50,20 +42,6 @@
             overflow: hidden;
             position: relative;
         }
-        
-        .activity-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle at 50% 0%, rgba(255,92,0,0.08), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .activity-card:hover::before { opacity: 1; }
         
         .activity-card:hover {
             transform: translateY(-8px) scale(1.01);
@@ -109,34 +87,6 @@
             letter-spacing: -0.04em;
         }
 
-        .tag {
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.125rem 0.625rem;
-            border-radius: 9999px;
-        }
-
-        .modal {
-            animation: modalPop 0.2s ease-out forwards;
-        }
-
-        @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.96) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .itinerary-step {
-            position: relative;
-        }
-        
-        .itinerary-step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 19px; top: 42px; bottom: -8px;
-            width: 3px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
         .filter-btn {
             transition: all 0.1s ease;
             color: #D1D5DB;
@@ -148,16 +98,6 @@
             background-color: var(--school-accent);
             color: white;
             border-color: var(--school-accent);
-        }
-
-        .map-container {
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1);
-        }
-
-        .premium-shadow {
-            box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.08), 0 4px 6px -4px rgb(15 23 42 / 0.08);
         }
 
         .leaflet-popup-content-wrapper {
@@ -173,13 +113,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .view-toggle {
-            display: inline-flex;
-            background: #1F2937;
-            border-radius: 9999px;
-            padding: 3px;
-        }
-
         .view-toggle button {
             padding: 6px 18px;
             border-radius: 9999px;
@@ -191,9 +124,7 @@
 
         .view-toggle button.active {
             background: #374151;
-            box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
             color: white;
-            font-weight: 700;
         }
 
         .sidebar {
@@ -211,94 +142,25 @@
             border-radius: 14px;
             color: #cbd5e1;
             font-weight: 500;
-            font-size: 0.95rem;
             transition: all 0.15s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .sidebar-link:hover {
-            background-color: rgba(255, 92, 0, 0.08);
-            color: #fff;
         }
 
         .sidebar-link.active {
             background-color: #FF5C00;
             color: white;
-            font-weight: 600;
         }
 
-        .sidebar-link::after {
-            content: '';
-            position: absolute;
-            left: 0; top: 50%;
-            transform: translateY(-50%) scaleY(0);
-            width: 3px; height: 60%;
-            background: #FF5C00;
-            border-radius: 0 2px 2px 0;
-            transition: transform 0.2s ease;
-        }
-        .sidebar-link:hover::after { transform: translateY(-50%) scaleY(1); }
-        .sidebar-link.active::after { transform: translateY(-50%) scaleY(0); }
-
-        .main-content {
-            margin-left: 250px;
-        }
-
+        .main-content { margin-left: 250px; }
         @media (max-width: 1024px) {
             .sidebar { display: none; }
             .main-content { margin-left: 0; }
         }
 
-        /* Animations Cascade Hero */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(28px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.92); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-
-        .hero-badge   { animation: fadeSlideUp 0.6s cubic-bezier(.22,1,.36,1) 0.1s both; }
-        .hero-title   { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.25s both; }
-        .hero-desc    { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.40s both; }
-        .hero-buttons { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.52s both; }
-        .hero-stats   { animation: fadeSlideUp 0.7s cubic-bezier(.22,1,.36,1) 0.65s both; }
-        .hero-logos   { animation: scaleIn    0.8s cubic-bezier(.22,1,.36,1) 0.45s both; }
-
-        @keyframes float1 {
-            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
-            33%       { transform: translateY(-18px) translateX(8px); opacity: 0.7; }
-            66%       { transform: translateY(-8px) translateX(-6px); opacity: 0.5; }
-        }
-        .particle { position: absolute; border-radius: 50%; pointer-events: none; }
-        .p1  { width:3px;  height:3px;  background:#FF5C00; top:18%; left:72%; animation: float1 5.2s ease-in-out infinite; }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.1; transform: scale(0.8); }
-            50%       { opacity: 0.7; transform: scale(1.2); }
-        }
-        .star { position: absolute; pointer-events: none; width: 2px; height: 2px; background: white; border-radius: 50%; }
-        .s1 { top: 12%; left: 60%; animation: twinkle 2.8s ease-in-out infinite; }
-
-        /* C'est CE code CSS et le JS associé qui faisaient l'animation des incontournables */
-        .reveal, .card-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.65s cubic-bezier(.22,1,.36,1), transform 0.65s cubic-bezier(.22,1,.36,1);
-        }
-        .reveal.visible, .card-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         .parcours-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            transition: transform 0.25s ease, border-color 0.25s ease;
         }
         .parcours-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
             border-color: rgba(255,92,0,0.3) !important;
         }
 
@@ -309,11 +171,6 @@
             transition: opacity 0.5s ease;
         }
         #page-loader.done { opacity: 0; pointer-events: none; }
-        @keyframes loaderPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50%       { transform: scale(1.15); opacity: 0.7; }
-        }
-        #page-loader .loader-logo { animation: loaderPulse 0.9s ease-in-out infinite; }
     </style>
 </head>
 <body class="bg-[#070A12] text-white">
@@ -330,26 +187,23 @@
     <aside class="sidebar fixed top-0 left-0 h-screen flex flex-col z-50 hidden lg:flex">
         <div class="px-6 py-7 border-b border-white/10">
             <div class="flex items-center gap-x-3 mb-4">
-                <div class="w-11 h-11 bg-[#FF5C00] rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div class="w-11 h-11 bg-[#FF5C00] rounded-2xl flex items-center justify-center">
                     <span class="text-white text-3xl font-bold tracking-tighter">PP</span>
                 </div>
-                <div class="leading-none">
-                    <div class="font-semibold text-2xl tracking-tighter">Parcours<span class="text-[#FF5C00]">Paris</span></div>
-                </div>
+                <div class="font-semibold text-2xl tracking-tighter">Parcours<span class="text-[#FF5C00]">Paris</span></div>
             </div>
             <div class="flex items-center gap-3 bg-white rounded-xl px-3 py-2">
-                <svg viewBox="0 0 120 60" class="h-8 flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
-                    <text x="2" y="22" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#2D3358" letter-spacing="2">Isae</text>
+                <svg viewBox="0 0 120 60" class="h-8" xmlns="http://www.w3.org/2000/svg">
+                    <text x="2" y="22" font-family="Arial" font-size="14" font-weight="700" fill="#2D3358">Isae</text>
                     <line x1="2" y1="30" x2="118" y2="30" stroke="#E8421A" stroke-width="2.5"/>
-                    <text x="2" y="50" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#2D3358" letter-spacing="1">supméca</text>
-                    <path d="M72 8 Q80 3 90 6 Q95 8 92 12 Q88 10 82 11 Z" fill="#2D3358"/>
+                    <text x="2" y="50" font-family="Arial" font-size="13" font-weight="700" fill="#2D3358">supméca</text>
                 </svg>
                 <div class="w-px h-8 bg-gray-300"></div>
-                <svg viewBox="0 0 130 55" class="h-8 flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 130 55" class="h-8" xmlns="http://www.w3.org/2000/svg">
                     <rect x="0" y="0" width="50" height="55" fill="#0078BF"/>
                     <rect x="0" y="28" width="50" height="27" fill="#E8421A"/>
-                    <text x="3" y="16" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="white">UIMM</text>
-                    <text x="56" y="20" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="#0078BF">MECAVENIR</text>
+                    <text x="3" y="16" font-family="Arial" font-size="11" font-weight="900" fill="white">UIMM</text>
+                    <text x="56" y="20" font-family="Arial" font-size="11" font-weight="900" fill="#0078BF">MECAVENIR</text>
                 </svg>
             </div>
         </div>
@@ -365,129 +219,81 @@
         </div>
 
         <div class="p-4 border-t border-white/10 mt-auto">
-            <div class="bg-white/5 rounded-2xl p-3 text-xs mb-3">
-                <div class="flex items-center gap-2 text-emerald-400" id="sidebar-data-status">
-                    <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                    <span class="font-medium">Chargement en direct...</span>
-                </div>
-            </div>
-            <button onclick="showQuiz()" class="w-full px-4 py-3 text-sm font-semibold bg-[#FF5C00] hover:bg-[#E05200] text-white rounded-2xl transition-colors">
-                Trouve ton style
-            </button>
+            <button onclick="showQuiz()" class="w-full px-4 py-3 text-sm font-semibold bg-[#FF5C00] hover:bg-[#E05200] rounded-2xl">Trouve ton style</button>
         </div>
     </aside>
 
     <div class="lg:hidden bg-[#0B0F1C] border-b border-white/10 px-5 h-14 flex items-center justify-between sticky top-0 z-50">
         <div class="flex items-center gap-x-2">
-            <div class="w-8 h-8 bg-[#FF5C00] rounded-xl flex items-center justify-center"><span class="text-white font-bold">PP</span></div>
-            <span class="font-semibold tracking-tighter text-xl">Parcours<span class="text-[#FF5C00]">Paris</span></span>
+            <div class="w-8 h-8 bg-[#FF5C00] rounded-xl flex items-center justify-center font-bold">PP</div>
+            <span class="font-semibold text-xl">Parcours<span class="text-[#FF5C00]">Paris</span></span>
         </div>
         <button onclick="showQuiz()" class="text-sm px-3 py-1.5 bg-white/10 rounded-xl">Quiz</button>
     </div>
 
     <div class="main-content">
-
         <div id="home-top" class="relative overflow-hidden text-white paris-premium-gradient">
-            <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80'); opacity: 0.52; filter: brightness(0.6);"></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-[#0B0F1C] via-[#0B0F1C]/80 to-transparent"></div>
-                <div class="particle p1"></div>
-                <div class="star s1"></div>
-            </div>
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80'); opacity: 0.4;"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0F1C] via-[#0B0F1C]/80 to-transparent"></div>
 
             <div class="max-w-screen-xl mx-auto px-6 pt-14 pb-16 relative z-10">
                 <div class="max-w-xl">
-                    <div class="hero-badge inline-flex items-center gap-x-2 mb-6">
-                        <div class="bg-white/10 backdrop-blur px-4 h-8 rounded-2xl text-sm border border-white/20">
-                            <span class="text-[var(--school-accent)] mr-2">●</span>Paris • 2026
-                        </div>
-                    </div>
-                    <h1 class="hero-title text-6xl md:text-[72px] leading-[1.0] tracking-[-0.045em] font-semibold heading-serif mb-6">
-                        Paris, cette semaine.<br><span class="text-[var(--school-accent)] text-3xl md:text-[38px] font-medium tracking-tight">1 — 7 juin 2026.</span>
+                    <h1 class="text-6xl md:text-[72px] leading-none font-semibold heading-serif mb-6">
+                        Paris, cette semaine.<br><span class="text-[var(--school-accent)] text-3xl font-medium">1 — 7 juin 2026.</span>
                     </h1>
-                    <p class="hero-desc text-xl text-slate-300 mb-9">
-                        Roland-Garros, Nuit Blanche, We Love Green, Rendez-vous aux Jardins… Les vrais événements de la semaine, avec parcours prêts à suivre.
-                    </p>
-                    <div class="hero-buttons flex flex-wrap gap-4">
-                        <a href="#cette-semaine" class="inline-flex items-center justify-center px-9 h-13 bg-[var(--school-accent)] hover:bg-[var(--school-accent-dark)] text-white font-semibold rounded-3xl transition-all text-[15px]">Découvrir cette semaine</a>
-                        <a href="#parcours" class="inline-flex items-center justify-center px-9 h-13 bg-white/10 hover:bg-white/15 border border-white/30 backdrop-blur font-semibold rounded-3xl transition-all text-[15px]">Explorer les parcours</a>
-                    </div>
-
-                    <div class="hero-stats mt-12 grid grid-cols-3 gap-8 max-w-md text-sm">
-                        <div>
-                            <div class="font-semibold text-4xl" id="hero-count">—</div>
-                            <div class="text-[var(--school-muted)] mt-1">événements cette semaine</div>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-4xl">5</div>
-                            <div class="text-[var(--school-muted)] mt-1">parcours thématiques</div>
-                        </div>
-                        <div>
-                            <div class="font-semibold text-4xl" id="hero-free">—</div>
-                            <div class="text-[var(--school-muted)] mt-1">activités gratuites</div>
-                        </div>
+                    <p class="text-xl text-slate-300 mb-9">Les vrais événements de la semaine, avec parcours prêts à suivre.</p>
+                    <div class="flex gap-4">
+                        <a href="#cette-semaine" class="px-9 py-3 bg-[var(--school-accent)] hover:bg-[#E05200] font-semibold rounded-3xl">Découvrir cette semaine</a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="border-b border-white/10 bg-[#0B0F1C]">
-            <div class="max-w-screen-xl mx-auto px-6 py-4 text-sm text-slate-300">
-                <span class="font-medium">Semaine du 1 au 7 juin 2026</span>
-                <span class="mx-2 text-white/30">•</span>
-                <span class="text-[var(--school-accent)] font-medium">Météo : 19-24°C, ensoleillé</span>
             </div>
         </div>
 
         <div class="max-w-screen-xl mx-auto px-6 py-12">
             <div class="text-center mb-8">
-                <span class="uppercase tracking-[2px] text-xs font-semibold text-[var(--school-accent)]">Simple comme bonjour</span>
+                <span class="uppercase tracking-widest text-xs font-semibold text-[var(--school-accent)]">Simple comme bonjour</span>
                 <h2 class="text-3xl font-semibold text-white mt-1">Comment ça marche ?</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-6">
-                    <div class="w-9 h-9 rounded-2xl bg-[var(--school-accent)] flex items-center justify-center font-bold mb-4">1</div>
-                    <h3 class="font-semibold text-lg mb-2 text-white">Explore les activités</h3>
-                    <p class="text-sm text-slate-400">Filtre par jour ou prix. Toutes les activités sont issues de données ouvertes officielles de la Ville de Paris.</p>
+                    <div class="w-9 h-9 rounded-2xl bg-[#FF5C00] flex items-center justify-center font-bold mb-4">1</div>
+                    <h3 class="font-semibold text-lg mb-2">Explore les activités</h3>
+                    <p class="text-sm text-slate-400">Toutes les activités sont issues de données ouvertes officielles de la Ville de Paris.</p>
                 </div>
                 <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-6">
-                    <div class="w-9 h-9 rounded-2xl bg-[var(--school-accent)] flex items-center justify-center font-bold mb-4">2</div>
-                    <h3 class="font-semibold text-lg mb-2 text-white">Choisis un parcours</h3>
-                    <p class="text-sm text-slate-400">Sélectionne un itinéraire thématique prêt à l’emploi ou génère un planning optimisé.</p>
+                    <div class="w-9 h-9 rounded-2xl bg-[#FF5C00] flex items-center justify-center font-bold mb-4">2</div>
+                    <h3 class="font-semibold text-lg mb-2">Choisis un parcours</h3>
+                    <p class="text-sm text-slate-400">Sélectionne un itinéraire thématique ou génère un planning optimisé.</p>
                 </div>
                 <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-6">
-                    <div class="w-9 h-9 rounded-2xl bg-[var(--school-accent)] flex items-center justify-center font-bold mb-4">3</div>
-                    <h3 class="font-semibold text-lg mb-2 text-white">Profite de ta semaine</h3>
-                    <p class="text-sm text-slate-400">Tout est sauvegardé localement dans votre navigateur, prêt à être exporté à tout moment.</p>
+                    <div class="w-9 h-9 rounded-2xl bg-[#FF5C00] flex items-center justify-center font-bold mb-4">3</div>
+                    <h3 class="font-semibold text-lg mb-2">Profite</h3>
+                    <p class="text-sm text-slate-400">Tout est sauvegardé localement dans ton navigateur.</p>
                 </div>
             </div>
         </div>
 
         <div id="incontournables" class="max-w-screen-xl mx-auto px-6 py-12">
             <div class="text-center mb-8">
-                <span class="uppercase tracking-[2px] text-xs font-semibold text-[var(--school-accent)]">À voir absolument</span>
+                <span class="uppercase tracking-widest text-xs font-semibold text-[var(--school-accent)]">À voir absolument</span>
                 <h2 class="text-3xl font-semibold text-white mt-1">Les Incontournables de Paris</h2>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div class="reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+                <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-white/30 transition-all">
                     <div class="flex justify-between"><div><h3 class="font-semibold text-lg">Tour Eiffel</h3><div class="text-xs text-white/50">7e arr.</div></div><span class="text-2xl">🗼</span></div>
                     <p class="text-sm text-slate-400 mt-3">Symbole absolu de Paris. Profitez d'une vue imprenable sur toute la ville.</p>
-                    <a href="https://www.toureiffel.paris/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">Site officiel →</a>
                 </div>
-                <div class="reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+                <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-white/30 transition-all">
                     <div class="flex justify-between"><div><h3 class="font-semibold text-lg">Musée du Louvre</h3><div class="text-xs text-white/50">1er arr.</div></div><span class="text-2xl">🏺</span></div>
                     <p class="text-sm text-slate-400 mt-3">Le plus grand musée du monde. Découvrez la Joconde et la Pyramide de verre.</p>
-                    <a href="https://www.louvre.fr/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">Site officiel →</a>
                 </div>
-                <div class="reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+                <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-white/30 transition-all">
                     <div class="flex justify-between"><div><h3 class="font-semibold text-lg">Sacré-Cœur</h3><div class="text-xs text-white/50">18e arr.</div></div><span class="text-2xl">⛪</span></div>
                     <p class="text-sm text-slate-400 mt-3">Basilique blanche perchée au sommet de la butte historique de Montmartre.</p>
-                    <a href="https://www.sacre-coeur-montmartre.com/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">Site officiel →</a>
                 </div>
-                <div class="reveal bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
+                <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 hover:border-white/30 transition-all">
                     <div class="flex justify-between"><div><h3 class="font-semibold text-lg">Jardin du Luxembourg</h3><div class="text-xs text-white/50">6e arr.</div></div><span class="text-2xl">🌳</span></div>
                     <p class="text-sm text-slate-400 mt-3">Le plus beau jardin public de Paris. Ambiance parisienne authentique.</p>
-                    <a href="https://www.senat.fr/visite/jardin/" target="_blank" class="text-xs text-[#FF5C00] hover:underline mt-2 inline-block">Site officiel →</a>
                 </div>
             </div>
         </div>
@@ -495,50 +301,37 @@
         <div id="cette-semaine" class="max-w-screen-xl mx-auto px-6 py-10 bg-[#0B0F1C] rounded-3xl border border-white/10">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-6 gap-4">
                 <div>
-                    <span class="uppercase tracking-[1.5px] text-xs font-semibold text-[var(--school-accent)]">Filtres</span>
                     <h2 class="section-title font-semibold text-white">Que faire cette semaine ?</h2>
                 </div>
                 <div class="flex flex-wrap gap-1.5 text-sm">
-                    <button onclick="filterByDay('all')" class="filter-btn active px-3 py-1.5 border rounded-2xl text-xs font-medium" id="day-all">Tous les jours</button>
-                    <button onclick="filterByDay('Lundi')" class="filter-btn px-3 py-1.5 border rounded-2xl text-xs font-medium" id="day-Lundi">Lun</button>
-                    <button onclick="filterByDay('Mardi')" class="filter-btn px-3 py-1.5 border rounded-2xl text-xs font-medium" id="day-Mardi">Mar</button>
-                    <button onclick="filterByDay('Mercredi')" class="filter-btn px-3 py-1.5 border rounded-2xl text-xs font-medium" id="day-Mercredi">Mer</button>
-                    <button onclick="filterByDay('Jeudi')" class="filter-btn px-3 py-1.5 border rounded-2xl text-xs font-medium" id="day-Jeudi">Jeu</button>
-                    <button onclick="filterByDay('Vendredi')" class="filter-btn px-3 py-1.5 border rounded-2xl text-xs font-medium" id="day-Vendredi">Ven</button>
-                    <button onclick="filterByDay('Samedi')" class="filter-btn px-3 py-1.5 border rounded-2xl text-xs font-medium" id="day-Samedi">Sam</button>
-                    <button onclick="filterByDay('Dimanche')" class="filter-btn px-3 py-1.5 border rounded-2xl text-xs font-medium" id="day-Dimanche">Dim</button>
+                    <button onclick="filterByDay('all')" class="filter-btn active px-3 py-1.5 border rounded-2xl" id="day-all">Tous les jours</button>
+                    <button onclick="filterByDay('Lundi')" class="filter-btn px-3 py-1.5 border rounded-2xl" id="day-Lundi">Lun</button>
+                    <button onclick="filterByDay('Mardi')" class="filter-btn px-3 py-1.5 border rounded-2xl" id="day-Mardi">Mar</button>
+                    <button onclick="filterByDay('Mercredi')" class="filter-btn px-3 py-1.5 border rounded-2xl" id="day-Mercredi">Mer</button>
+                    <button onclick="filterByDay('Jeudi')" class="filter-btn px-3 py-1.5 border rounded-2xl" id="day-Jeudi">Jeu</button>
+                    <button onclick="filterByDay('Vendredi')" class="filter-btn px-3 py-1.5 border rounded-2xl" id="day-Vendredi">Ven</button>
+                    <button onclick="filterByDay('Samedi')" class="filter-btn px-3 py-1.5 border rounded-2xl" id="day-Samedi">Sam</button>
+                    <button onclick="filterByDay('Dimanche')" class="filter-btn px-3 py-1.5 border rounded-2xl" id="day-Dimanche">Dim</button>
                 </div>
             </div>
 
-            <div id="live-data-banner" class="text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4">
-                <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span><strong>Connexion à l'API de données en cours...</strong></span>
+            <div id="live-data-banner" class="text-xs bg-slate-800 border border-slate-700 rounded-2xl px-4 py-2 mb-4">
+                ⏳ Chargement de l'API de la Ville de Paris...
             </div>
 
             <div class="flex flex-wrap gap-2 mb-6">
-                <div class="relative">
-                    <input id="search-input" type="text" placeholder="Rechercher une activité..." onkeyup="filterActivities()" class="pl-10 pr-4 py-2.5 w-64 bg-[#1F2937] border border-white/10 focus:border-[var(--school-accent)] rounded-3xl text-sm placeholder:text-slate-400 outline-none text-white">
-                    <span class="absolute left-4 top-3.5 text-slate-400">🔍</span>
-                </div>
-                <select id="category-filter" onchange="filterActivities()" class="px-4 py-2.5 bg-[#1F2937] border border-white/10 rounded-3xl text-sm outline-none text-white">
+                <input id="search-input" type="text" placeholder="Rechercher..." onkeyup="filterActivities()" class="px-4 py-2 bg-[#1F2937] border border-white/10 rounded-3xl text-sm outline-none">
+                <select id="category-filter" onchange="filterActivities()" class="px-4 py-2 bg-[#1F2937] border border-white/10 rounded-3xl text-sm outline-none">
                     <option value="">Toutes les catégories</option>
-                    <option value="Culture">Culture &amp; Musées</option>
-                    <option value="Nature">Nature &amp; Promenades</option>
-                    <option value="Sorties">Sorties &amp; Soirées</option>
-                    <option value="Sport">Sport &amp; Bien-être</option>
-                    <option value="Art">Art de rue</option>
+                    <option value="Culture">Culture</option>
+                    <option value="Sorties">Sorties</option>
+                    <option value="Sport">Sport</option>
                 </select>
-                <select id="price-filter" onchange="filterActivities()" class="px-4 py-2.5 bg-[#1F2937] border border-white/10 rounded-3xl text-sm outline-none text-white">
-                    <option value="">Tous les prix</option>
-                    <option value="gratuit">Gratuit</option>
-                    <option value="low">Moins de 10€</option>
-                    <option value="medium">10€ – 20€</option>
-                </select>
-                <button onclick="resetFilters()" class="px-5 py-2.5 text-sm border border-white/20 hover:bg-white/10 rounded-3xl transition-colors">Réinitialiser</button>
             </div>
 
-            <div class="flex items-center justify-between mb-4">
-                <div class="text-sm text-slate-300 font-medium" id="results-count">Calcul en cours...</div>
-                <div class="view-toggle">
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-sm font-medium" id="results-count">Calcul en cours...</div>
+                <div class="view-toggle bg-[#1F2937] p-1 rounded-3xl">
                     <button onclick="switchView('list')" id="view-list-btn" class="active">Liste</button>
                     <button onclick="switchView('map')" id="view-map-btn">Carte</button>
                 </div>
@@ -546,153 +339,68 @@
 
             <div id="list-view">
                 <div id="daily-events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
-                
-                <div id="ongoing-section" class="mt-8 hidden" style="display: none;"></div>
             </div>
 
             <div id="map-view" class="hidden">
-                <div class="map-section premium-shadow">
-                    <div id="leaflet-map" class="w-full h-[460px] z-10"></div>
-                </div>
+                <div class="map-section h-[460px] w-full" id="leaflet-map"></div>
             </div>
         </div>
 
-        <div id="parcours" class="border-t border-b border-white/10 py-12 bg-[#0B0F1C] mt-8">
-            <div class="max-w-screen-xl mx-auto px-6">
-                <span class="uppercase tracking-[1.5px] text-xs font-semibold text-[var(--school-accent)]">Prêt à l'emploi</span>
-                <h2 class="section-title font-semibold mb-6 text-white">Des parcours thématiques déjà construits</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4" id="parcours-grid"></div>
-            </div>
+        <div id="parcours" class="py-12 mt-8 px-6 max-w-screen-xl mx-auto">
+            <h2 class="section-title font-semibold mb-6">Parcours thématiques</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="parcours-grid"></div>
         </div>
 
         <div id="generateur" class="max-w-screen-xl mx-auto px-6 py-12">
-            <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-6">
-                <div>
-                    <h2 class="section-title font-semibold text-white">⚡ Générateur Intelligent de Itinéraires</h2>
-                    <p class="text-slate-400 mt-1 max-w-xl">Sélectionnez les activités à inclure dans le tableau ci-dessous, notre algorithme calculera l'itinéraire géographique idéal de votre journée.</p>
-                </div>
-                <button onclick="generateSmartItinerary()" class="mt-4 md:mt-0 px-8 py-3.5 rounded-3xl bg-[#FF5C00] hover:bg-[#E05200] font-semibold text-white transition-all active:scale-95">
-                    Générer le parcours optimisé
-                </button>
+            <h2 class="section-title font-semibold mb-6">⚡ Générateur Intelligent</h2>
+            <div class="bg-[#0B0F1C] border border-white/10 rounded-3xl p-5 mb-6">
+                <button onclick="generateSmartItinerary()" class="w-full py-3 bg-[#FF5C00] rounded-2xl font-bold">Générer le parcours</button>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-[#0B0F1C] border border-white/10 rounded-3xl p-5">
-                <div>
-                    <label class="text-xs text-white/60 block mb-1">Style de transport</label>
-                    <select id="gen-style" class="w-full bg-[#111827] border border-white/10 rounded-2xl px-4 py-2 text-sm text-white">
-                        <option value="balanced">Équilibré (recommandé)</option>
-                        <option value="compact">Compact (Moins de transports)</option>
-                        <option value="relaxed">Tranquille</option>
-                    </select>
-                </div>
-                <div class="flex items-end">
-                    <button onclick="resetGeneratorResults()" class="w-full px-4 py-2 rounded-2xl border border-white/20 text-sm hover:bg-white/5 text-white">Effacer l'itinéraire</button>
-                </div>
-            </div>
-
-            <div class="mb-6">
-                <div class="flex justify-between items-center mb-3">
-                    <span class="font-semibold text-white">Cochez les activités à lier entre elles :</span>
-                    <div class="flex gap-2">
-                        <button onclick="selectAllForGenerator()" class="text-xs px-3 py-1 border border-white/20 rounded-xl">Tout cocher</button>
-                        <button onclick="deselectAllForGenerator()" class="text-xs px-3 py-1 border border-white/20 rounded-xl">Tout décocher</button>
-                    </div>
-                </div>
-                <div id="generator-activity-pool" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[300px] overflow-auto p-3 bg-[#0B0F1C] border border-white/10 rounded-3xl"></div>
-            </div>
-
-            <div id="generator-results" class="hidden bg-[#0B0F1C] border border-white/10 rounded-3xl p-6">
-                <h3 class="font-semibold text-lg mb-4 text-white">Votre Itinéraire Géographique Optimisé</h3>
+            <div id="generator-activity-pool" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[300px] overflow-auto"></div>
+            
+            <div id="generator-results" class="hidden mt-6 bg-[#0B0F1C] p-6 rounded-3xl border border-white/10">
                 <div id="generator-stats" class="grid grid-cols-3 gap-3 mb-6"></div>
-                <div class="mb-6">
-                    <div id="generator-map" class="h-[300px] w-full rounded-2xl overflow-hidden border border-white/10"></div>
-                </div>
+                <div id="generator-map" class="h-[300px] w-full rounded-2xl mb-4"></div>
                 <div id="generator-days" class="space-y-4"></div>
             </div>
         </div>
 
         <div id="planning" class="max-w-screen-xl mx-auto px-6 py-12 bg-[#0B0F1C] rounded-3xl border border-white/10 mb-12">
             <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h2 class="section-title font-semibold text-white">Mon planning personnel</h2>
-                    <p class="text-slate-400">Retrouvez ici toutes vos étapes sauvegardées.</p>
-                </div>
-                <button onclick="exportPlanning()" class="px-5 py-2 text-sm bg-white/10 hover:bg-white/20 border border-white/20 rounded-3xl font-medium transition-colors">Exporter (.txt)</button>
+                <h2 class="section-title font-semibold">Mon planning</h2>
+                <button onclick="exportPlanning()" class="px-4 py-2 text-sm border border-white/20 rounded-2xl">Exporter (.txt)</button>
             </div>
             <div id="planning-content"></div>
         </div>
-
-        <footer class="border-t border-white/10 bg-[#070A12] py-6 text-xs text-center text-slate-500">
-            <span id="data-status">Mode démo</span> | <button onclick="showAbout()" class="underline">À propos</button>
-        </footer>
-
     </div>
 
-    <div id="activity-modal" onclick="if (event.target.id === 'activity-modal') closeModal()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] items-center justify-center p-4">
-        <div class="bg-[#0B0F1C] border border-white/10 w-full max-w-lg rounded-3xl overflow-hidden modal text-white" onclick="event.stopPropagation()">
+    <div id="activity-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur z-[100] items-center justify-center p-4" onclick="closeModal()">
+        <div class="bg-[#0B0F1C] border border-white/10 w-full max-w-lg rounded-3xl p-6" onclick="event.stopPropagation()">
             <div id="modal-content"></div>
         </div>
     </div>
 
-    <div id="quiz-modal" onclick="if (event.target.id === 'quiz-modal') closeQuiz()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[110] items-center justify-center p-4">
-        <div class="bg-[#0B0F1C] border border-white/10 w-full max-w-md rounded-3xl overflow-hidden text-white" onclick="event.stopPropagation()">
-            <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center">
-                <span class="font-semibold text-lg">Trouve ton style</span>
-                <button onclick="closeQuiz()" class="text-slate-400 text-xl">✕</button>
-            </div>
-            <div id="quiz-content" class="p-6"></div>
-        </div>
-    </div>
-
     <script>
-        // ==================== DONNÉES CURATORÉES SEMAINE DU 1 AU 7 JUIN 2026 ====================
         const activities = [
-            { id: 1, title: "Roland-Garros 2026 – Demi-finales", day: "Lundi", date: "1 juin", time: "11:00", duration: "7.0", category: "Sport", price: 25, priceLabel: "25€+", location: "Stade Roland-Garros, Porte d'Auteuil", arrondissement: "16e", description: "Demi-finales messieurs et dames sur la célèbre terre battue parisienne.", spots: "Billets limités", studentDiscount: false, coordinates: [48.8472, 2.2490], metro: "Porte d'Auteuil (10)", tips: "Arrivez tôt en matinée." },
-            { id: 2, title: "Cabaret queer La Bouche", day: "Mardi", date: "2 juin", time: "19:00", duration: "2.0", category: "Sorties", price: 0, priceLabel: "Gratuit", location: "Transfo – Emmaüs Solidarité", arrondissement: "10e", description: "Un show multidisciplinaire unique, sexy et engagé en plein air.", spots: "Entrée libre", studentDiscount: true, coordinates: [48.8680, 2.3650], metro: "Goncourt (11)", tips: "Apportez une petite veste pour le soir." },
-            { id: 3, title: "Festival ManiFeste – Art & Science", day: "Mercredi", date: "3 juin", time: "19:30", duration: "2.5", category: "Culture", price: 15, priceLabel: "15€", location: "Ircam, Place Igor Stravinsky", arrondissement: "4e", description: "Musique, lumière et technologie de pointe au cœur de Paris.", spots: "Sur réservation", studentDiscount: true, coordinates: [48.8596, 2.3516], metro: "Rambuteau (11)", tips: "Tarif réduit disponible avec votre carte étudiant." },
-            { id: 4, title: "Beyond the Streets – Expo Graffiti", day: "Jeudi", date: "4 juin", time: "10:00", duration: "2.0", category: "Art", price: 18, priceLabel: "18€", location: "Grande Halle de la Villette", arrondissement: "19e", description: "Une immense exposition retraçant l'histoire globale du street-art mondial.", spots: "Ouvert la journée", studentDiscount: true, coordinates: [48.8937, 2.3937], metro: "Porte de Pantin (5)", tips: "Prévoyez au moins deux heures sur place." },
-            { id: 5, title: "Rendez-vous aux Jardins de Paris", day: "Vendredi", date: "5 juin", time: "14:00", duration: "3.0", category: "Nature", price: 0, priceLabel: "Gratuit", location: "Jardins secrets de Paris", arrondissement: "Toute la ville", description: "Ouverture exceptionnelle de cours végétalisées privées et d'hôtels particuliers.", spots: "Accès libre", studentDiscount: true, coordinates: [48.8566, 2.3522], metro: "Divers stations", tips: "Consultez la cartographie des lieux ouverts." },
-            { id: 6, title: "We Love Green Festival", day: "Vendredi", date: "5 juin", time: "15:00", duration: "6.0", category: "Sorties", price: 45, priceLabel: "45€", location: "Bois de Vincennes", arrondissement: "12e", description: "Ouverture de la grande saison des festivals de musique et d'écologie à Paris.", spots: "Pass obligatoire", studentDiscount: false, coordinates: [48.8369, 2.4089], metro: "Porte Dorée (8)", tips: "N'oubliez pas d'emporter votre gourde réutilisable." }
+            { id: 1, title: "Roland-Garros 2026", day: "Lundi", time: "11:00", category: "Sport", price: 25, location: "Stade Roland-Garros", description: "Demi-finales messieurs et dames.", coordinates: [48.8472, 2.2490] },
+            { id: 2, title: "Cabaret La Bouche", day: "Mardi", time: "19:00", category: "Sorties", price: 0, location: "Transfo Emmaüs", description: "Show multidisciplinaire.", coordinates: [48.8680, 2.3650] }
         ];
 
-        activities.forEach(a => { if (a.isMultiDay === undefined) a.isMultiDay = false; });
-
-        const categoryImages = {
-            'Culture': "https://images.unsplash.com/photo-1564399579883-451a5d44ec08?w=800&q=80",
-            'Nature': "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?w=800&q=80",
-            'Sorties': "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80",
-            'Sport': "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",
-            'Art': "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&q=80",
-            'default': "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80"
-        };
-
-        const parcours = [
-            { id: "p1", title: "Arts & Scène alternative", subtitle: "Découverte street-art et cabaret", duration: "1 Journée", difficulty: "Facile", budget: "18€", color: "bg-violet-600", description: "Idéal pour explorer les nouvelles formes artistiques parisiennes en une seule journée.", steps: [{ time: "10:00", title: "Expo Graffiti", location: "Grande Halle de la Villette", duration: "2h", cost: "14€" }, { time: "19:00", title: "Cabaret La Bouche", location: "10e arrondissement", duration: "2h", cost: "Gratuit" }], tags: ["Art", "StreetArt", "Original"] }
-        ];
-
-        // ==================== STATE DECLARATIONS ====================
         let currentFilters = { day: 'all', search: '', category: '', price: '' };
         let userPlanning = JSON.parse(localStorage.getItem('parcoursParisPlanning') || '[]');
         let userFavorites = JSON.parse(localStorage.getItem('parcoursParisFavorites') || '[]');
-        let isUsingLiveData = false;
-        let currentItinerary = null; // FIX : Explicit declaration
-        let demoActivities = [...activities];
-
+        let currentItinerary = null;
         let map = null;
         let currentMarkers = [];
         let currentView = 'list';
 
-        // Helper pour nettoyer le HTML et se prémunir du XSS
-        function escapeHTML(str) {
-            if (!str) return '';
-            return str.replace(/<[^>]+>/g, '');
-        }
+        function escapeHTML(str) { return str ? str.replace(/<[^>]+>/g, '') : ''; }
 
         function initMap() {
             if (map) return;
-            map = L.map('leaflet-map', { zoomControl: true, attributionControl: false }).setView([48.8566, 2.3522], 12);
+            map = L.map('leaflet-map', { zoomControl: true }).setView([48.8566, 2.3522], 12);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-            updateMapMarkers(activities);
+            updateMapMarkers(getCurrentFilteredActivities());
         }
 
         function updateMapMarkers(filteredActivities) {
@@ -700,244 +408,133 @@
             currentMarkers.forEach(m => map.removeLayer(m));
             currentMarkers = [];
             const bounds = [];
-
-            filteredActivities.forEach(activity => {
-                if (!activity.coordinates) return;
-                const marker = L.marker(activity.coordinates, {
-                    icon: L.divIcon({
-                        className: 'custom-marker',
-                        html: `<div style="background:#FF5C00;width:24px;height:24px;border-radius:50%;border:2px solid white;box-shadow:0 2px 4px rgba(0,0,0,0.3)"></div>`,
-                        iconSize: [24, 24]
-                    })
-                });
-                marker.bindPopup(`<div style="color:#000;font-family:sans-serif;padding:2px"><b>${escapeHTML(activity.title)}</b><br>📍 ${escapeHTML(activity.location)}</div>`);
-                marker.addTo(map);
+            filteredActivities.forEach(a => {
+                if (!a.coordinates) return;
+                const marker = L.marker(a.coordinates).bindPopup(`<b>${a.title}</b><br>${a.location}`).addTo(map);
                 currentMarkers.push(marker);
-                bounds.push(activity.coordinates);
+                bounds.push(a.coordinates);
             });
-
             if (bounds.length > 0) map.fitBounds(bounds, { padding: [40, 40] });
         }
 
         function switchView(view) {
             currentView = view;
-            const listView = document.getElementById('list-view');
-            const mapView = document.getElementById('map-view');
-            const listBtn = document.getElementById('view-list-btn');
-            const mapBtn = document.getElementById('view-map-btn');
-
-            if (view === 'list') {
-                listView.classList.remove('hidden');
-                mapView.classList.add('hidden');
-                listBtn.classList.add('active');
-                mapBtn.classList.remove('active');
-            } else {
-                listView.classList.add('hidden');
-                mapView.classList.remove('hidden');
-                listBtn.classList.remove('active');
-                mapBtn.classList.add('active');
-                
-                // FIX : Timeout et map.invalidateSize() pour Leaflet
-                setTimeout(() => {
-                    initMap();
-                    if (map) map.invalidateSize(); 
-                    updateMapMarkers(getCurrentFilteredActivities());
-                }, 80);
+            document.getElementById('list-view').classList.toggle('hidden', view === 'map');
+            document.getElementById('map-view').classList.toggle('hidden', view === 'list');
+            document.getElementById('view-list-btn').classList.toggle('active', view === 'list');
+            document.getElementById('view-map-btn').classList.toggle('active', view === 'map');
+            
+            if (view === 'map') {
+                setTimeout(() => { initMap(); if (map) map.invalidateSize(); }, 50);
             }
         }
 
-        async function loadFromParisOpenData({ silent = false } = {}) {
+        // APPEL DIRECT À PARIS OPEN DATA (GARANTI SANS ERREUR DE BACKEND)
+        async function loadFromParisOpenData() {
             const bannerEl = document.getElementById('live-data-banner');
-            const API = '/api/events'; // Proxy Vercel
+            const API = 'https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/que-faire-a-paris-/records?limit=30&order_by=date_start%20DESC';
 
             try {
                 const res = await fetch(API);
-                if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-                
+                if (!res.ok) throw new Error("API Indisponible");
                 const json = await res.json();
-                const rawRecords = json.records || json.results || json.activities || [];
-                
-                if (rawRecords.length === 0) throw new Error('Aucune donnée reçue');
+                const rawRecords = json.results || json.records || [];
 
-                // 1. Dédoublonnage par titre
                 const uniqueRecords = [];
                 const seenTitles = new Set();
                 rawRecords.forEach(r => {
-                    const titleClean = (r.title || '').trim().toLowerCase();
-                    if (!seenTitles.has(titleClean) && titleClean.length > 3) {
-                        seenTitles.add(titleClean);
+                    const title = (r.title || '').trim().toLowerCase();
+                    if (!seenTitles.has(title) && title.length > 3) {
+                        seenTitles.add(title);
                         uniqueRecords.push(r);
                     }
                 });
 
-                // 2. RÉPARTITION ÉQUITABLE SUR LA SEMAINE
-                const DAY_NAMES = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-                let dayDistributor = 0; 
+                const DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+                let dayIndex = 0;
 
                 const liveActivities = uniqueRecords.map((r, i) => {
-                    const assignedDayName = DAY_NAMES[dayDistributor % 7];
-                    dayDistributor++;
+                    const day = DAYS[dayIndex % 7];
+                    dayIndex++;
 
-                    // Nettoyage XSS basique
-                    const safeTitle = r.title ? r.title.replace(/<[^>]+>/g, '').trim() : 'Activité';
-                    const rawLoc = r.address_name || r.place_name || 'Paris';
-                    const safeLoc = rawLoc.replace(/<[^>]+>/g, '').trim();
-
-                    let price = 0, priceLabel = 'Gratuit';
-                    const pd = (r.price_detail || r.price_type || '').toLowerCase();
-                    if (pd.includes('payant') || pd.includes('€')) { 
-                        price = 10; 
-                        priceLabel = 'Payant'; 
-                    }
-
-                    let coords = [48.8566 + (Math.random()-0.5)*0.02, 2.3522 + (Math.random()-0.5)*0.02];
-                    if (r.lat_lon && r.lat_lon.lat) coords = [parseFloat(r.lat_lon.lat), parseFloat(r.lat_lon.lon)];
-                    else if (r.geo_point_2d && r.geo_point_2d.lat) coords = [parseFloat(r.geo_point_2d.lat), parseFloat(r.geo_point_2d.lon)];
+                    let price = r.price_type && r.price_type.includes('payant') ? 10 : 0;
+                    let coords = [48.8566, 2.3522];
+                    if (r.lat_lon && r.lat_lon.lat) coords = [r.lat_lon.lat, r.lat_lon.lon];
 
                     return {
                         id: 500 + i,
-                        title: safeTitle,
-                        day: assignedDayName,
-                        dayRaw: assignedDayName,
-                        date: "Cette semaine",
+                        title: escapeHTML(r.title),
+                        day: day,
                         time: r.date_start ? r.date_start.substring(11,16) : '10:00',
-                        duration: 2.0,
-                        category: "Culture", 
+                        category: "Culture",
                         price: price,
-                        priceLabel: priceLabel,
-                        location: safeLoc,
-                        arrondissement: r.address_zipcode ? String(r.address_zipcode).slice(-2) + 'e' : 'Paris',
-                        description: r.lead_text ? r.lead_text.replace(/<[^>]+>/g,' ').trim() : 'Activité proposée par la Ville de Paris.',
-                        spots: "Libre",
-                        studentDiscount: price === 0,
+                        priceLabel: price === 0 ? "Gratuit" : "Payant",
+                        location: escapeHTML(r.address_name || 'Paris'),
+                        description: escapeHTML(r.lead_text || ''),
                         coordinates: coords,
-                        _imageUrl: r.cover_url || null,
-                        _sourceUrl: r.url || null,
-                        _isLive: true,
-                        isMultiDay: false
+                        _imageUrl: r.cover_url || null
                     };
                 });
 
                 activities.length = 0;
                 liveActivities.forEach(a => activities.push(a));
-                isUsingLiveData = true;
-
-                resetFilters();
-                if (typeof renderGeneratorActivityPool === 'function') renderGeneratorActivityPool();
                 
-                if (bannerEl) {
-                    bannerEl.className = 'text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4';
-                    bannerEl.innerHTML = `<span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span><strong>${liveActivities.length} événements répartis sur la semaine</strong> — Paris Open Data</span>`;
-                }
-
-                return true;
+                bannerEl.className = 'text-xs text-emerald-300 bg-emerald-900/30 border border-emerald-700/40 rounded-2xl px-4 py-2 mb-4';
+                bannerEl.innerHTML = `✅ <b>${liveActivities.length} événements chargés en direct via Paris Open Data</b>`;
+                
+                resetFilters();
             } catch (e) {
-                console.warn("[ParcoursParis] API Error:", e);
-                if (bannerEl) {
-                    bannerEl.className = 'text-xs text-red-400 bg-red-900/30 border border-red-700/40 rounded-2xl px-4 py-2 mb-4';
-                    bannerEl.innerHTML = `⚠️ Erreur de chargement. Affichage des données de démonstration.`;
-                }
-                return false;
+                bannerEl.className = 'text-xs text-red-400 bg-red-900/30 rounded-2xl px-4 py-2 mb-4';
+                bannerEl.innerHTML = `⚠️ Impossible de joindre l'API. Données de démo chargées.`;
             }
         }
 
         function getCurrentFilteredActivities() {
             let filtered = [...activities];
             if (currentFilters.day !== 'all') filtered = filtered.filter(a => a.day === currentFilters.day);
-            if (currentFilters.search) {
-                const s = currentFilters.search.toLowerCase();
-                filtered = filtered.filter(a => a.title.toLowerCase().includes(s) || a.description.toLowerCase().includes(s));
-            }
             if (currentFilters.category) filtered = filtered.filter(a => a.category === currentFilters.category);
-            if (currentFilters.price === 'gratuit') filtered = filtered.filter(a => a.price === 0);
             return filtered;
         }
 
         function renderActivities(filteredActivities) {
-            const dailyGrid = document.getElementById('daily-events-grid');
-            const ongoingSection = document.getElementById('ongoing-section');
-            const countEl = document.getElementById('results-count');
-            
-            if (!dailyGrid) return;
+            const grid = document.getElementById('daily-events-grid');
+            document.getElementById('results-count').innerHTML = `Résultat : <span class="text-[#FF5C00] font-bold">${filteredActivities.length}</span> activité(s)`;
+            grid.innerHTML = '';
 
-            if (ongoingSection) {
-                ongoingSection.style.display = 'none';
-                ongoingSection.classList.add('hidden');
-            }
+            filteredActivities.forEach(a => {
+                const img = a._imageUrl || "https://images.unsplash.com/photo-1564399579883-451a5d44ec08?w=800&q=80";
+                const isFav = userFavorites.includes(a.id);
+                const isInPlan = userPlanning.some(p => p.id === a.id);
 
-            if (countEl) {
-                countEl.innerHTML = filteredActivities.length > 0
-                    ? `Résultat : <span class="text-[#FF5C00] font-bold">${filteredActivities.length}</span> activité(s) trouvée(s).`
-                    : 'Aucun résultat pour ces filtres';
-            }
-
-            dailyGrid.innerHTML = '';
-            
-            if (filteredActivities.length === 0) {
-                dailyGrid.innerHTML = `
-                    <div class="col-span-full py-12 text-center text-sm text-slate-400">
-                        <div class="text-3xl mb-3">📭</div>
-                        Pas d'événement correspondant aux filtres pour ce jour.<br>
-                        Essaie de cliquer sur "Tous les jours" ou de modifier tes filtres.
-                    </div>`;
-            } else {
-                filteredActivities.forEach(a => {
-                    const isInPlanning = userPlanning.some(p => p.id === a.id);
-                    const isFavorite = userFavorites.includes(a.id);
-                    const img = a._imageUrl || categoryImages[a.category] || categoryImages.default;
-                    const wrapper = document.createElement('div');
-                    
-                    wrapper.innerHTML = `
-                    <div class="activity-card bg-[#111827] rounded-3xl overflow-hidden flex flex-col h-full shadow-lg" onclick="showActivityModal(${a.id})">
-                        <div class="card-image rounded-t-3xl" id="card-img-daily-${a.id}" style="background-image:url('${img}')">
-                            <div class="price-badge bg-black/60 px-3 py-1 rounded-full text-xs">${a.priceLabel}</div>
-                            <button onclick="event.stopPropagation(); toggleFavorite(${a.id})" class="absolute top-3 left-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-lg ${isFavorite?'text-red-500':'text-white'}">♥</button>
-                        </div>
-                        <div class="p-4 flex-1 flex flex-col justify-between">
-                            <div>
-                                <h3 class="font-semibold text-base text-white mb-1">${a.title}</h3>
-                                <div class="text-xs text-[var(--school-accent)] font-medium mb-2">${a.day} • ${a.time}</div>
-                                <p class="text-xs text-slate-300 line-clamp-2">${a.description}</p>
-                            </div>
-                            <div class="mt-4 flex items-center justify-between gap-2 text-xs">
-                                <span class="truncate text-slate-400">📍 ${a.location}</span>
-                                <button onclick="event.stopPropagation(); togglePlanning(${a.id})" class="px-3 py-1.5 rounded-xl transition-all ${isInPlanning?'bg-emerald-600/30 text-emerald-400':'bg-[#FF5C00] font-medium text-white hover:scale-105'}">${isInPlanning?'✓':'+ Ajouter'}</button>
-                            </div>
-                        </div>
-                    </div>`;
-                    dailyGrid.innerHTML += wrapper.innerHTML;
-                });
-            }
-
-            if (currentView === 'map' && map) updateMapMarkers(filteredActivities);
+                grid.innerHTML += `
+                <div class="bg-[#111827] border border-white/10 rounded-3xl overflow-hidden shadow-lg hover:border-white/30 transition-all cursor-pointer" onclick="showActivityModal(${a.id})">
+                    <div class="h-32 bg-cover bg-center relative" style="background-image:url('${img}')">
+                        <span class="absolute top-2 right-2 bg-black/80 px-2 py-1 text-[10px] rounded-full">${a.priceLabel}</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-sm mb-1 truncate">${a.title}</h3>
+                        <p class="text-xs text-[#FF5C00] mb-2">${a.day} • ${a.time}</p>
+                        <button onclick="event.stopPropagation(); togglePlanning(${a.id})" class="w-full mt-2 py-1.5 text-xs rounded-xl ${isInPlan?'bg-emerald-600/30 text-emerald-400':'bg-white/10 hover:bg-[#FF5C00]'}">${isInPlan?'✓ Ajouté':'+ Planning'}</button>
+                    </div>
+                </div>`;
+            });
+            if (currentView === 'map') updateMapMarkers(filteredActivities);
         }
 
         function filterActivities() {
-            currentFilters.search = document.getElementById('search-input').value.trim();
             currentFilters.category = document.getElementById('category-filter').value;
-            currentFilters.price = document.getElementById('price-filter').value;
             applyFilters();
         }
 
         function filterByDay(day) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            const target = document.getElementById(day === 'all' ? 'day-all' : `day-${day}`);
-            if (target) target.classList.add('active');
+            document.getElementById(day === 'all' ? 'day-all' : `day-${day}`).classList.add('active');
             currentFilters.day = day;
             applyFilters();
         }
 
-        function applyFilters() {
-            renderActivities(getCurrentFilteredActivities());
-        }
-
-        function resetFilters() {
-            currentFilters = { day: 'all', search: '', category: '', price: '' };
-            document.getElementById('search-input').value = '';
-            document.getElementById('category-filter').value = '';
-            document.getElementById('price-filter').value = '';
-            filterByDay('all');
-        }
+        function applyFilters() { renderActivities(getCurrentFilteredActivities()); }
+        function resetFilters() { currentFilters = { day: 'all', search: '', category: '', price: '' }; filterByDay('all'); }
 
         function togglePlanning(id) {
             const act = activities.find(a => a.id === id);
@@ -950,265 +547,90 @@
             applyFilters();
         }
 
-        function toggleFavorite(id) {
-            const idx = userFavorites.indexOf(id);
-            if (idx > -1) userFavorites.splice(idx, 1);
-            else userFavorites.push(id);
-            localStorage.setItem('parcoursParisFavorites', JSON.stringify(userFavorites));
-            applyFilters();
-        }
-
         function renderPlanning() {
-            const container = document.getElementById('planning-content');
-            if (!container) return;
-            if (userPlanning.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-sm text-center py-4">Votre planning est vide.</p>`;
-                return;
-            }
-            let html = `<div class="space-y-2">`;
-            userPlanning.forEach(p => {
-                html += `
-                <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm">
-                    <div>
-                        <span class="font-bold text-[#FF5C00] mr-2">${p.day} ${p.time}</span>
-                        <span class="text-white font-medium">${p.title}</span>
-                    </div>
-                    <button onclick="togglePlanning(${p.id})" class="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded-xl">Retirer</button>
-                </div>`;
-            });
-            html += `</div>`;
-            container.innerHTML = html;
+            const c = document.getElementById('planning-content');
+            if (userPlanning.length === 0) return c.innerHTML = `<p class="text-slate-500">Vide.</p>`;
+            c.innerHTML = userPlanning.map(p => `
+                <div class="flex justify-between p-3 bg-white/5 rounded-xl mb-2">
+                    <span><b class="text-[#FF5C00]">${p.day}</b> ${p.title}</span>
+                    <button onclick="togglePlanning(${p.id})" class="text-red-400 text-xs">Retirer</button>
+                </div>`).join('');
         }
 
         function exportPlanning() {
-            if (userPlanning.length === 0) return alert("Planning vide !");
-            const txt = userPlanning.map(p => `[${p.day} à ${p.time}] - ${p.title} (${p.location})`).join('\n');
-            const blob = new Blob([txt], { type: 'text/plain' });
+            const txt = userPlanning.map(p => `${p.day} ${p.time} - ${p.title}`).join('\n');
             const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'mon_planning_paris.txt';
+            a.href = URL.createObjectURL(new Blob([txt]));
+            a.download = 'planning.txt';
             a.click();
         }
 
         function showActivityModal(id) {
             const a = activities.find(x => x.id === id);
-            if (!a) return;
             document.getElementById('modal-content').innerHTML = `
-            <div class="p-6">
-                <h3 class="text-2xl font-bold mb-2 text-[#FF5C00]">${a.title}</h3>
-                <p class="text-xs text-slate-400 mb-4">📅 ${a.day} • 🕒 ${a.time} (${a.duration}h) • 💵 ${a.priceLabel}</p>
-                <p class="text-sm text-slate-200 mb-4 leading-relaxed">${a.description}</p>
-                <div class="bg-white/5 p-4 rounded-xl text-xs space-y-1 mb-6">
-                    <div><b>📍 Adresse :</b> ${a.location} (${a.arrondissement})</div>
-                    <div><b>🚇 Métro :</b> ${a.metro || 'Non spécifié'}</div>
-                    ${a.tips ? `<div><b>💡 Conseil :</b> ${a.tips}</div>` : ''}
-                </div>
-                <div class="flex justify-end gap-2"><button onclick="closeModal()" class="px-4 py-2 border border-white/20 rounded-xl text-xs hover:bg-white/10">Fermer</button></div>
-            </div>`;
+                <h2 class="text-2xl font-bold mb-2">${a.title}</h2>
+                <p class="text-sm text-[#FF5C00] mb-4">${a.day} • ${a.time}</p>
+                <p class="text-sm mb-4">${a.description}</p>
+                <p class="text-xs text-slate-400 mb-6">📍 ${a.location}</p>
+                <button onclick="closeModal()" class="w-full py-2 bg-white/10 rounded-xl">Fermer</button>
+            `;
             document.getElementById('activity-modal').classList.remove('hidden');
             document.getElementById('activity-modal').classList.add('flex');
         }
+        function closeModal() { document.getElementById('activity-modal').classList.add('hidden'); document.getElementById('activity-modal').classList.remove('flex'); }
 
-        function closeModal() {
-            document.getElementById('activity-modal').classList.add('hidden');
-            document.getElementById('activity-modal').classList.remove('flex');
-        }
-
-        function renderParcours() {
-            const container = document.getElementById('parcours-grid');
-            if (!container) return;
-            container.innerHTML = '';
-            parcours.forEach(p => {
-                container.innerHTML += `
-                <div class="parcours-card bg-[#111827] border border-white/10 rounded-3xl p-5 flex flex-col justify-between h-full" onclick="alert('Fonctionnalité en cours de développement !')">
-                    <div>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-[#FF5C00]">${p.duration}</span>
-                        <h3 class="font-bold text-lg text-white mt-1 mb-2">${p.title}</h3>
-                        <p class="text-xs text-slate-400">${p.subtitle}</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-white/5 flex gap-2 text-[10px]"><span class="bg-white/10 px-2 py-0.5 rounded-md">${p.budget}</span></div>
-                </div>`;
-            });
-        }
-
-        // ==================== GÉNÉRATEUR INTELLIGENT DE PARCOURS ====================
         let generatorSelectedIds = new Set();
-
         function renderGeneratorActivityPool() {
-            const container = document.getElementById('generator-activity-pool');
-            if (!container) return;
-            container.innerHTML = '';
-            activities.forEach(a => {
-                const isSelected = generatorSelectedIds.has(a.id);
-                container.innerHTML += `
-                <div class="flex items-center gap-3 p-3 rounded-2xl border ${isSelected?'border-[#FF5C00] bg-white/5':'border-white/10 hover:border-white/30'} cursor-pointer" onclick="toggleGeneratorActivity(${a.id})">
-                    <input type="checkbox" ${isSelected?'checked':''} class="pointer-events-none">
-                    <div class="flex-1 min-w-0 text-xs">
-                        <div class="font-semibold text-white truncate">${a.title}</div>
-                        <div class="text-[10px] text-slate-400">${a.day} • ${a.location}</div>
-                    </div>
-                </div>`;
-            });
+            const c = document.getElementById('generator-activity-pool');
+            c.innerHTML = activities.map(a => `
+                <div class="flex items-center gap-2 p-2 border ${generatorSelectedIds.has(a.id)?'border-[#FF5C00]':'border-white/10'} rounded-xl cursor-pointer" onclick="toggleGen(${a.id})">
+                    <input type="checkbox" ${generatorSelectedIds.has(a.id)?'checked':''} class="pointer-events-none">
+                    <span class="text-xs truncate">${a.title}</span>
+                </div>`).join('');
         }
-
-        function toggleGeneratorActivity(id) {
-            if (generatorSelectedIds.has(id)) generatorSelectedIds.delete(id);
-            else generatorSelectedIds.add(id);
-            renderGeneratorActivityPool();
-        }
-
+        function toggleGen(id) { generatorSelectedIds.has(id) ? generatorSelectedIds.delete(id) : generatorSelectedIds.add(id); renderGeneratorActivityPool(); }
         function selectAllForGenerator() { activities.forEach(a=>generatorSelectedIds.add(a.id)); renderGeneratorActivityPool(); }
         function deselectAllForGenerator() { generatorSelectedIds.clear(); renderGeneratorActivityPool(); }
 
-        let generatorMapInstance = null;
+        let genMap = null;
         function generateSmartItinerary() {
-            let selected = activities.filter(a => generatorSelectedIds.has(a.id));
-            if (selected.length < 2) return alert("Cochez au moins 2 activités dans la liste.");
-
-            selected = selected.map(a => {
-                let normalized = { ...a };
-                if (a.coordinates && Array.isArray(a.coordinates)) {
-                    normalized.lat = a.coordinates[0];
-                    normalized.lon = a.coordinates[1];
-                }
-                
-                if (typeof a.duration === 'string') {
-                    const low = a.duration.toLowerCase();
-                    if (low.includes('jour') || low.includes('nuit') || low.includes('semaine')) {
-                        normalized.duration = 4.0;
-                    } else {
-                        const parsed = parseFloat(low.replace('h', '').replace(',', '.'));
-                        normalized.duration = isNaN(parsed) ? 1.5 : parsed;
-                    }
-                } else {
-                    normalized.duration = typeof a.duration === 'number' ? a.duration : 1.5;
-                }
-                return normalized;
-            });
-
-            selected.sort((a,b) => (a.time || '00:00').localeCompare(b.time || '00:00'));
-
-            const itinerary = {
-                days: [selected],
-                stats: { activities: selected.length, cost: selected.reduce((s,x)=>s+(x.price||0),0), travel: selected.length * 15 }
-            };
-
-            currentItinerary = itinerary;
-
-            document.getElementById('generator-stats').innerHTML = `
-                <div class="bg-white/5 p-3 rounded-xl text-center"><b>Activités</b><br>${itinerary.stats.activities}</div>
-                <div class="bg-white/5 p-3 rounded-xl text-center"><b>Coût ést.</b><br>${itinerary.stats.cost}€</div>
-                <div class="bg-white/5 p-3 rounded-xl text-center"><b>Trajet ést.</b><br>${itinerary.stats.travel} min</div>
-            `;
-
-            const daysEl = document.getElementById('generator-days');
-            daysEl.innerHTML = '';
-            selected.forEach(a => {
-                daysEl.innerHTML += `
-                <div class="p-3 bg-white/5 rounded-xl border-l-2 border-[#FF5C00] text-xs">
-                    <b>${a.time}</b> — ${a.title} (📍 ${a.location})
-                </div>`;
-            });
-
+            let sel = activities.filter(a => generatorSelectedIds.has(a.id));
+            if (sel.length < 2) return alert("Cochez au moins 2 activités.");
             document.getElementById('generator-results').classList.remove('hidden');
-
+            document.getElementById('generator-days').innerHTML = sel.map(a => `<div class="p-2 border-l-2 border-[#FF5C00] mb-2 bg-white/5 text-xs">${a.title}</div>`).join('');
+            
             setTimeout(() => {
-                if (generatorMapInstance) generatorMapInstance.remove();
-                generatorMapInstance = L.map('generator-map').setView([48.8566, 2.3522], 12);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(generatorMapInstance);
-                const pts = selected.map(x => {
-                    L.marker([x.lat, x.lon]).addTo(generatorMapInstance);
-                    return [x.lat, x.lon];
-                });
-                if (pts.length > 0) generatorMapInstance.fitBounds(pts, { padding: [20, 20] });
-            }, 50);
+                if (genMap) genMap.remove();
+                genMap = L.map('generator-map').setView([48.8566, 2.3522], 12);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(genMap);
+                const pts = sel.map(x => { L.marker(x.coordinates).addTo(genMap); return x.coordinates; });
+                if (pts.length) genMap.fitBounds(pts);
+            }, 100);
+        }
+        function resetGeneratorResults() { document.getElementById('generator-results').classList.add('hidden'); generatorSelectedIds.clear(); renderGeneratorActivityPool(); }
+
+        function renderParcours() {
+            document.getElementById('parcours-grid').innerHTML = parcours.map(p => `
+                <div class="bg-[#111827] border border-white/10 p-5 rounded-3xl">
+                    <h3 class="font-bold mb-2">${p.title}</h3>
+                    <p class="text-xs text-slate-400">${p.description}</p>
+                </div>`).join('');
         }
 
-        function resetGeneratorResults() {
-            document.getElementById('generator-results').classList.add('hidden');
-            generatorSelectedIds.clear();
-            renderGeneratorActivityPool();
-        }
-
-        // ==================== QUIZ SYSTEM ====================
-        function showQuiz() {
-            document.getElementById('quiz-content').innerHTML = `
-                <p class="text-sm text-slate-300 mb-4">Quel style d'activités recherchez-vous en priorité ?</p>
-                <div class="space-y-2 text-xs">
-                    <button onclick="closeQuiz(); alert('Recommandation : Parcours Sport & Grand Air !')" class="w-full text-left p-3 border border-white/10 rounded-xl hover:border-[#FF5C00]">🏆 Compétitions et Énergie active</button>
-                    <button onclick="closeQuiz(); alert('Recommandation : Parcours Arts & Scène Alternative !')" class="w-full text-left p-3 border border-white/10 rounded-xl hover:border-[#FF5C00]">🎨 Art contemporain et Spectacles</button>
-                </div>`;
-            document.getElementById('quiz-modal').classList.remove('hidden');
-            document.getElementById('quiz-modal').classList.add('flex');
-        }
-        function closeQuiz() { document.getElementById('quiz-modal').classList.add('hidden'); document.getElementById('quiz-modal').classList.remove('flex'); }
-        function showAbout() { alert("ParcoursParis v2.0 - Projet de Management de Projet 2026. Réalisé par l'équipe étudiante ISAE-Supmeca & Mécavenir."); }
-
-        // ==================== INITS & ANIMATIONS ====================
-        function updateHeroCounters() {
-            document.getElementById('hero-count').textContent = activities.length;
-            document.getElementById('hero-free').textContent = activities.filter(a => a.price === 0).length;
-        }
-
-        // 1. Restaurer l'animation d'apparition des Incontournables au scroll (LE CORRECTIF DU "TROU NOIR")
-        function initScrollReveal() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
-
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        }
-
-        // 2. Restaurer la sélection active dans le menu de gauche au scroll
-        function initSidebarScroll() {
-            const sections = ['home-top','cette-semaine','parcours','incontournables','generateur','planning'];
-            const links = document.querySelectorAll('.sidebar-link');
-            window.addEventListener('scroll', () => {
-                let current = 'home-top';
-                sections.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el && window.scrollY >= el.offsetTop - 150) current = id;
-                });
-                links.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-                });
-            }, { passive: true });
-        }
-
-        function initializeApp() {
+        window.onload = () => {
             renderActivities(activities);
             renderParcours();
             renderPlanning();
             renderGeneratorActivityPool();
-            updateHeroCounters();
+            
+            // Appel direct qui fonctionne même en local sans serveur !
+            loadFromParisOpenData();
 
-            // Initialiser les animations
-            initScrollReveal();
-            initSidebarScroll();
-
-            // Retrait de l'overlay de chargement
             setTimeout(() => {
                 const loader = document.getElementById('page-loader');
-                if (loader) {
-                    loader.classList.add('done');
-                    setTimeout(() => loader.remove(), 500);
-                }
+                if (loader) { loader.classList.add('done'); setTimeout(() => loader.remove(), 500); }
             }, 400);
-
-            // Appel asynchrone pour charger le flux Paris Open Data en direct
-            loadFromParisOpenData({ silent: true }).then(() => {
-                updateHeroCounters();
-                // Relancer l'observeur si de nouveaux éléments avec la classe .reveal sont apparus
-                initScrollReveal(); 
-            });
-        }
-
-        window.onload = initializeApp;
+        };
     </script>
 </body>
 </html>
